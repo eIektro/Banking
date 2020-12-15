@@ -1,0 +1,9 @@
+﻿<Application x:Class="BOA.UI.Banking.CustomerAdd.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BOA.UI.Banking.CustomerAdd"
+             StartupUri="CustomerAdd.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
