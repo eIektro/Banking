@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BOA.Types.Banking;
+using BOA.Types.Banking.Enums;
 using BOA.Process.Banking;
 using System.Reflection;
 using BOA.Connector.Banking.Exceptions;
@@ -18,9 +19,8 @@ namespace BOA.Connector.Banking
         public ResponseBase Execute(RequestBase request) 
         {
             Type requestType = request.GetType();
-            String requestedClass = requestType.Name.Replace("Request", "");
+            string requestedClass = (from x in Enum.GetNames(typeof(RequestTypes)) where requestType.Name.Contains(x) select x).FirstOrDefault();
             var assembly = Assembly.Load("BOA.Process.Banking"); //Assembly.Load methodu tam yol verince çalışıyor. Burada Debug dizinindeki BOA.Process.Banking dll'ini yüklüyor.
-
             Type t = assembly.GetType(assembly.GetName().Name + "." + requestedClass);
 
             try
@@ -29,12 +29,9 @@ namespace BOA.Connector.Banking
             }
             catch (Exception)
             {
-
                 throw new RequestedClassNotFoundException($"Requested class ({requestedClass}) not found in namespace");
             }
 
-            
-            
             try
             {
                 var processMethodInfo = t.GetMethod(request.MethodName);

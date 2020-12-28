@@ -9,7 +9,7 @@ namespace BOA.Process.Banking
 {
     public class Job
     {
-        public GetAllJobsResponse getAllJobs(JobRequest request)
+        public ResponseBase getAllJobs(JobRequest request)
         {
             Business.Banking.Job jobBusiness = new Business.Banking.Job();
             var response = jobBusiness.getAllJobs(request);

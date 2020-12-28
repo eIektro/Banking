@@ -12,44 +12,29 @@ namespace BOA.Business.Banking
     public class Job
     {
 
-        public GetAllJobsResponse getAllJobs(JobRequest jobRequest)
+        public ResponseBase getAllJobs(JobRequest jobRequest)
         {
             DbOperation dbOperation = new DbOperation();
             List<JobContract> dataContracts = new List<JobContract>();
-            SqlConnection sqlConnection = new SqlConnection(dbOperation.GetConnectionString());
-            SqlCommand sqlCommand = new SqlCommand
-            {
-                Connection = sqlConnection,
-                CommandType = CommandType.StoredProcedure,
-                CommandText = "CUS.sel_AllJobs"
-            };
-            using (sqlConnection)
-            {
-                sqlConnection.Open();
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
-                {
-                    if (reader.HasRows)
-                    {
-                        while (reader.Read())
-                        {
-                            dataContracts.Add(new JobContract
-                            {
-                                Id = Convert.ToInt32(reader["Id"]),
-                                JobName = reader["JobName"].ToString(),
-                                JobDescription = reader["JobDescription"].ToString()
-                            });
+            SqlDataReader reader = dbOperation.GetData("CUS.sel_AllJobs");
 
-                        } 
-                    }
-                }
+
+            while (reader.Read())
+            {
+                dataContracts.Add(new JobContract
+                {
+                    Id = Convert.ToInt32(reader["Id"]),
+                    JobName = reader["JobName"].ToString(),
+                    JobDescription = reader["JobDescription"].ToString()
+                });
             }
 
             if (dataContracts.Count > 0)
             {
-                return new GetAllJobsResponse { DataContract = dataContracts, IsSuccess = true };
+                return new ResponseBase { DataContract = dataContracts, IsSuccess = true };
             }
 
-            return new GetAllJobsResponse { ErrorMessage = "GetAllJobs işlemi başarısız oldu." };
+            return new ResponseBase { ErrorMessage = "GetAllJobs işlemi başarısız oldu." };
 
         }
     }

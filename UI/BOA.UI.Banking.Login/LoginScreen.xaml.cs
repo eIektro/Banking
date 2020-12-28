@@ -37,8 +37,7 @@ namespace BOA.UI.Banking.Login
                 var connect = new BOA.Connector.Banking.Connect();
                 var request = new BOA.Types.Banking.LoginRequest();
                 var contract = new BOA.Types.Banking.LoginContract();
-                var response = new BOA.Types.Banking.LoginResponse();
-
+                
                 contract.LoginName = UserName.Text;
                 contract.Password = Password.Password;
 
@@ -46,9 +45,10 @@ namespace BOA.UI.Banking.Login
                 request.MethodName = "UserLogin";
 
 
-                response = (LoginResponse)connect.Execute(request);
+                 var response = (ResponseBase)connect.Execute(request);
 
-                if (response.isLoggedIn)
+
+                if (response.IsSuccess)
                 {
                     Application.Current.MainWindow.Show();
                     Hide();

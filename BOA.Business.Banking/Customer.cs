@@ -16,7 +16,7 @@ namespace BOA.Business.Banking
     {
         
 
-        public CustomerResponse CustomerAdd(CustomerRequest request)
+        public ResponseBase CustomerAdd(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
 
@@ -37,18 +37,18 @@ namespace BOA.Business.Banking
             {
                 int id = Convert.ToInt32(dbOperation.spExecuteScalar("CUS.ins_AddNewCustomer", parameters));
 
-                return new CustomerResponse { DataContract = new CustomerContract { CustomerId = id }, IsSuccess = true };
+                return new ResponseBase { DataContract = new CustomerContract { CustomerId = id }, IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new CustomerResponse { IsSuccess = false,ErrorMessage = "CustomerAdd isteği başarısız."};
+                return new ResponseBase { IsSuccess = false,ErrorMessage = "CustomerAdd isteği başarısız."};
             }
            
 
         }
 
-        public CustomerResponse CustomerDelete(CustomerDeleteRequest request)
+        public ResponseBase CustomerDelete(CustomerDeleteRequest request)
         {
             DbOperation dbOperation = new DbOperation();
 
@@ -60,16 +60,16 @@ namespace BOA.Business.Banking
             {
                 var response = dbOperation.SpExecute("CUS.del_DeleteCustomerbyId", parameters);
 
-                return new CustomerResponse { IsSuccess = true };
+                return new ResponseBase { IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new CustomerResponse { IsSuccess = false, ErrorMessage = "CustomerAdd isteği başarısız." };
+                return new ResponseBase { IsSuccess = false, ErrorMessage = "CustomerDelete isteği başarısız." };
             }
         }
 
-        public GetAllCustomersResponse GetAllCustomers(CustomerRequest request) 
+        public ResponseBase GetAllCustomers(CustomerRequest request) 
         {
             DbOperation dbOperation = new DbOperation();
             List<CustomerContract> dataContracts = new List<CustomerContract>();
@@ -144,10 +144,10 @@ namespace BOA.Business.Banking
 
             if (dataContracts.Count > 0)
             {
-                return new GetAllCustomersResponse { CustomersList = dataContracts, IsSuccess = true };
+                return new ResponseBase { DataContract = dataContracts, IsSuccess = true };
             }
 
-            return new GetAllCustomersResponse { ErrorMessage = "GetAllCustomers işlemi başarısız oldu." };
+            return new ResponseBase { ErrorMessage = "GetAllCustomers işlemi başarısız oldu." };
 
         }
 

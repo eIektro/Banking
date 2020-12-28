@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Login
     {
-        public LoginResponse UserLogin(LoginContract loginContract)
+        public ResponseBase UserLogin(LoginContract loginContract)
         {
             DbOperation dbOperation = new DbOperation();
             
@@ -28,12 +28,12 @@ namespace BOA.Business.Banking
                     while (dbObject.Read())
                     {
 
-                        return new LoginResponse { isLoggedIn = true, IsSuccess = true, UserName = dbObject["UserName"].ToString() };
+                        return new ResponseBase { DataContract = new LoginContract() { LoginName = dbObject["UserName"].ToString() } ,IsSuccess=true };
                     }
                 }
             }
 
-            return new LoginResponse { isLoggedIn = false, IsSuccess = false, ErrorMessage = "Başarısız login denemesi" };
+            return new ResponseBase { ErrorMessage = "Başarısız login denemesi", IsSuccess = false };
 
         }
     }

@@ -43,23 +43,18 @@
   <ItemGroup>
     <Compile Include="Customer\CustomerDeleteRequest.cs" />
     <Compile Include="Customer\CustomerEmailRequest.cs" />
-    <Compile Include="Customer\CustomerJobResponse.cs" />
     <Compile Include="Customer\CustomerPhoneContract.cs" />
-    <Compile Include="Customer\CustomerAddResponse.cs" />
     <Compile Include="Customer\CustomerContract.cs" />
     <Compile Include="Customer\CustomerEducationLevelContract.cs" />
     <Compile Include="Customer\CustomerEmailContract.cs" />
     <Compile Include="Customer\CustomerJobContract.cs" />
     <Compile Include="Customer\CustomerPhoneRequest.cs" />
     <Compile Include="Customer\CustomerRequest.cs" />
-    <Compile Include="Customer\CustomerResponse.cs" />
     <Compile Include="EducationLevelContract.cs" />
     <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Enums\PhoneTypes.cs" />
-    <Compile Include="Customer\GetAllCustomersResponse.cs" />
     <Compile Include="EducationLevelRequest.cs" />
-    <Compile Include="GetAllEducationLevelsResponse.cs" />
-    <Compile Include="GetAllJobsResponse.cs" />
+    <Compile Include="Enums\RequestTypes.cs" />
     <Compile Include="JobContract.cs" />
     <Compile Include="JobRequest.cs" />
     <Compile Include="Login\LoginContract.cs" />

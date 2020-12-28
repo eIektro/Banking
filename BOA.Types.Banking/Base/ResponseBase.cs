@@ -14,5 +14,6 @@ namespace BOA.Types.Banking
 
         public string ErrorMessage;
 
+        public Object DataContract { get; set; }
     }
 }

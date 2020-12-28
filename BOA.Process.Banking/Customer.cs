@@ -11,7 +11,7 @@ namespace BOA.Process.Banking
     public class Customer
     {
 
-        public GetAllCustomersResponse GetAllCustomers(CustomerRequest request) /* TO-DO: Connect sınıfından gelen GetAllCustomersRequest'ten buraya yönlendirme,
+        public ResponseBase GetAllCustomers(CustomerRequest request) /* TO-DO: Connect sınıfından gelen GetAllCustomersRequest'ten buraya yönlendirme,
                                                                                         * connect sınıfındaki parse mantığından dolayı düzgün yapılamıyor. Düzeltilecek.
                                                                                         * (Linq ile contains e bakılıp yapılabilir.)
                                                                                         */
@@ -23,17 +23,19 @@ namespace BOA.Process.Banking
 
         }
 
-        public CustomerResponse CustomerDelete(CustomerDeleteRequest request)
+        public ResponseBase CustomerDelete(CustomerDeleteRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.CustomerDelete(request);
             return response;
         }
 
-        public CustomerResponse CustomerAdd(CustomerRequest request)
+        public ResponseBase CustomerAdd(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+           
             var response = customerBusiness.CustomerAdd(request);
+            CustomerContract contract = (CustomerContract)response.DataContract;
 
 
             if (request.DataContract.PhoneNumbers != null)
@@ -42,7 +44,7 @@ namespace BOA.Process.Banking
 
                 foreach(CustomerPhoneContract x in request.DataContract.PhoneNumbers)
                 {
-                    x.CustomerId = response.DataContract.CustomerId;
+                    x.CustomerId = contract.CustomerId;
                     CustomerPhoneRequest customerPhoneRequest = new CustomerPhoneRequest();
                     customerPhoneRequest.DataContract = x;
                     var responsePhoneAdd = phoneProcess.PhoneAdd(customerPhoneRequest);
@@ -55,7 +57,7 @@ namespace BOA.Process.Banking
 
                 foreach (CustomerEmailContract x in request.DataContract.Emails)
                 {
-                    x.CustomerId = response.DataContract.CustomerId;
+                    x.CustomerId = contract.CustomerId;
                     CustomerEmailRequest customerEmailRequest = new CustomerEmailRequest();
                     customerEmailRequest.DataContract = x;
                     var responseEmailAdd = emailProcess.EmailAdd(customerEmailRequest);

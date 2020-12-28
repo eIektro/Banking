@@ -73,17 +73,20 @@ namespace BOA.UI.Banking.CustomerAdd
                 var connect = new BOA.Connector.Banking.Connect();
                 var request = new BOA.Types.Banking.CustomerRequest();
                 var contract = _kaydedilecekMusteri;
-                var response = new BOA.Types.Banking.CustomerResponse();
+               
 
                 request.MethodName = "CustomerAdd";
                 request.DataContract = contract;
 
 
-                response = (CustomerResponse)connect.Execute(request);
+                var response = (ResponseBase)connect.Execute(request);
+
+
 
                 if (response.IsSuccess)
                 {
-                    MessageBox.Show($"Müşteri {response.DataContract.CustomerId} id'si ile oluşturuldu.");
+                    var addedCustomer =(CustomerContract)response.DataContract;
+                    MessageBox.Show($"Müşteri {addedCustomer.CustomerId} id'si ile oluşturuldu.");
                     ClearInputs();
                 }
                 else
@@ -120,17 +123,16 @@ namespace BOA.UI.Banking.CustomerAdd
             var connect = new BOA.Connector.Banking.Connect();
             var request = new BOA.Types.Banking.EducationLevelRequest();
             //var contract = new BOA.Types.Banking.EducationLevelContract();
-            var response = new BOA.Types.Banking.GetAllEducationLevelsResponse();
-
+            
             request.MethodName = "getAllEducationLevels";
 
 
-            response = (GetAllEducationLevelsResponse)connect.Execute(request);
+            var response = (ResponseBase)connect.Execute(request);
 
             if (response.IsSuccess)
             {
-
-                foreach (EducationLevelContract item in response.DataContract)
+                var educationLevels = (List<EducationLevelContract>)response.DataContract;
+                foreach (EducationLevelContract item in educationLevels)
                 {
                     cbEducationLvId.Items.Add(item.EducationLevel);
                 }
@@ -147,17 +149,17 @@ namespace BOA.UI.Banking.CustomerAdd
             var connect = new BOA.Connector.Banking.Connect();
             var request = new BOA.Types.Banking.JobRequest();
             //var contract = new BOA.Types.Banking.JobContract();
-            var response = new BOA.Types.Banking.GetAllJobsResponse();
-
+           
             request.MethodName = "getAllJobs";
 
 
-            response = (GetAllJobsResponse)connect.Execute(request);
+            var response = (ResponseBase)connect.Execute(request);
 
             if (response.IsSuccess)
             {
+                var jobs = (List<JobContract>)response.DataContract;
 
-                foreach (JobContract item in response.DataContract)
+                foreach (JobContract item in jobs)
                 {
                     cbJobId.Items.Add(item.JobName);
                 }

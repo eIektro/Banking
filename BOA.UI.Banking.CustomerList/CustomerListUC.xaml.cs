@@ -23,13 +23,12 @@ namespace BOA.UI.Banking.CustomerList
     /// </summary>
     public partial class CustomerListUC : UserControl
     {
-        GetAllCustomersResponse response;
         CustomerContract selectedCustomer;
+        List<CustomerContract> customersList;
 
         public CustomerListUC()
         {
             InitializeComponent();
-            response = new GetAllCustomersResponse();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -41,20 +40,18 @@ namespace BOA.UI.Banking.CustomerList
         {
             var connect = new BOA.Connector.Banking.Connect();
             var request = new BOA.Types.Banking.CustomerRequest();
-            var contract = new BOA.Types.Banking.CustomerContract();
-            
 
             request.MethodName = "GetAllCustomers";
 
+            var response = (ResponseBase)connect.Execute(request);
 
-            response = (GetAllCustomersResponse)connect.Execute(request);
+            customersList = (List<CustomerContract>)response.DataContract;
 
-            
 
             if (response.IsSuccess)
             {
                 
-                dgMusteriListesi.ItemsSource = response.CustomersList;
+                dgMusteriListesi.ItemsSource = customersList;
             }
             else
             { 
@@ -85,7 +82,7 @@ namespace BOA.UI.Banking.CustomerList
 
         private List<CustomerContract> SearchEngine(string name="", string surname="", string placeofbirh="", string citizenshipid="")
         {
-            var result = response.CustomersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) && x.PlaceOfBirth.ToLower().Contains(placeofbirh.ToLower()) && x.CitizenshipId.ToLower().Contains(citizenshipid.ToLower()));
+            var result = customersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) && x.PlaceOfBirth.ToLower().Contains(placeofbirh.ToLower()) && x.CitizenshipId.ToLower().Contains(citizenshipid.ToLower()));
             return result;
         }
 

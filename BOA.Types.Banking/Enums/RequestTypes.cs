@@ -4,10 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BOA.Types.Banking
+namespace BOA.Types.Banking.Enums
 {
-    public class CustomerJobResponse : ResponseBase
-    {
-
-    }
+    public enum RequestTypes { Customer,Email,Job,Login,Phone }
+    
 }
