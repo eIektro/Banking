@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BOA.Business.Banking.Exceptions;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -20,6 +21,12 @@ namespace BOA.Business.Banking
             return connectionString;
         }
 
+        public SqlConnection ConOpen() //Aşağıdaki aynı exceptionları fırlatan satırlar için bu methodu ortak yapacağım. Şimdilik böyle dursun.
+        {
+            SqlConnection con = new SqlConnection(connectionString);
+            return con;
+        }
+
         public void CloseConnection()
         {
             if (conn != null)
@@ -35,7 +42,7 @@ namespace BOA.Business.Banking
         {
             if (conn == null)
             {
-                conn = new SqlConnection(connectionString);
+               conn = new SqlConnection(connectionString);
             }
 
 
@@ -51,7 +58,15 @@ namespace BOA.Business.Banking
             }
             try
             {
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception)
+                {
+
+                    throw new FalseConnectionStringException("Provided connection string is not connectable.");
+                }
                 object result = cmd.ExecuteScalar();
                 conn.Close();
                 return result;
@@ -61,12 +76,11 @@ namespace BOA.Business.Banking
             catch (Exception e)
             {
                 conn.Close();
-                return false;
+                return null;
             }
 
 
         }
-
 
         public bool SpExecute(string spName, SqlParameter[] parameters)
         {
@@ -92,7 +106,15 @@ namespace BOA.Business.Banking
 
             try
             {
-                conn.Open();
+                try
+                {
+                    conn.Open();
+                }
+                catch (Exception)
+                {
+
+                    throw new FalseConnectionStringException("Provided connection string is not connectable.");
+                }
                 cmd.ExecuteNonQuery();
                 conn.Close();
                 return true;
@@ -127,7 +149,15 @@ namespace BOA.Business.Banking
                     cmd.Parameters.AddRange(parameters);
                 } 
             }
-            conn.Open();
+            try
+            {
+                conn.Open();
+            }
+            catch (Exception)
+            {
+
+                throw new FalseConnectionStringException("Provided connection string is not connectable.");
+            }
             try
             {
                 return cmd.ExecuteReader();

@@ -5,28 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BOA.UI.Banking.MainScreen"
         xmlns:musterilistesi="clr-namespace:BOA.UI.Banking.CustomerList;assembly=BOA.UI.Banking.CustomerList"
-        xmlns:musteriekle="clr-namespace:BOA.UI.Banking.CustomerAdd;assembly=BOA.UI.Banking.CustomerAdd"
-        
+        xmlns:musteriekle="clr-namespace:BOA.UI.Banking.CustomerAdd;assembly=BOA.UI.Banking.CustomerAdd" 
         
         mc:Ignorable="d"
-        Title="Main Portal Screen" Height="600" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+        Title="Main Portal Screen" Height="600" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
     <Window.Resources>
-        
+
         <Storyboard x:Key="OpenMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
         </Storyboard>
 
-        
+
         <Storyboard x:Key="CloseMenu">
             <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-150,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
         </Storyboard>
     </Window.Resources>
     <Grid>
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
             <StackPanel Panel.ZIndex="2" Name="LeftMenu" Orientation="Horizontal" Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Margin='-150,0,0,0'>
+                
                 <Border BorderBrush="#AF1719" BorderThickness="1" Width="150" Background="GhostWhite">
+                    
                     <Button Name="btnclose" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Close" FontWeight="SemiBold" HorizontalContentAlignment="Left" BorderBrush="AliceBlue"></Button>
                 </Border>
+                
                 <StackPanel Orientation="Vertical">
                     <Grid Margin="0,21,0,0">
                         <Button x:Name="btnshow" Width="20" Height="20" BorderThickness="0" Content=">" ToolTip="Open Menu"></Button>
@@ -34,20 +36,53 @@
                 </StackPanel>
             </StackPanel>
             
-        </StackPanel>
-        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="150,0,0,0">
-           <TabControl>
-                <TabItem Header="Portal" IsSelected="True">
-                    <StackPanel Orientation="Vertical">
+        </StackPanel>-->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0">
+
+                <!--<TreeView.Resources>
+                    <Style TargetType="{x:Type text}"></Style>
+                </TreeView.Resources>-->
+                <TreeViewItem Header="Müşteri">
+                    <TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>
+                    <TreeViewItem Header="Müşteri Listesi" x:Name="tvMusteriListele" MouseDoubleClick="tvMusteriListele_MouseDoubleClick"></TreeViewItem>
+                    
+                </TreeViewItem>
+                <TreeViewItem Header="Kullanıcı">
+                    <TreeViewItem Header="Kullanıcı Ekle" x:Name="tvKullaniciEkle"></TreeViewItem>
+                    <TreeViewItem Header="Kullanıcı Düzenle" x:Name="tvKullaniciDuzenle"></TreeViewItem>
+                    <TreeViewItem Header="Kullanıcı Sil" x:Name="tvKullaniciSil"></TreeViewItem>
+                </TreeViewItem>
+            </TreeView>
+
+            
+
+            <TabControl x:Name="tabControl1" Grid.Column="1">
+               
+                <TabItem Header="Portal" IsSelected="True" x:Name="tiPortal" >
+                    <!--<StackPanel Orientation="Vertical">
                     <Button Content="Müşteri Ekle" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AntiqueWhite" Foreground="Black" BorderBrush="Aquamarine" x:Name="btnAddCustomer" Click="btnAddCustomer_Click"></Button>
                     <Button Content="Müşterileri Listele" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AliceBlue" Foreground="Black" BorderBrush="CadetBlue" Click="btnListCustomer_Click" x:Name="btnListCustomer" ></Button>
-                    </StackPanel>
+                    </StackPanel>-->
 
                 </TabItem>
-                <TabItem Header="Müşteri Listele" Visibility="Hidden">
-                    <!--<musterilistesi:CustomerListUC></musterilistesi:CustomerListUC>-->
-                </TabItem>
+                <!--<local:CloseableTab x:Name="ctMusteriListesi" Visibility="Hidden" Title="Müşteri Listesi">
+                    <musterilistesi:CustomerListUC></musterilistesi:CustomerListUC>
+                </local:CloseableTab>-->
+                <!--<TabItem x:Name="tiMusteriListele" Header="Müşteri Listele" Visibility="Hidden">
+                    
+                    <musterilistesi:CustomerListUC></musterilistesi:CustomerListUC>
+            
+                </TabItem>-->
             </TabControl>
+
+
+
         </Grid>
 
 
@@ -55,5 +90,5 @@
             
         </Popup>-->
     </Grid>
-    
+
 </Window>

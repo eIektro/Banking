@@ -6,60 +6,45 @@ using System.Threading.Tasks;
 using BOA.Types.Banking;
 using BOA.Process.Banking;
 using System.Reflection;
+using BOA.Connector.Banking.Exceptions;
+
 
 namespace BOA.Connector.Banking
 {
     public class Connect
     {
+        private object instance;
 
-        public ResponseBase Execute(RequestBase request) //TO-DO: Tekil hale getirilecek, generic olacak
+        public ResponseBase Execute(RequestBase request) 
         {
-            var response = new ResponseBase();
+            Type requestType = request.GetType();
+            String requestedClass = requestType.Name.Replace("Request", "");
+            var assembly = Assembly.Load("BOA.Process.Banking"); //Assembly.Load methodu tam yol verince çalışıyor. Burada Debug dizinindeki BOA.Process.Banking dll'ini yüklüyor.
 
-            var assemblies = Assembly.GetExecutingAssembly().GetReferencedAssemblies();
-            var assemblyName = assemblies.FirstOrDefault(i=>i.Name=="BOA.Process.Banking");
-            var assembly = Assembly.Load(assemblyName);
+            Type t = assembly.GetType(assembly.GetName().Name + "." + requestedClass);
 
+            try
+            {
+                instance = Activator.CreateInstance(t);
+            }
+            catch (Exception)
+            {
 
-           
+                throw new RequestedClassNotFoundException($"Requested class ({requestedClass}) not found in namespace");
+            }
 
-            return response;
-
-
-            //var response = new ResponseBase();
-
-            //Type type = request.GetType();
-
-            //if (type.Namespace == "BOA.Types.Banking")
-            //{
-            //    var pr = new BOA.Process.Banking.Customer();
-
-            //    if(request.MethodName == "GetAllCustomers")
-            //    {
-            //        response = pr.GetAllCustomers((GetAllCustomersRequest)request);
-            //    }
-
-            //    //if (request.MethodName == "CustomerSave")
-            //    //{
-            //    //    response = pr.CustomerSave((CustomerRequest)request);
-            //    //}
-            //}
-
-            //if(type.FullName == "BOA.Types.Banking.LoginRequest")
-            //{
-            //    var pr = new BOA.Process.Banking.Login();
-
-            //    if (request.MethodName == "UserLogin")
-            //    {
-
-            //        response = pr.UserLogin((LoginRequest)request);
-            //    }
-            //}
-
-
-
-
-            //return response;
+            
+            
+            try
+            {
+                var processMethodInfo = t.GetMethod(request.MethodName);
+                var response = processMethodInfo.Invoke(instance, new Object[] { request });
+                return (ResponseBase)response;
+            }
+            catch (Exception e)
+            { 
+                throw new MethodNameNotFoundException($"Requested method name ({request.MethodName}) is not defined.");
+            }
 
         }
     }

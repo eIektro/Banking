@@ -5,29 +5,123 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerList"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded">
-    <Grid>
-        <DataGrid Height="440" ItemsSource="{Binding}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="MusteriGrid">
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="White">
 
-            <DataGrid.Resources>
-                <Style TargetType="{x:Type DataGridColumnHeader}">
-                    <Setter Property="Background" Value="AliceBlue"></Setter>
-                    <Setter Property="FontWeight" Value="SemiBold"></Setter>
-                    <Setter Property="BorderBrush" Value="Gray"></Setter>
-                    <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
-                </Style>
-            </DataGrid.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D4BDDA">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnMusteriDuzenle" Click="btnMusteriDuzenle_Click" Content="Düzenle" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnMusteriSil" Click="btnMusteriSil_Click" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
+            </StackPanel>
             
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="Musteri Numarasi" Binding="{Binding CustomerName}"></DataGridTextColumn>
-                <DataGridTextColumn Header="Adi" Binding="{Binding CustomerName}"></DataGridTextColumn>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="gcFilter" Width="200"></ColumnDefinition>
+                <ColumnDefinition x:Name="gcList"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="İsim" FontSize="12"></Label>
+                        <TextBox x:Name="tbFilterbyName" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyName_TextChanged"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Soyisim" FontSize="12"></Label>
+                        <TextBox x:Name="tbFilterbySurname" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbySurname_TextChanged"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Doğum Yeri" FontSize="12"></Label>
+                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyPlaceOfBirth_TextChanged"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="TCKN" FontSize="12"></Label>
+                        <TextBox x:Name="tbFilterbyCitizenshipId" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyCitizenshipId_TextChanged"></TextBox>
+                    </StackPanel>
+
+                    <!--Doğum Tarihi Büyüktür Küçüktür Hesabıyla Gelecek-->
+                </StackPanel>
+            </Grid>
+
+            <DataGrid SelectionChanged="dgMusteriListesi_SelectionChanged" Grid.Column="1"  IsReadOnly="True" Height="440" DataContext="{Binding CustomeContract}" ItemsSource="{Binding CustomerContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+                        <Setter Property="BorderBrush" Value="#F2F2F2"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Height" Value="30"></Setter>
+                        <Setter Property="FontSize" Value="13"></Setter>
+
+                        <Setter Property="Background" Value="AliceBlue"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+
+                    </Style>
+                    <!--<Style TargetType="{x:Type DataGridTextColumn}">
+                    <Setter Property="FontSize" Value="12"></Setter>
+                    
+                </Style>-->
+
+                    <!-- Datagrid içeriğinin olduğu satırların borderlerı çok kaba duruyor. İlgilenilecek. -->
+
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        <Setter Property="Background" Value="#FEFAFC"></Setter>
+
+
+                    </Style>
+                </DataGrid.RowStyle>
+
+
+
+                <!--public int  JobId { get; set; }
+
+            public int EducationLvId { get; set; }
+
+            public List<CustomerPhoneContract> PhoneNumbers { get; set; }
+
+            public List<CustomerEmailContract> Emails { get; set; }-->
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="  ID  " Binding="{Binding CustomerId}"  Visibility="Hidden"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  TCKN  " Binding="{Binding CitizenshipId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  İsim  " Binding="{Binding CustomerName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Soyisim  " Binding="{Binding CustomerLastName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Anne " Binding="{Binding MotherName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Baba  " Binding="{Binding FatherName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Doğum Yeri  " Binding="{Binding PlaceOfBirth}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth}"></DataGridTextColumn>
+                    <!--<DataGridTextColumn Header="Soyadi" Binding="{Binding JobId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Soyadi" Binding="{Binding EducationLevelId}"></DataGridTextColumn>-->
+
+
+                </DataGrid.Columns>
+                <!--<DataGrid.CellStyle>
                 
-                
-            </DataGrid.Columns>-->
-        </DataGrid>
-        
-        
-            
-        
+            </DataGrid.CellStyle>-->
+            </DataGrid>
+
+
+
+
+        </Grid>
     </Grid>
 </UserControl>

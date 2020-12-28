@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BOA.Types.Banking.Enums
+namespace BOA.Types.Banking
 {
-    public enum PhoneTypes { Kişisel=0, EvSabit, İşSabit, İşMobil  }
+    public class JobRequest : RequestBase
+    {
+    }
 }

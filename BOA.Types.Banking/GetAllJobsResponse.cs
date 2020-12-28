@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CustomerAddResponse : ResponseBase
+    public class GetAllJobsResponse: ResponseBase
     {
+        public List<JobContract> DataContract;
     }
 }

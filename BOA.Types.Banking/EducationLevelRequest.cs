@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class GetAllCustomersRequest : RequestBase
+    public class EducationLevelRequest : RequestBase
     {
-        public CustomerContract CustomerContract;
+
     }
 }

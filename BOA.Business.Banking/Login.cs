@@ -10,13 +10,13 @@ namespace BOA.Business.Banking
 {
     public class Login
     {
-        public LoginResponse UserLogin(LoginRequest request)
+        public LoginResponse UserLogin(LoginContract loginContract)
         {
             DbOperation dbOperation = new DbOperation();
             
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@UserName",request.DataContract.LoginName),
-                new SqlParameter("@Password",request.DataContract.Password)
+                new SqlParameter("@UserName",loginContract.LoginName),
+                new SqlParameter("@Password",loginContract.Password)
             };
 
 
@@ -28,18 +28,12 @@ namespace BOA.Business.Banking
                     while (dbObject.Read())
                     {
 
-                        return new LoginResponse { isLoggedIn = true, IsSuccess = true, UserName = dbObject["UserName"].ToString() }; //Bu şekilde daha anlaşılır olabilir: string userName = dbObject["UserName"].ToString();
+                        return new LoginResponse { isLoggedIn = true, IsSuccess = true, UserName = dbObject["UserName"].ToString() };
                     }
                 }
             }
 
             return new LoginResponse { isLoggedIn = false, IsSuccess = false, ErrorMessage = "Başarısız login denemesi" };
-
-
-            //BOA.Business.Banking.Login loginBusiness = new Business.Banking.Login();
-            //loginBusiness.UserLogin(request.DataContract);
-
-            //return null;
 
         }
     }

@@ -8,7 +8,7 @@ namespace BOA.Types.Banking
 {
     public class CustomerContract
     {
-        public int CustomerId { get; set; }
+        public int? CustomerId { get; set; }
 
         public string CustomerName { get; set; }
 
@@ -28,7 +28,7 @@ namespace BOA.Types.Banking
 
         public DateTime DateOfBirth { get; set; }
 
-        public List<CustomePhoneContract> PhoneNumbers { get; set; }
+        public List<CustomerPhoneContract> PhoneNumbers { get; set; }
 
         public List<CustomerEmailContract> Emails { get; set; }
     }

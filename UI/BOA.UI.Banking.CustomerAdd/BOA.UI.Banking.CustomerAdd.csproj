@@ -67,8 +67,15 @@
       <DependentUpon>CustomerAdd.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="CustomerAddUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CustomerAddUC.xaml.cs">
+      <DependentUpon>CustomerAddUC.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
+      <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
+      <Name>BOA.Connector.Banking</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>

@@ -1,114 +1,70 @@
-﻿using System;
+﻿using BOA.Types.Banking;
+using BOA.Types.Banking.Customer;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
-using BOA.Business.Banking;
-using BOA.Types.Banking;
 
 namespace BOA.Process.Banking
 {
     public class Customer
     {
-        
 
-        public CustomerResponse CustomerSave(CustomerRequest request)
+        public GetAllCustomersResponse GetAllCustomers(CustomerRequest request) /* TO-DO: Connect sınıfından gelen GetAllCustomersRequest'ten buraya yönlendirme,
+                                                                                        * connect sınıfındaki parse mantığından dolayı düzgün yapılamıyor. Düzeltilecek.
+                                                                                        * (Linq ile contains e bakılıp yapılabilir.)
+                                                                                        */
         {
-            return null;
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            var response = customerBusiness.GetAllCustomers(request);
+
+            return response;
+
         }
 
-       
-        public GetAllCustomersResponse GetAllCustomers(GetAllCustomersRequest request) //request'in içerisinde zaten contract var bu kontrata göre filtreleme işlemleri daha sonra yapılacak
+        public CustomerResponse CustomerDelete(CustomerDeleteRequest request)
         {
-            DbOperation dbOperation = new DbOperation();
-            List<CustomerContract> dataContracts = new List<CustomerContract>();
-            SqlConnection sqlConnection = new SqlConnection(dbOperation.GetConnectionString());
-            SqlCommand sqlCommand = new SqlCommand
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            var response = customerBusiness.CustomerDelete(request);
+            return response;
+        }
+
+        public CustomerResponse CustomerAdd(CustomerRequest request)
+        {
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            var response = customerBusiness.CustomerAdd(request);
+
+
+            if (request.DataContract.PhoneNumbers != null)
             {
-                Connection = sqlConnection,
-                CommandType = CommandType.StoredProcedure,
-                CommandText = "CUS.sel_AllCustomers"
-            };
-            using (sqlConnection)
-            {
-                sqlConnection.Open();
-                using (SqlDataReader reader = sqlCommand.ExecuteReader())
+                Process.Banking.CustomerPhone phoneProcess = new CustomerPhone();
+
+                foreach(CustomerPhoneContract x in request.DataContract.PhoneNumbers)
                 {
-                    while (reader.Read())
-                    {
-                        dataContracts.Add(new CustomerContract
-                        {
-                            CustomerId = Convert.ToInt32(reader["CustomerId"]),
-                            CustomerName = reader["CustomerName"].ToString(),
-                            CitizenshipId = reader["CitizenshipId"].ToString()
-                        });
-                        
-                    }
+                    x.CustomerId = response.DataContract.CustomerId;
+                    CustomerPhoneRequest customerPhoneRequest = new CustomerPhoneRequest();
+                    customerPhoneRequest.DataContract = x;
+                    var responsePhoneAdd = phoneProcess.PhoneAdd(customerPhoneRequest);
                 }
             }
 
-            if (dataContracts.Count > 0)
+            if (request.DataContract.Emails != null)
             {
-                return new GetAllCustomersResponse { CustomersList = dataContracts, IsSuccess = true };
+                Process.Banking.CustomerEmail emailProcess = new Process.Banking.CustomerEmail();
+
+                foreach (CustomerEmailContract x in request.DataContract.Emails)
+                {
+                    x.CustomerId = response.DataContract.CustomerId;
+                    CustomerEmailRequest customerEmailRequest = new CustomerEmailRequest();
+                    customerEmailRequest.DataContract = x;
+                    var responseEmailAdd = emailProcess.EmailAdd(customerEmailRequest);
+                }
             }
 
 
-            //DbOperation dbOperation = new DbOperation();
-            //List<CustomerContract> customerListResponse = new List<CustomerContract>();
-            //CustomerContract contract = new CustomerContract();
-            //SqlDataReader dr = dbOperation.GetData("CUS.sel_AllCustomers");
-            //DataTable dt = new DataTable();
 
-
-            //using (dr)
-            //{
-            //    dt.Load(dr);
-            //}
-
-            //dr.Close();
-
-            //foreach(var row in dt.Rows)
-            //{
-            //    contract.CustomerId = row[""]
-            //}
-
-            //if (customerListResponse.Count > 0)
-            //{
-            //    return new GetAllCustomersResponse { CustomersList = customerListResponse, IsSuccess = true };
-            //}
-            //using (var dbObject = dbOperation.GetData("CUS.sel_AllCustomers"))
-            //{
-
-
-            //    DataTable dt = new DataTable();
-            //    dt.Load(dbObject);
-            //    int rows = dt.Rows.Count;
-            //    response = new GetAllCustomersResponse();
-            //    for (int i = 0; i < rows; i++)
-            //    {
-            //        response.CustomersList.Add((CustomerContract)dbObject.GetValue(i));
-            //    }
-
-            //    response.IsSuccess = true;
-            //    return response;
-
-            //}
-
-            return new GetAllCustomersResponse { ErrorMessage = "GetAllCustomers işlemi başarısız oldu." };
-
+            return response;
         }
-
-        //public GenericResponse<GetAllCustomersResponse> GetAllCustomers(CustomerRequest request)
-        //{
-
-        //}
-
-
-
-
-
     }
 }

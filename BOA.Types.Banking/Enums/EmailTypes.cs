@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking.Enums
 {
-    public enum PhoneTypes { Kişisel=0, EvSabit, İşSabit, İşMobil  }
+    public enum EmailTypes { Kişisel=0, İş }
 }

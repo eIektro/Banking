@@ -43,7 +43,12 @@
   <ItemGroup>
     <Compile Include="Customer.cs" />
     <Compile Include="DbOperation.cs" />
+    <Compile Include="EducationLevel.cs" />
+    <Compile Include="Email.cs" />
+    <Compile Include="Exceptions\FalseConnectionStringException.cs" />
+    <Compile Include="Job.cs" />
     <Compile Include="Login.cs" />
+    <Compile Include="Phone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
