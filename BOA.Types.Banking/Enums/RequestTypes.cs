@@ -6,6 +6,6 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking.Enums
 {
-    public enum RequestTypes { Customer,Email,Job,Login,Phone }
+    public enum RequestTypes { Customer,Email,Job,Login,Phone,EducationLevel }
     
 }
