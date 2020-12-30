@@ -30,6 +30,13 @@ namespace BOA.Process.Banking
             return response;
         }
 
+        public ResponseBase UpdateCustomerbyId(CustomerRequest request)
+        {
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            var response = customerBusiness.UpdateCustomerbyId(request);
+            return response;
+        }
+
         public ResponseBase CustomerAdd(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
@@ -38,6 +45,8 @@ namespace BOA.Process.Banking
             CustomerContract contract = (CustomerContract)response.DataContract;
 
 
+
+            /* TO-DO: business classına taşınacak */
             if (request.DataContract.PhoneNumbers != null)
             {
                 Process.Banking.CustomerPhone phoneProcess = new CustomerPhone();

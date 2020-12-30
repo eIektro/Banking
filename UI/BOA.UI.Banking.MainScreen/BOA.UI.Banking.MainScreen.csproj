@@ -107,10 +107,6 @@
       <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
       <Name>BOA.Connector.Banking</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\BOA.Process.Banking\BOA.Process.Banking.csproj">
-      <Project>{0712d4ae-9339-4ead-a454-9f13963d6edc}</Project>
-      <Name>BOA.Process.Banking</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>

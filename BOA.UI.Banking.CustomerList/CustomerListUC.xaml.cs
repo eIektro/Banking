@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -24,6 +25,7 @@ namespace BOA.UI.Banking.CustomerList
     public partial class CustomerListUC : UserControl
     {
         CustomerContract selectedCustomer;
+
         List<CustomerContract> customersList;
 
         public CustomerListUC()
@@ -80,9 +82,15 @@ namespace BOA.UI.Banking.CustomerList
             dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text);
         }
 
-        private List<CustomerContract> SearchEngine(string name="", string surname="", string placeofbirh="", string citizenshipid="")
+        private List<CustomerContract> SearchEngine(string name="", string surname="", string placeofbirh="", string citizenshipid="", DateTime dateofbirth=default)
         {
-            var result = customersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) && x.PlaceOfBirth.ToLower().Contains(placeofbirh.ToLower()) && x.CitizenshipId.ToLower().Contains(citizenshipid.ToLower()));
+            var result = customersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) 
+            && x.PlaceOfBirth.ToLower().Contains(placeofbirh.ToLower()) && x.CitizenshipId.ToLower().Contains(citizenshipid.ToLower()) && x.DateOfBirth >= dateofbirth /* && x.DateOfBirth.ToString("dd.MM.yyyy").Contains(dateofbirth)*/);
+            return result;
+        }
+        private List<CustomerContract> SearchEngine(int id) //TO-DO: refactor edilecek, zaten id primary key olduğundan tek item dönüyor
+        {
+            var result = customersList.FindAll(x => x.CustomerId == id);
             return result;
         }
 
@@ -108,7 +116,12 @@ namespace BOA.UI.Banking.CustomerList
 
         private void btnMusteriDetay_Click(object sender, RoutedEventArgs e)
         {
-
+            if (selectedCustomer != null)
+            {
+                CustomerAdd.CustomerAdd customerDetails = new CustomerAdd.CustomerAdd(selectedCustomer,true);
+                customerDetails.ShowDialog();
+                BindGrid();
+            }
         }
 
         private void btnMusteriDuzenle_Click(object sender, RoutedEventArgs e)
@@ -120,6 +133,32 @@ namespace BOA.UI.Banking.CustomerList
         {
             selectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;
             
+        }
+
+        private void btnFiltrele_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbFilterbyId.Text != "")
+            {
+                int id = Convert.ToInt32(tbFilterbyId.Text);
+                dgMusteriListesi.ItemsSource = SearchEngine(id);
+            }
+            else
+            {
+                dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text, dpFilterbyDateOfBirth.SelectedDate.GetValueOrDefault());
+            }
+        }
+
+        private void btnMusteriEkle_Click(object sender, RoutedEventArgs e)
+        {
+            CustomerAdd.CustomerAdd addNewCustomer = new CustomerAdd.CustomerAdd();
+            addNewCustomer.ShowDialog();
+            BindGrid();
+        }
+
+        private void tbFilterbyId_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
         }
     }
 }

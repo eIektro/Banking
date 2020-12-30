@@ -50,51 +50,57 @@ namespace BOA.UI.Banking.CustomerAdd
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
             //Boş alan varsa. Lütfen gerekli alanları doldurunuz mesajı gelecek.
-            if (MessageBox.Show("Bilgilerini girdiğiniz müşteri veritabanına kaydedilsin mi?", "Kayıt", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            if (tbCitizenshipId.Text != "" && tbCustomerLastName.Text != "" && tbCustomerName.Text !=null)
             {
-                _kaydedilecekMusteri = new CustomerContract();
-                _kaydedilecekMusteri.CustomerId = null; //Kayıttan sonra oluşacak
-                _kaydedilecekMusteri.CustomerName = tbCustomerName.Text;
-                _kaydedilecekMusteri.CustomerLastName = tbCustomerLastName.Text;
-                _kaydedilecekMusteri.CitizenshipId = tbCitizenshipId.Text;
-                _kaydedilecekMusteri.JobId = cbJobId.SelectedIndex;
-                _kaydedilecekMusteri.EducationLvId = cbEducationLvId.SelectedIndex;
-                _kaydedilecekMusteri.FatherName = tbFatherName.Text;
-                _kaydedilecekMusteri.MotherName = tbMotherName.Text;
-                _kaydedilecekMusteri.PlaceOfBirth = tbPlaceOfBirth.Text;
-                _kaydedilecekMusteri.DateOfBirth = (DateTime)dpDateOfBirth.SelectedDate;
-
-                if (_customerPhones != null)
-                    _kaydedilecekMusteri.PhoneNumbers = _customerPhones;
-                if (_customerEmails != null)
-                    _kaydedilecekMusteri.Emails = _customerEmails;
-
-
-                var connect = new BOA.Connector.Banking.Connect();
-                var request = new BOA.Types.Banking.CustomerRequest();
-                var contract = _kaydedilecekMusteri;
-               
-
-                request.MethodName = "CustomerAdd";
-                request.DataContract = contract;
-
-
-                var response = (ResponseBase)connect.Execute(request);
-
-
-
-                if (response.IsSuccess)
+                if (MessageBox.Show("Bilgilerini girdiğiniz müşteri veritabanına kaydedilsin mi?", "Kayıt", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var addedCustomer =(CustomerContract)response.DataContract;
-                    MessageBox.Show($"Müşteri {addedCustomer.CustomerId} id'si ile oluşturuldu.");
-                    ClearInputs();
-                }
-                else
-                {
-                    MessageBox.Show(response.ErrorMessage);
-                }
+
+                    _kaydedilecekMusteri = new CustomerContract();
+                    _kaydedilecekMusteri.CustomerId = null; //Kayıttan sonra oluşacak
+                    _kaydedilecekMusteri.CustomerName = tbCustomerName.Text;
+                    _kaydedilecekMusteri.CustomerLastName = tbCustomerLastName.Text;
+                    _kaydedilecekMusteri.CitizenshipId = tbCitizenshipId.Text;
+                    _kaydedilecekMusteri.JobId = cbJobId.SelectedIndex;
+                    _kaydedilecekMusteri.EducationLvId = cbEducationLvId.SelectedIndex;
+                    _kaydedilecekMusteri.FatherName = tbFatherName.Text;
+                    _kaydedilecekMusteri.MotherName = tbMotherName.Text;
+                    _kaydedilecekMusteri.PlaceOfBirth = tbPlaceOfBirth.Text;
+                    _kaydedilecekMusteri.DateOfBirth = (DateTime)dpDateOfBirth.SelectedDate;
+
+                    if (_customerPhones != null)
+                        _kaydedilecekMusteri.PhoneNumbers = _customerPhones;
+                    if (_customerEmails != null)
+                        _kaydedilecekMusteri.Emails = _customerEmails;
 
 
+                    var connect = new BOA.Connector.Banking.Connect();
+                    var request = new BOA.Types.Banking.CustomerRequest();
+                    var contract = _kaydedilecekMusteri;
+
+
+                    request.MethodName = "CustomerAdd";
+                    request.DataContract = contract;
+
+
+                    var response = (ResponseBase)connect.Execute(request);
+
+
+
+                    if (response.IsSuccess)
+                    {
+                        var addedCustomer = (CustomerContract)response.DataContract;
+                        MessageBox.Show($"Müşteri {addedCustomer.CustomerId} id'si ile oluşturuldu.");
+                        ClearInputs();
+                    }
+                    else
+                    {
+                        MessageBox.Show(response.ErrorMessage);
+                    }
+                } 
+            }
+            else
+            {
+                MessageBox.Show("Gerekli alanları doldurunuz","Bilgilendirme",MessageBoxButton.OK,MessageBoxImage.Warning);
             }
         }
 

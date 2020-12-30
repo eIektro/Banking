@@ -102,6 +102,10 @@
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
     </ProjectReference>
+    <ProjectReference Include="..\UI\BOA.UI.Banking.CustomerAdd\BOA.UI.Banking.CustomerAdd.csproj">
+      <Project>{7580c024-d443-4031-95f0-4cef31a96e59}</Project>
+      <Name>BOA.UI.Banking.CustomerAdd</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

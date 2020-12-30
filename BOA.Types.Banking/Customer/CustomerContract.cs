@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CustomerContract
+    public class CustomerContract //Domain class
     {
         public int? CustomerId { get; set; }
 

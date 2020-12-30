@@ -19,8 +19,10 @@ namespace BOA.Connector.Banking
         public ResponseBase Execute(RequestBase request) 
         {
             Type requestType = request.GetType();
-            string requestedClass = (from x in Enum.GetNames(typeof(RequestTypes)) where requestType.Name.Contains(x) select x).FirstOrDefault();
-            var assembly = Assembly.Load("BOA.Process.Banking"); //Assembly.Load methodu tam yol verince çalışıyor. Burada Debug dizinindeki BOA.Process.Banking dll'ini yüklüyor.
+            string requestedClass = requestType.Name.Replace("Request", "");
+            /*string requestedClass = (from x in Enum.GetNames(typeof(RequestTypes)) where requestType.Name.Contains(x) select x).FirstOrDefault();*/ //remove
+            var assembly = Assembly.LoadFrom(@"..\..\..\..\BOA.Process.Banking\bin\Debug\BOA.Process.Banking.dll"); //Assemly.Load("BOA.Process.Banking")
+            
             Type t = assembly.GetType(assembly.GetName().Name + "." + requestedClass);
 
             try

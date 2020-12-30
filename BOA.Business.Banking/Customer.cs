@@ -48,6 +48,38 @@ namespace BOA.Business.Banking
 
         }
 
+        public ResponseBase UpdateCustomerbyId(CustomerRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("CustomerId",request.DataContract.CustomerId),
+                new SqlParameter("@CustomerName",request.DataContract.CustomerName),
+                new SqlParameter("@CustomerLastName",request.DataContract.CustomerLastName),
+                new SqlParameter("@CitizenshipId",request.DataContract.CitizenshipId),
+                new SqlParameter("@MotherName",request.DataContract.MotherName),
+                new SqlParameter("@FatherName",request.DataContract.FatherName),
+                new SqlParameter("@PlaceOfBirth",request.DataContract.PlaceOfBirth),
+                new SqlParameter("@DateOfBirth",request.DataContract.DateOfBirth),
+                new SqlParameter("@JobId",request.DataContract.JobId),
+                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId)
+            };
+
+            
+
+            try
+            {
+                var response = dbOperation.spExecuteScalar("CUS.upd_UpdateCustomerbyId", parameters);
+                //TO-DO: DataContract'taki telefon numaraları ve email adresleri için işlem yapılmıyor. Eklenecek.
+                return new ResponseBase { IsSuccess = true };
+            }
+            catch (Exception e)
+            {
+                
+                return new ResponseBase { IsSuccess = false, ErrorMessage = "UpdateCustomerbyId isteği başarısız oldu." };
+            }
+        }
+
         public ResponseBase CustomerDelete(CustomerDeleteRequest request)
         {
             DbOperation dbOperation = new DbOperation();
@@ -88,6 +120,8 @@ namespace BOA.Business.Banking
                     JobId = (int)reader["JobId"],
                     EducationLvId = (int)reader["EducationLvId"],
                     DateOfBirth = (DateTime)reader["DateOfBirth"],
+                    PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])), //Bunda sakınca var mı? Sor
+                    Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
                 });
             }
 
@@ -149,6 +183,54 @@ namespace BOA.Business.Banking
 
             return new ResponseBase { ErrorMessage = "GetAllCustomers işlemi başarısız oldu." };
 
+        }
+
+        public List<CustomerPhoneContract> GetCustomerPhonesByCustomerId(int customerId)
+        {
+            DbOperation dbOperation = new DbOperation();
+            List<CustomerPhoneContract> customerPhones = new List<CustomerPhoneContract>();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("CustomerId",customerId)
+            };
+
+            SqlDataReader reader = dbOperation.GetData("CUS.sel_CustomerPhonesByCustomerId",parameters);
+            while (reader.Read())
+            {
+                customerPhones.Add(new CustomerPhoneContract
+                {
+                    PhoneType = (int)reader["PhoneType"],
+                    CustomerId = (int?)reader["CustomerId"],
+                    PhoneNumber = reader["PhoneNumber"].ToString(),
+                    CustomerPhoneId = (int?)reader["CustomerPhoneId"]
+                });
+            }
+
+            return customerPhones;
+        }
+
+        public List<CustomerEmailContract> GetCustomerEmailsByCustomerId(int customerId)
+        {
+            DbOperation dbOperation = new DbOperation();
+            List<CustomerEmailContract> customerEmails = new List<CustomerEmailContract>();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("CustomerId",customerId)
+            };
+
+            SqlDataReader reader = dbOperation.GetData("CUS.sel_CustomerEmailsByCustomerId", parameters);
+            while (reader.Read())
+            {
+                customerEmails.Add(new CustomerEmailContract
+                {
+                    EmailType = (int)reader["EmailType"],
+                    CustomerId = (int?)reader["CustomerId"],
+                    MailAdress = reader["MailAdress"].ToString(),
+                    CustomerMailId = (int?)reader["CustomerMailId"]
+                });
+            }
+
+            return customerEmails;
         }
 
     }

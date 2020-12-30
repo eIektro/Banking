@@ -14,7 +14,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnMusteriDuzenle" Click="btnMusteriDuzenle_Click" Content="Düzenle" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnMusteriEkle" Click="btnMusteriEkle_Click" Content="Ekle" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="LightGreen" BorderBrush="#A370AF"></Button>
                 <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
                 <Button x:Name="btnMusteriSil" Click="btnMusteriSil_Click" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
             </StackPanel>
@@ -31,31 +31,46 @@
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Vertical" >
                     <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
-                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="İsim" FontSize="12"></Label>
-                        <TextBox x:Name="tbFilterbyName" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyName_TextChanged"></TextBox>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+                        <Button x:Name="btnFiltrele" Content="Filtrele" Click="btnFiltrele_Click" Height="20" Width="100"></Button>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="Soyisim" FontSize="12"></Label>
-                        <TextBox x:Name="tbFilterbySurname" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbySurname_TextChanged"></TextBox>
+                        <Label Content="Id" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="Doğum Yeri" FontSize="12"></Label>
-                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyPlaceOfBirth_TextChanged"></TextBox>
+                        <Label Content="İsim" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyName" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="TCKN" FontSize="12"></Label>
-                        <TextBox x:Name="tbFilterbyCitizenshipId" Width="120" HorizontalAlignment="Center" TextChanged="tbFilterbyCitizenshipId_TextChanged"></TextBox>
+                        <Label Content="Soyisim" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbySurname" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Doğum Yeri" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="TCKN" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyCitizenshipId" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Doğum Tarihi" FontSize="11"></Label>
+                        <DatePicker x:Name="dpFilterbyDateOfBirth" Width="120" HorizontalAlignment="Center"></DatePicker>
                     </StackPanel>
 
                     <!--Doğum Tarihi Büyüktür Küçüktür Hesabıyla Gelecek-->
                 </StackPanel>
             </Grid>
 
-            <DataGrid SelectionChanged="dgMusteriListesi_SelectionChanged" Grid.Column="1"  IsReadOnly="True" Height="440" DataContext="{Binding CustomeContract}" ItemsSource="{Binding CustomerContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
+            <DataGrid SelectionChanged="dgMusteriListesi_SelectionChanged" Grid.Column="1"  IsReadOnly="True" Height="440" DataContext="{Binding CustomerContract}" ItemsSource="{Binding CustomerContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -101,14 +116,14 @@
 
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="  ID  " Binding="{Binding CustomerId}"  Visibility="Hidden"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  ID  " Binding="{Binding CustomerId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  TCKN  " Binding="{Binding CitizenshipId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  İsim  " Binding="{Binding CustomerName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Soyisim  " Binding="{Binding CustomerLastName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Anne " Binding="{Binding MotherName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Baba  " Binding="{Binding FatherName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Doğum Yeri  " Binding="{Binding PlaceOfBirth}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
                     <!--<DataGridTextColumn Header="Soyadi" Binding="{Binding JobId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Soyadi" Binding="{Binding EducationLevelId}"></DataGridTextColumn>-->
 
