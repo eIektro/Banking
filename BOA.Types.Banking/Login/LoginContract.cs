@@ -8,6 +8,7 @@ namespace BOA.Types.Banking
 {
     public class LoginContract
     {
+        public int Id { get; set; }
         public string LoginName { get; set; }
         public string Password { get; set; }
 

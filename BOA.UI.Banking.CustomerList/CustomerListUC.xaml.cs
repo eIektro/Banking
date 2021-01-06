@@ -61,27 +61,7 @@ namespace BOA.UI.Banking.CustomerList
             }
         }
 
-        private void tbFilterbyName_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text);
-        }
-
-        private void tbFilterbySurname_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text);
-
-        }
-
-        private void tbFilterbyPlaceOfBirth_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text);
-        }
-
-        private void tbFilterbyCitizenshipId_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text);
-        }
-
+        
         private List<CustomerContract> SearchEngine(string name="", string surname="", string placeofbirh="", string citizenshipid="", DateTime dateofbirth=default)
         {
             var result = customersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) 
@@ -102,12 +82,16 @@ namespace BOA.UI.Banking.CustomerList
                 {
 
                     BOA.Connector.Banking.Connect connect = new Connector.Banking.Connect();
-                    CustomerDeleteRequest request = new CustomerDeleteRequest();
+                    CustomerRequest request = new CustomerRequest();
                     request.MethodName = "CustomerDelete";
                     request.DataContract = selectedCustomer;
                     var response = connect.Execute(request);
 
-
+                    if (response.IsSuccess)
+                    {
+                        MessageBox.Show("Silme işlemi başarılı","Bilgi",MessageBoxButton.OK,MessageBoxImage.Information);
+                        BindGrid();
+                    }
 
 
                 } 
@@ -124,11 +108,7 @@ namespace BOA.UI.Banking.CustomerList
             }
         }
 
-        private void btnMusteriDuzenle_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
-
+       
         private void dgMusteriListesi_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             selectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;

@@ -49,14 +49,21 @@
                     <Style TargetType="{x:Type text}"></Style>
                 </TreeView.Resources>-->
                 <TreeViewItem Header="Müşteri">
-                    <TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>
+                    <!--<TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>-->
                     <TreeViewItem Header="Müşteri Listesi" x:Name="tvMusteriListele" MouseDoubleClick="tvMusteriListele_MouseDoubleClick"></TreeViewItem>
                     
                 </TreeViewItem>
-                <TreeViewItem Header="Kullanıcı">
+                <!--<TreeViewItem Header="Kullanıcı">
                     <TreeViewItem Header="Kullanıcı Ekle" x:Name="tvKullaniciEkle"></TreeViewItem>
                     <TreeViewItem Header="Kullanıcı Düzenle" x:Name="tvKullaniciDuzenle"></TreeViewItem>
                     <TreeViewItem Header="Kullanıcı Sil" x:Name="tvKullaniciSil"></TreeViewItem>
+                </TreeViewItem>-->
+                <TreeViewItem Header="Şube">
+                    <!--<TreeViewItem Header="Şube Ekle" x:Name="tvSubeEkle" MouseDoubleClick="tvSubeEkle_MouseDoubleClick"></TreeViewItem>-->
+                    <TreeViewItem Header="Şube Listesi" x:Name="tvSubeListesi" MouseDoubleClick="tvSubeListesi_MouseDoubleClick"></TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem Header="Hesap">
+                    <TreeViewItem Header="Hesap Listesi" x:Name="tvHesapListesi" MouseDoubleClick="tvHesapListesi_MouseDoubleClick"></TreeViewItem>
                 </TreeViewItem>
             </TreeView>
 

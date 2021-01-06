@@ -60,12 +60,12 @@ namespace BOA.UI.Banking.MainScreen
             /* ÖNEMLİ */
             /**  AYNI TABITEM BİRDEN FAZLA AÇILAMAYACAK. BUNUN İÇİN ELDEKİLER LİSTEYE ATILIP LİSTEYE BAKILABİLİR VEYA TAB CONTROL'ÜN ELEMANLARI ARASINDA TITLE İLE ARANABİLİR  **/
             
-            CustomerAdd.CustomerAddUC customerAdd = new CustomerAdd.CustomerAddUC();
-            CloseableTab theTabItem = new CloseableTab();
-            theTabItem.Title = "Müşteri Ekle";
-            theTabItem.Content = customerAdd; 
-            tabControl1.Items.Add(theTabItem);
-            theTabItem.Focus();
+            //CustomerAdd.CustomerAddUC customerAdd = new CustomerAdd.CustomerAddUC();
+            //CloseableTab theTabItem = new CloseableTab();
+            //theTabItem.Title = "Müşteri Ekle";
+            //theTabItem.Content = customerAdd; 
+            //tabControl1.Items.Add(theTabItem);
+            //theTabItem.Focus();
         }
 
         private void tvMusteriListele_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -80,7 +80,37 @@ namespace BOA.UI.Banking.MainScreen
             tabControl1.Items.Add(theTabItem);
             theTabItem.Focus();
         }
-        
+
+        private void tvSubeEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            //BranchAdd.BranchAdd branchAdd = new BranchAdd.BranchAdd();
+            //CloseableTab theTabItem = new CloseableTab();
+            //theTabItem.Title = "Şube Ekle";
+            //theTabItem.Content = branchAdd;
+            //tabControl1.Items.Add(theTabItem);
+            //theTabItem.Focus();
+        }
+
+        private void tvSubeListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            BranchList.BranchListUC branchListUc = new BranchList.BranchListUC();
+            CloseableTab theTabItem = new CloseableTab();
+            theTabItem.Title = "Şube Listesi";
+            theTabItem.Content = branchListUc;
+            tabControl1.Items.Add(theTabItem);
+            theTabItem.Focus();
+        }
+
+        private void tvHesapListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            AccountList.AccountListUC accountListUC = new AccountList.AccountListUC();
+            CloseableTab theTabItem = new CloseableTab();
+            theTabItem.Title = "Hesap Listesi";
+            theTabItem.Content = accountListUC;
+            tabControl1.Items.Add(theTabItem);
+            theTabItem.Focus();
+        }
+
         /* ↓↓ STORYBOARD KODLARI ↓↓ */
 
         /**  

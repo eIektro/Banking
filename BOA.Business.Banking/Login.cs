@@ -10,30 +10,33 @@ namespace BOA.Business.Banking
 {
     public class Login
     {
-        public ResponseBase UserLogin(LoginContract loginContract)
+        public ResponseBase UserLogin(LoginRequest request)
         {
             DbOperation dbOperation = new DbOperation();
-            
+            LoginContract loginContract = new LoginContract();
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@UserName",loginContract.LoginName),
-                new SqlParameter("@Password",loginContract.Password)
+                new SqlParameter("@UserName",request.DataContract.LoginName),
+                new SqlParameter("@Password",request.DataContract.Password)
             };
 
+            SqlDataReader reader = dbOperation.GetData("COR.sel_UserLogin", parameters);
 
-            using (SqlDataReader dbObject = dbOperation.GetData("COR.sel_UserLogin", parameters))
+            while (reader.Read())
             {
-                if (dbObject.HasRows == true)
-                {
-                    
-                    while (dbObject.Read())
-                    {
-
-                        return new ResponseBase { DataContract = new LoginContract() { LoginName = dbObject["UserName"].ToString() } ,IsSuccess=true };
-                    }
-                }
+                loginContract.Id = Convert.ToInt32(reader["Id"]);
+                loginContract.LoginName = Convert.ToString(reader["UserName"]);
             }
 
-            return new ResponseBase { ErrorMessage = "Başarısız login denemesi", IsSuccess = false };
+            try
+            {
+                return new ResponseBase { DataContract = loginContract, IsSuccess = true };
+            }
+            catch
+            {
+                return new ResponseBase { ErrorMessage = "Başarısız login denemesi", IsSuccess = false };
+            }
+
+            
 
         }
     }

@@ -23,6 +23,9 @@ namespace BOA.UI.Banking.Login
     /// </summary>
     public partial class LoginScreen : Window
     {
+        public static string _userName {get;set;}
+        public static int _userId { get; set; }
+
         public LoginScreen()
         {
             InitializeComponent();
@@ -50,6 +53,10 @@ namespace BOA.UI.Banking.Login
 
                 if (response.IsSuccess)
                 {
+                    var user = (LoginContract)response.DataContract;
+                    _userName = user.LoginName;
+                    _userId = (int)user.Id;
+                    
                     Application.Current.MainWindow.Show();
                     Hide();
                 }

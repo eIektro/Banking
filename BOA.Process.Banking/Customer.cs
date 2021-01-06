@@ -23,7 +23,7 @@ namespace BOA.Process.Banking
 
         }
 
-        public ResponseBase CustomerDelete(CustomerDeleteRequest request)
+        public ResponseBase CustomerDelete(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.CustomerDelete(request);

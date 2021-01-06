@@ -13,7 +13,7 @@ namespace BOA.Process.Banking
             public ResponseBase UserLogin(LoginRequest request)
             {
                 Business.Banking.Login loginBusiness = new Business.Banking.Login();
-                var response = loginBusiness.UserLogin(request.DataContract);
+                var response = loginBusiness.UserLogin(request);
 
                 return response;
 

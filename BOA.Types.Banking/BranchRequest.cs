@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BOA.Types.Banking.Customer
+namespace BOA.Types.Banking
 {
-    public class CustomerDeleteRequest : RequestBase
+    public class BranchRequest : RequestBase
     {
-        public CustomerContract DataContract;
+        public BranchContract DataContract;
     }
 }

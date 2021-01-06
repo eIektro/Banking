@@ -41,6 +41,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.cs" />
+    <Compile Include="Branch.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerEmail.cs" />
     <Compile Include="CustomerPhone.cs" />

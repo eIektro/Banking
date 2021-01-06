@@ -1,0 +1,9 @@
+﻿<Application x:Class="BOA.UI.Banking.AccountAdd.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BOA.UI.Banking.AccountAdd"
+             StartupUri="AccountAdd.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>

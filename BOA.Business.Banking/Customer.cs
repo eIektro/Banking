@@ -80,12 +80,12 @@ namespace BOA.Business.Banking
             }
         }
 
-        public ResponseBase CustomerDelete(CustomerDeleteRequest request)
+        public ResponseBase CustomerDelete(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
 
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@CustomerId",request.DataContract.CustomerName),               
+                new SqlParameter("@CustomerId",request.DataContract.CustomerId),               
             };
 
             try
