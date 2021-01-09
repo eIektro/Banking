@@ -49,7 +49,7 @@
                     <Style TargetType="{x:Type text}"></Style>
                 </TreeView.Resources>-->
                 <TreeViewItem Header="Müşteri">
-                    <!--<TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>-->
+                    <TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>
                     <TreeViewItem Header="Müşteri Listesi" x:Name="tvMusteriListele" MouseDoubleClick="tvMusteriListele_MouseDoubleClick"></TreeViewItem>
                     
                 </TreeViewItem>
@@ -59,10 +59,11 @@
                     <TreeViewItem Header="Kullanıcı Sil" x:Name="tvKullaniciSil"></TreeViewItem>
                 </TreeViewItem>-->
                 <TreeViewItem Header="Şube">
-                    <!--<TreeViewItem Header="Şube Ekle" x:Name="tvSubeEkle" MouseDoubleClick="tvSubeEkle_MouseDoubleClick"></TreeViewItem>-->
+                    <TreeViewItem Header="Şube Ekle" x:Name="tvSubeEkle" MouseDoubleClick="tvSubeEkle_MouseDoubleClick"></TreeViewItem>
                     <TreeViewItem Header="Şube Listesi" x:Name="tvSubeListesi" MouseDoubleClick="tvSubeListesi_MouseDoubleClick"></TreeViewItem>
                 </TreeViewItem>
                 <TreeViewItem Header="Hesap">
+                    <TreeViewItem Header="Hesap Ekle" x:Name="tvHesapEkle" MouseDoubleClick="tvHesapEkle_MouseDoubleClick"></TreeViewItem>
                     <TreeViewItem Header="Hesap Listesi" x:Name="tvHesapListesi" MouseDoubleClick="tvHesapListesi_MouseDoubleClick"></TreeViewItem>
                 </TreeViewItem>
             </TreeView>
@@ -72,6 +73,34 @@
             <TabControl x:Name="tabControl1" Grid.Column="1">
                
                 <TabItem Header="Portal" IsSelected="True" x:Name="tiPortal" >
+                    <Grid>
+                        
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="195"></RowDefinition>
+                                <RowDefinition Height="285"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0">
+                            <Image Source="C:\Users\emrek\Desktop\banking.jpg" VerticalAlignment="Top" Margin="5,5,5,0"></Image>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="440"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="7,0,0,0">
+                                <Image Source="C:\Users\emrek\Desktop\coding1.jpg" Width="440" HorizontalAlignment="Left"></Image>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Image Source="C:\Users\emrek\Desktop\coding2.jpg" Width="440" Margin="0,0,0,0"></Image>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Image Source="C:\Users\emrek\Desktop\signature.png" Width="870" Margin="5,5,5,5"></Image>
+                        </Grid>
+                    </Grid>
+
                     <!--<StackPanel Orientation="Vertical">
                     <Button Content="Müşteri Ekle" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AntiqueWhite" Foreground="Black" BorderBrush="Aquamarine" x:Name="btnAddCustomer" Click="btnAddCustomer_Click"></Button>
                     <Button Content="Müşterileri Listele" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AliceBlue" Foreground="Black" BorderBrush="CadetBlue" Click="btnListCustomer_Click" x:Name="btnListCustomer" ></Button>

@@ -31,6 +31,10 @@ namespace BOA.UI.Banking.MainScreen
 
         public string Title
         {
+            get
+            {
+                return (string)((CloseableHeader)this.Header).label_TabTitle.Content;
+            }
             set
             {
                 ((CloseableHeader)this.Header).label_TabTitle.Content = value;

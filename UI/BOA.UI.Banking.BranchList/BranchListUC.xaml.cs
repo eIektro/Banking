@@ -70,6 +70,9 @@ namespace BOA.UI.Banking.BranchList
             if (response.IsSuccess)
             {
                 var cities = (List<CityContract>)response.DataContract;
+
+                dgccCity.ItemsSource = cities;
+
                 foreach (CityContract x in cities)
                 {
                     cbFilterbyCityId.Items.Add(x.name);
@@ -95,15 +98,62 @@ namespace BOA.UI.Banking.BranchList
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
+
+            int? id = null;
+            int? cityid = null;
+            
+
             if (tbFilterbyId.Text != "")
             {
-                int id = Convert.ToInt32(tbFilterbyId.Text);
-                dgBranchList.ItemsSource = SearchEngine(id);
+                id = Convert.ToInt32(tbFilterbyId.Text);
             }
-            else
+
+            if (cbFilterbyCityId.SelectedIndex != -1)
             {
-                dgBranchList.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbyEmail.Text, tbFilterbyPhoneNumber.Text, cbFilterbyCityId.SelectedIndex, dpFilterbyDateOfLaunch.SelectedDate.GetValueOrDefault());
+                cityid = cbFilterbyCityId.SelectedIndex;
             }
+
+            BranchContract branchProperties = new BranchContract()
+            {
+                Id = id,
+                CityId = cityid,
+                BranchName = tbFilterbyName.Text,
+                DateOfLaunch = dpFilterbyDateOfLaunch.SelectedDate.GetValueOrDefault(),
+                MailAdress = tbFilterbyEmail.Text,
+                PhoneNumber = tbFilterbyPhoneNumber.Text,
+                Adress = tbFilterbyAdress.Text
+            };
+
+            dgBranchList.ItemsSource = FilterEngine(branchProperties);
+
+            //if (tbFilterbyId.Text != "")
+            //{
+            //    int id = Convert.ToInt32(tbFilterbyId.Text);
+            //    dgBranchList.ItemsSource = SearchEngine(id);
+            //}
+            //else
+            //{
+            //    dgBranchList.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbyEmail.Text, tbFilterbyPhoneNumber.Text, cbFilterbyCityId.SelectedIndex, dpFilterbyDateOfLaunch.SelectedDate.GetValueOrDefault());
+            //}
+        }
+
+
+        private List<BranchContract> FilterEngine(BranchContract _contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new BranchRequest();
+
+            request.MethodName = "FilterBranchsByProperties";
+            request.DataContract = _contract;
+
+            var response = connect.Execute(request);
+
+            if (response.IsSuccess)
+            {
+                var _branchsList = (List<BranchContract>)response.DataContract;
+                return _branchsList;
+            }
+            return new List<BranchContract>();
         }
 
         private List<BranchContract> SearchEngine(string name = "", string email = "", string phonenumber = "", int cityid = default, DateTime dateoflaunch = default)
@@ -149,6 +199,15 @@ namespace BOA.UI.Banking.BranchList
             }
         }
 
-
+        private void btnTemizle_Click(object sender, RoutedEventArgs e)
+        {
+            tbFilterbyAdress.Text = "";
+            tbFilterbyEmail.Text = "";
+            tbFilterbyId.Text = "";
+            tbFilterbyName.Text = "";
+            tbFilterbyPhoneNumber.Text = "";
+            cbFilterbyCityId.SelectedIndex = -1;
+            dpFilterbyDateOfLaunch.SelectedDate = default;
+        }
     }
 }

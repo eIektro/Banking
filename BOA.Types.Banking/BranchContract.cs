@@ -9,13 +9,13 @@ namespace BOA.Types.Banking
     public class BranchContract
     {
 
-        public int Id { get; set; }
+        public int? Id { get; set; }
        
         public string BranchName { get; set; }
        
-        public int CityId { get; set; }
+        public int? CityId { get; set; }
 
-        public DateTime DateOfLaunch { get; set; }
+        public DateTime? DateOfLaunch { get; set; }
 
         public string Adress { get; set; }
 

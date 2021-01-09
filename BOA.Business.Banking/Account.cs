@@ -45,6 +45,60 @@ namespace BOA.Business.Banking
 
                 
         }
+
+        public ResponseBase FilterAccountsByProperties(AccountRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            List<AccountContract> accountContracts = new List<AccountContract>();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Id", request.DataContract.Id),
+                new SqlParameter("@BranchId",request.DataContract.BranchId),
+                new SqlParameter("@CustomerId",request.DataContract.CustomerId),
+                new SqlParameter("@AdditionNo",request.DataContract.AdditionNo),
+                new SqlParameter("@CurrencyId",request.DataContract.CurrencyId),
+                new SqlParameter("@Balance",request.DataContract.Balance),
+                new SqlParameter("@IBAN",request.DataContract.IBAN),
+                new SqlParameter("@IsActive",request.DataContract.IsActive),
+                new SqlParameter("@FormedUserId",request.DataContract.FormedUserId),
+                new SqlParameter("@DateOfFormation",request.DataContract.DateOfFormation),
+                //new SqlParameter("@DateOfDeactivation",request.DataContract.DateOfDeactivation),
+                //new SqlParameter("@DateOfLastTransaction",request.DataContract.DateOfLastTrasaction)
+            };
+            
+            try
+            {
+                List<AccountContract> accounts = new List<AccountContract>();
+                SqlDataReader reader = dbOperation.GetData("CUS.sel_FilterAccountsByProperties", parameters);
+                while (reader.Read())
+                {
+                    accounts.Add(new AccountContract() {
+
+                        Id = Convert.ToInt32(reader["Id"]),
+                        BranchId = (int)reader["BranchId"],
+                        CustomerId = (int)reader["CustomerId"],
+                        AdditionNo = (int)reader["AdditionNo"],
+                        CurrencyId = (int)reader["CurrencyId"],
+                        Balance = (decimal)reader["Balance"],
+                        DateOfFormation = (DateTime)reader["DateOfFormation"],
+                        IBAN = reader["IBAN"].ToString(),
+                        IsActive = (bool)reader["IsActive"],
+                        //DateOfDeactivation = (DateTime)reader["DateOfDeactivation"],
+                        FormedUserId = (int)reader["FormedUserId"],
+                        //DateOfLastTrasaction = (DateTime)reader["DateOfLastTransaction"]
+
+                    });
+                }
+                return new ResponseBase() { DataContract = accounts, IsSuccess = true };
+            }
+            catch (Exception e)
+            {
+                return new ResponseBase() { ErrorMessage = "FilterAccountsByProperties operasyonu başarısız.", IsSuccess = false };
+                throw;
+            }
+        }
+
+
         public ResponseBase AddNewAccount(AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();

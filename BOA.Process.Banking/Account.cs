@@ -16,6 +16,30 @@ namespace BOA.Process.Banking
             return response;
         }
 
+        public ResponseBase FilterAccountsByProperties(AccountRequest request)
+        {
+            if (request.DataContract.DateOfDeactivation.GetValueOrDefault() < new DateTime(1753, 01, 01))
+            {
+                DateTime sqlRange = new DateTime(1753, 01, 01);
+                request.DataContract.DateOfDeactivation = sqlRange;
+            }
+            if (request.DataContract.DateOfFormation.GetValueOrDefault() < new DateTime(1753, 01, 01))
+            {
+                DateTime sqlRange = new DateTime(1753, 01, 01);
+                request.DataContract.DateOfFormation = sqlRange;
+            }
+            if (request.DataContract.DateOfLastTrasaction.GetValueOrDefault() < new DateTime(1753, 01, 01))
+            {
+                DateTime sqlRange = new DateTime(1753, 01, 01);
+                request.DataContract.DateOfLastTrasaction = sqlRange;
+            }
+
+
+            BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();
+            var response = accountBusiness.FilterAccountsByProperties(request);
+            return response;
+        }
+
         public ResponseBase AddNewAccount(AccountRequest request)
         {
             BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();

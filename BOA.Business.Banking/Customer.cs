@@ -14,8 +14,56 @@ namespace BOA.Business.Banking
 {
     public class Customer
     {
-        
 
+        public ResponseBase FilterCustomersByProperties(CustomerRequest request) {
+            DbOperation dbOperation = new DbOperation();
+            
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@CustomerId", request.DataContract.CustomerId),
+                new SqlParameter("@CustomerName",request.DataContract.CustomerName),
+                new SqlParameter("@CustomerLastName",request.DataContract.CustomerLastName),
+                new SqlParameter("@CitizenshipId",request.DataContract.CitizenshipId),
+                new SqlParameter("@MotherName",request.DataContract.MotherName),
+                new SqlParameter("@FatherName",request.DataContract.FatherName),
+                new SqlParameter("@PlaceOfBirth",request.DataContract.PlaceOfBirth),
+                new SqlParameter("@DateOfBirth",request.DataContract.DateOfBirth),
+                new SqlParameter("@JobId",request.DataContract.JobId),
+                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId)
+            };
+
+            try
+            {
+                List<CustomerContract> customerContracts = new List<CustomerContract>();
+                SqlDataReader reader = dbOperation.GetData("CUS.sel_FilterCustomerByProperties", parameters);
+                while (reader.Read())
+                {
+                    customerContracts.Add(new CustomerContract()
+                    {
+                        CustomerId = Convert.ToInt32(reader["CustomerId"]),
+                        CustomerName = reader["CustomerName"].ToString(),
+                        CustomerLastName = reader["CustomerLastName"].ToString(),
+                        CitizenshipId = reader["CitizenshipId"].ToString(),
+                        MotherName = reader["MotherName"].ToString(),
+                        FatherName = reader["FatherName"].ToString(),
+                        PlaceOfBirth = reader["PlaceOfBirth"].ToString(),
+                        JobId = (int)reader["JobId"],
+                        EducationLvId = (int)reader["EducationLvId"],
+                        DateOfBirth = (DateTime)reader["DateOfBirth"],
+                        PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])),
+                        Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
+
+
+                    });
+                }
+                
+                return new ResponseBase { IsSuccess = true, DataContract = customerContracts};
+            }
+            catch
+            {
+                return new ResponseBase { IsSuccess = false, ErrorMessage = "FilterCustomersByProperties operasyonu başarısız." };
+            }
+        }
         public ResponseBase CustomerAdd(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();

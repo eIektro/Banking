@@ -17,6 +17,19 @@ namespace BOA.Process.Banking
             
         }
 
+        public ResponseBase FilterBranchsByProperties(BranchRequest request)
+        {
+            if (request.DataContract.DateOfLaunch.GetValueOrDefault() < new DateTime(1753, 01, 01))
+            {
+                DateTime sqlRange = new DateTime(1753, 01, 01);
+                request.DataContract.DateOfLaunch = sqlRange;
+            }
+
+            Business.Banking.Branch branchBusiness = new Business.Banking.Branch();
+            var response = branchBusiness.FilterBranchsByProperties(request);
+            return response;
+        }
+
         public ResponseBase AddNewBranch(BranchRequest request)
         {
             Business.Banking.Branch branchBusiness = new Business.Banking.Branch();

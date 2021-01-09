@@ -22,29 +22,37 @@
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
     </UserControl.Resources>
-    
+
     <Grid>
-        <Grid Width="385" Height="35" VerticalAlignment="Top">
-            <Button x:Name="btnKaydet" Click="btnKaydet_Click" Width="150" Height="25" VerticalAlignment="Top" HorizontalAlignment="Left" Content="Kaydet" Background="MediumSeaGreen" Margin="5,5,0,0"></Button>
-            <Border BorderBrush="Gray" BorderThickness="0,0,0,1"></Border>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D4BDDA">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnKaydet" Click="btnKaydet_Click" Content="Kaydet" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="LightGreen" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnVazgec" Click="btnVazgec_Click" Visibility="Hidden" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnDuzenle" Click="btnDuzenle_Click" Visibility="Hidden" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
+            </StackPanel>
+
         </Grid>
 
-        <Grid Width="385" Height="400" VerticalAlignment="Bottom">
+        <Grid Grid.Row="1" Width="385" Height="400" VerticalAlignment="Top">
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="390" Margin="0,0,15,0" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri Adı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerName" Height="25" Width="150" Margin="0,10,0,0" BorderBrush="Red" ></TextBox>
+                    <TextBox x:Name="tbCustomerName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri Soyadı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerLastName" Height="25" Width="150" Margin="0,10,0,0" BorderBrush="Red"></TextBox>
+                    <TextBox x:Name="tbCustomerLastName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri TCKN: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCitizenshipId" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbCitizenshipId_PreviewTextInput" BorderBrush="Red"></TextBox>
+                    <TextBox x:Name="tbCitizenshipId" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbCitizenshipId_PreviewTextInput"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Anne Adı: " Height="25" Margin="0,10,0,0"></Label>
@@ -72,7 +80,7 @@
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
                     <Button x:Name="btnPhonePopOpen" Click="btnPhonePopOpen_Click" Width="150" Height="25" Margin="0,10,0,0" Content="Telefon Ekle"></Button>
-                    <Popup Name="popPhoneAdd" Placement="Center" AllowsTransparency="True" >
+                    <Popup x:Name="popPhoneAdd" Placement="Center" AllowsTransparency="True" >
 
                         <Grid>
                             <Rectangle Width="Auto" Height="320" Fill="LightGray"></Rectangle>
@@ -82,11 +90,6 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
                                     <Label Content="Numara Türü: " Height="25" Margin="0,10,0,0"></Label>
-                                    <!--<ComboBox Name="cbPhoneType" Width="150" Height="25" Margin="0,10,0,0" 
-                                      ItemsSource="{Binding Path=PhoneTypesWithCaption}" 
-                                      DisplayMemberPath="Value" 
-                                      SelectedValuePath="Key"
-                                      SelectedValue="{Binding Path=PhoneTypeProperty, Mode=TwoWay}" ></ComboBox>-->
                                     <ComboBox ItemsSource="{Binding Source={StaticResource phoneTypes}}" Name="cbPhoneType" Width="150" Height="25" Margin="0,10,0,0"></ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -94,19 +97,27 @@
                                     <TextBox x:Name="tbPhoneNumber" Height="25" Width="150" Margin="0,10,0,0" PreviewTextInput="tbPhoneNumber_PreviewTextInput"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15,0,0,0">
-                                    <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnPhoneAddToListbox" Width="120" Background="Green" Height="20" Margin="0,10,5,0" Click="btnPhoneAddToListbox_Click"></Button>
-                                    <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnPhoneDeleteFromListbox" Click="btnPhoneDeleteFromListbox_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
+                                    <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnPhoneAddToDataGrid" Width="120" Background="Green" Height="20" Margin="0,10,5,0" Click="btnPhoneAddToDataGrid_Click"></Button>
+                                    <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnPhoneDeleteFromDataGrid" Click="btnPhoneDeleteFromDataGrid_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
                                 </StackPanel>
-                                <ListBox Width="auto" x:Name="lbPhoneNumbers" Height="150" Margin="7,15,0,0"></ListBox>
+                                <DataGrid Width="auto" x:Name="dgPhoneNumbers" AutoGenerateColumns="False"  IsReadOnly="True" Height="160" Margin="7,15,0,0">
+                                    <DataGrid.Resources>
+
+                                    </DataGrid.Resources>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="  Numara  " Binding="{Binding PhoneNumber}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Numara Türü  " Binding="{Binding PhoneType}"></DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
                             </StackPanel>
 
                         </Grid>
 
                     </Popup>
-
-
                     <Button x:Name="btnEmailPopOpen" Width="150" Click="btnEmailPopOpen_Click" Height="25" Margin="0,10,0,0" Content="e-Posta Adresi Ekle"></Button>
-                    <Popup Name="popEmailAdd" Placement="Center" AllowsTransparency="True" >
+                    <Popup x:Name="popEmailAdd" Placement="Center" AllowsTransparency="True" >
 
                         <Grid>
                             <Rectangle Width="Auto" Height="320" Fill="LightGray"></Rectangle>
@@ -116,11 +127,6 @@
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
 
                                     <Label Content="E-Posta Türü: " Height="25" Margin="0,10,0,0"></Label>
-                                    <!--<ComboBox Name="cbPhoneType" Width="150" Height="25" Margin="0,10,0,0" 
-                                      ItemsSource="{Binding Path=PhoneTypesWithCaption}" 
-                                      DisplayMemberPath="Value" 
-                                      SelectedValuePath="Key"
-                                      SelectedValue="{Binding Path=PhoneTypeProperty, Mode=TwoWay}" ></ComboBox>-->
                                     <ComboBox ItemsSource="{Binding Source={StaticResource emailTypes}}" Name="cbEmailType" Width="150" Height="25" Margin="0,10,0,0"></ComboBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
@@ -128,19 +134,30 @@
                                     <TextBox x:Name="tbEmail" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="15,0,0,0">
-                                    <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnEmailAddToListbox" Click="btnEmailAddToListbox_Click" Width="120" Background="Green" Height="20" Margin="0,10,5,0"></Button>
-                                    <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnEmailDeleteFromListbox" Click="btnEmailDeleteFromListbox_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
+                                    <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnEmailAddToDataGrid" Click="btnEmailAddToDataGrid_Click" Width="120" Background="Green" Height="20" Margin="0,10,5,0"></Button>
+                                    <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnEmailDeleteFromDataGrid" Click="btnEmailDeleteFromDataGrid_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
                                 </StackPanel>
-                                <ListBox Width="auto" x:Name="lbEmails" Height="150" Margin="7,15,0,0"></ListBox>
+                                <DataGrid Width="auto" x:Name="dgEmails" AutoGenerateColumns="False" IsReadOnly="True" Height="160" Margin="7,15,0,0">
+                                    <DataGrid.Resources>
+
+                                    </DataGrid.Resources>
+                                    <DataGrid.Columns>
+                                        <DataGridTextColumn Header="  Mail  " Binding="{Binding MailAdress}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Mail Türü  " Binding="{Binding EmailType}"></DataGridTextColumn>
+
+                                    </DataGrid.Columns>
+
+                                </DataGrid>
+
                             </StackPanel>
 
                         </Grid>
 
                     </Popup>
 
+
                 </StackPanel>
             </StackPanel>
-
         </Grid>
     </Grid>
 </UserControl>

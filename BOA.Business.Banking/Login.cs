@@ -39,5 +39,30 @@ namespace BOA.Business.Banking
             
 
         }
+
+        public ResponseBase GetAllUsers(LoginRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            SqlDataReader reader = dbOperation.GetData("COR.sel_GetAllUsers");
+            try
+            {
+                List<LoginContract> users = new List<LoginContract>();
+                while (reader.Read())
+                {
+                    users.Add(new LoginContract()
+                    {
+                        Id = Convert.ToInt32(reader["Id"]),
+                        LoginName = reader["UserName"].ToString()
+                    });
+                }
+                return new ResponseBase() { DataContract = users, IsSuccess = true };
+            }
+            catch (Exception)
+            {
+
+                return new ResponseBase() { IsSuccess = false, ErrorMessage = "GetAllUsers operasyonu başarısız." };
+            }
+        }
+
     }
 }

@@ -18,34 +18,34 @@ using System.Windows.Shapes;
 namespace BOA.UI.Banking.BranchAdd
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for BranchAddUC.xaml
     /// </summary>
-    public partial class BranchAdd : Window
+    public partial class BranchAddUC : UserControl
     {
         public Boolean isEditing = false;
         public BranchContract editingBranch;
 
-        public BranchAdd()
+        public BranchAddUC()
         {
             InitializeComponent();
             BindCbbox();
         }
 
-        public BranchAdd(BranchContract _editingBranch)
-        {
-            InitializeComponent();
-            isEditing = true;
-            editingBranch = _editingBranch;
-            tbBranchName.Text = editingBranch.BranchName;
-            tbBranchAdress.Text = editingBranch.Adress;
-            BindCbbox();
-            cbCityId.SelectedIndex = (int)editingBranch.CityId;
-            tbBranchEmailAdress.Text = editingBranch.MailAdress;
-            tbBranchPhoneNumber.Text = editingBranch.PhoneNumber;
-            disableUserInputs(true);
-            btnDuzenle.Visibility = Visibility.Visible;
-            btnKaydet.Visibility = Visibility.Hidden;
-        }
+        //public BranchAdd(BranchContract _editingBranch)
+        //{
+        //    InitializeComponent();
+        //    isEditing = true;
+        //    editingBranch = _editingBranch;
+        //    tbBranchName.Text = editingBranch.BranchName;
+        //    tbBranchAdress.Text = editingBranch.Adress;
+        //    BindCbbox();
+        //    cbCityId.SelectedIndex = (int)editingBranch.CityId;
+        //    tbBranchEmailAdress.Text = editingBranch.MailAdress;
+        //    tbBranchPhoneNumber.Text = editingBranch.PhoneNumber;
+        //    disableUserInputs(true);
+        //    btnDuzenle.Visibility = Visibility.Visible;
+        //    btnKaydet.Visibility = Visibility.Hidden;
+        //}
 
         public void disableUserInputs(bool wannaDisable)
         {
@@ -90,19 +90,20 @@ namespace BOA.UI.Banking.BranchAdd
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
 
-            if(isEditing == true)
+            if (isEditing == true)
             {
-                if(MessageBox.Show("Şube bilgileri güncellensin mi?","Uyarı",MessageBoxButton.YesNoCancel,MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show("Şube bilgileri güncellensin mi?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     Connector.Banking.Connect connect = new Connector.Banking.Connect();
                     BranchRequest request = new BranchRequest();
-                    request.DataContract = new BranchContract() { 
+                    request.DataContract = new BranchContract()
+                    {
                         Id = editingBranch.Id,
-                        Adress=tbBranchAdress.Text,
-                        MailAdress=tbBranchEmailAdress.Text,
-                        BranchName=tbBranchName.Text,
-                        CityId=cbCityId.SelectedIndex,
-                        PhoneNumber=tbBranchPhoneNumber.Text
+                        Adress = tbBranchAdress.Text,
+                        MailAdress = tbBranchEmailAdress.Text,
+                        BranchName = tbBranchName.Text,
+                        CityId = cbCityId.SelectedIndex,
+                        PhoneNumber = tbBranchPhoneNumber.Text
                     };
                     request.MethodName = "UpdateBranchDetailsById";
 
@@ -111,7 +112,7 @@ namespace BOA.UI.Banking.BranchAdd
                     if (response.IsSuccess)
                     {
                         MessageBox.Show("Şube güncellenmiştir");
-                        Close();
+                        
                     }
                 }
             }
@@ -150,7 +151,7 @@ namespace BOA.UI.Banking.BranchAdd
                     }
 
 
-                } 
+                }
             }
         }
 

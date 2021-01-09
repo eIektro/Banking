@@ -44,9 +44,9 @@ namespace BOA.UI.Banking.CustomerAdd
             /* TO-DO: Müşteri ekleme ile aynı method kullanılacak şekilde REFACTOR EDİLECEK. Şuan _selectedcustomer ve _kaydedilecekmusteri isimli iki ayrı liste kullanılıyor.  */
             InitializeComponent();
             BindAllJobsToCombobox();
-            cbJobId.SelectedIndex = _selectedCustomer.JobId;
+            cbJobId.SelectedIndex = _selectedCustomer.JobId.GetValueOrDefault();
             BindAllEducationLevelsToCombobox();
-            cbEducationLvId.SelectedIndex = _selectedCustomer.EducationLvId;
+            cbEducationLvId.SelectedIndex = _selectedCustomer.EducationLvId.GetValueOrDefault();
             tbCitizenshipId.Text = _selectedCustomer.CitizenshipId;
             tbCustomerLastName.Text = _selectedCustomer.CustomerLastName;
             tbCustomerName.Text = _selectedCustomer.CustomerName;
@@ -141,10 +141,12 @@ namespace BOA.UI.Banking.CustomerAdd
                     btnVazgec.Visibility = Visibility.Hidden;
                     btnDuzenle.Visibility = Visibility.Visible;
                     MessageBox.Show("Seçilen müşteri için bilgiler güncellendi", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
                 }
                 else
                 {
                     MessageBox.Show("Bilgiler güncellenemedi. " +response.ErrorMessage, "Başarısız", MessageBoxButton.OK, MessageBoxImage.Error);
+                    Close();
                 }
             }
 

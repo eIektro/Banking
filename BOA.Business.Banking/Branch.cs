@@ -34,6 +34,52 @@ namespace BOA.Business.Banking
             }
         }
 
+        public ResponseBase FilterBranchsByProperties(BranchRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@Id",request.DataContract.Id),
+                new SqlParameter("@BranchName",request.DataContract.BranchName),
+                new SqlParameter("@Adress",request.DataContract.Adress),
+                new SqlParameter("@CityId",request.DataContract.CityId),
+                new SqlParameter("@DateOfLaunch",request.DataContract.DateOfLaunch),
+                new SqlParameter("@MailAdress",request.DataContract.MailAdress),
+                new SqlParameter("@PhoneNumber",request.DataContract.PhoneNumber),
+            };
+
+            try
+            {
+                List<BranchContract> branchsList = new List<BranchContract>();
+                SqlDataReader reader = dbOperation.GetData("COR.sel_FilterBranchsByProperties", parameters);
+                while (reader.Read())
+                {
+                    branchsList.Add(new BranchContract()
+                    {
+                        Id = (int)reader["Id"],
+                        CityId = (int)reader["CityId"],
+                        Adress = (string)reader["Adress"],
+                        MailAdress = (string)reader["MailAdress"],
+                        BranchName = (string)reader["BranchName"],
+                        DateOfLaunch = (DateTime)reader["DateOfLaunch"],
+                        PhoneNumber = (string)reader["PhoneNumber"]
+
+                    });
+                }
+
+                return new ResponseBase { DataContract = branchsList, IsSuccess = true };
+
+            }
+            catch
+            {
+                return new ResponseBase { IsSuccess = false, ErrorMessage = "FilterBranchsByProperties isteği başarısız." };
+            }
+            
+
+
+        }
+
         public ResponseBase DeleteBranchById(BranchRequest request)
         {
             DbOperation dbOperation = new DbOperation();

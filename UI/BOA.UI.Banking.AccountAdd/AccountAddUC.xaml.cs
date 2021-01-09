@@ -18,21 +18,43 @@ using System.Windows.Shapes;
 namespace BOA.UI.Banking.AccountAdd
 {
     /// <summary>
-    /// Interaction logic for AccountAdd.xaml
+    /// Interaction logic for AccountAddUC.xaml
     /// </summary>
-    public partial class AccountAdd : Window
+    public partial class AccountAddUC : UserControl
     {
         public AccountContract EditingAccount;
         public bool IsEditing;
 
-        public AccountAdd()
+        public AccountAddUC()
         {
             InitializeComponent();
             BindCurrencyCB();
-            //FillBranchAutoCompleteBox();
             BindBranchsCB();
+            //FillBranchAutoCompleteBox();
 
         }
+
+        //public AccountAdd(AccountContract _editingAccount)
+        //{
+        //    InitializeComponent();
+        //    BindCurrencyCB();
+        //    EditingAccount = _editingAccount;
+        //    IsEditing = true;
+        //    tbAdditionNo.Text = EditingAccount.AdditionNo.ToString();
+        //    tbBalance.Text = EditingAccount.Balance.ToString();
+        //    tbBranchID.Text = EditingAccount.BranchId.ToString();
+        //    tbCustomerId.Text = EditingAccount.CustomerId.ToString();
+        //    tbIBAN.Text = EditingAccount.IBAN.ToString();
+        //    cbCurrencyId.SelectedIndex = (int)EditingAccount.CurrencyId;
+        //    cbIsActive.IsChecked = EditingAccount.IsActive;
+        //    DisableUserInputs(true);
+        //    btnDuzenle.Visibility = Visibility.Visible;
+        //    btnKaydet.Visibility = Visibility.Hidden;
+        //    btnVazgec.Visibility = Visibility.Hidden;
+
+
+
+        //}
 
         public void BindBranchsCB()
         {
@@ -56,34 +78,11 @@ namespace BOA.UI.Banking.AccountAdd
             }
         }
 
-        public AccountAdd(AccountContract _editingAccount)
-        {
-            InitializeComponent();
-            BindCurrencyCB();
-            BindBranchsCB();
-            EditingAccount = _editingAccount;
-            IsEditing = true;
-            tbAdditionNo.Text = EditingAccount.AdditionNo.ToString();
-            tbBalance.Text = EditingAccount.Balance.ToString();
-            cbBranchId.SelectedIndex = (int)EditingAccount.BranchId;
-            tbCustomerId.Text = EditingAccount.CustomerId.ToString();
-            tbIBAN.Text = EditingAccount.IBAN.ToString();
-            cbCurrencyId.SelectedIndex = (int)EditingAccount.CurrencyId;
-            cbIsActive.IsChecked = EditingAccount.IsActive;
-            DisableUserInputs(true);
-            btnDuzenle.Visibility = Visibility.Visible;
-            btnKaydet.Visibility = Visibility.Hidden;
-            btnVazgec.Visibility = Visibility.Hidden;
-            
-
-
-        }
-
         public void DisableUserInputs(bool WannaDisable)
         {
             tbAdditionNo.IsEnabled = !WannaDisable;
             tbBalance.IsEnabled = !WannaDisable;
-            cbBranchId.IsEnabled = !WannaDisable;
+            
             tbCustomerId.IsEnabled = !WannaDisable;
             tbIBAN.IsEnabled = !WannaDisable;
             cbCurrencyId.IsEnabled = !WannaDisable;
@@ -94,7 +93,7 @@ namespace BOA.UI.Banking.AccountAdd
         {
             tbAdditionNo.Text = EditingAccount.AdditionNo.ToString();
             tbBalance.Text = EditingAccount.Balance.ToString();
-            cbBranchId.SelectedIndex = (int)EditingAccount.BranchId;
+            
             tbCustomerId.Text = EditingAccount.CustomerId.ToString();
             tbIBAN.Text = EditingAccount.IBAN.ToString();
             cbCurrencyId.SelectedIndex = (int)EditingAccount.CurrencyId;
@@ -114,7 +113,7 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 var currencies = (List<CurrencyContract>)response.DataContract;
 
-                foreach(CurrencyContract x in currencies)
+                foreach (CurrencyContract x in currencies)
                 {
                     cbCurrencyId.Items.Add(x.code);
                 }
@@ -137,15 +136,16 @@ namespace BOA.UI.Banking.AccountAdd
 
         //}
 
-        public class BranchesViewModel
-        {
-            public List<BranchContract> Branches;
-            public BranchContract SelectedBranch;
-        }
+        //public class BranchesViewModel
+        //{
+        //    public List<BranchContract> Branches;
+        //    public BranchContract SelectedBranch;
+        //}
 
-        
 
-        //public void FillBranchAutoCompleteBox() {
+
+        //public void FillBranchAutoCompleteBox()
+        //{
 
         //    BranchesViewModel branchesViewModel = new BranchesViewModel();
 
@@ -161,14 +161,14 @@ namespace BOA.UI.Banking.AccountAdd
         //    {
         //        var branches = (List<BranchContract>)response.DataContract;
         //        branchesViewModel.Branches = branches;
-        //        acbBranchId.ItemsSource = branchesViewModel.Branches;
+        //        cbBranchId.ItemsSource = branchesViewModel.Branches;
         //    }
         //    else
         //    {
 
         //    }
 
-           
+
         //}
 
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
@@ -178,11 +178,8 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Tasdik", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    decimal balance = 0;
-                    if(tbBalance.Text != "")
-                    {
-                        Decimal.TryParse(tbBalance.Text, out balance);
-                    }
+                    decimal balance;
+                    bool parsedOk = decimal.TryParse(tbBalance.Text, out balance);
 
                     var connect = new Connector.Banking.Connect();
                     var request = new AccountRequest();
@@ -203,15 +200,15 @@ namespace BOA.UI.Banking.AccountAdd
                     if ((bool)!cbIsActive.IsChecked)
                     {
                         request.DataContract.DateOfDeactivation = DateTime.Now;
-                        
-                    }                   
+
+                    }
 
                     var response = connect.Execute(request);
 
                     if (response.IsSuccess)
                     {
                         MessageBox.Show("Detaylar güncellendi.", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
+                        
                     }
                 }
             }
@@ -220,8 +217,11 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 if (MessageBox.Show("Bilgileri girmiş olduğunuz hesap oluşturulsun mu?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    decimal balance;
-                    bool parsedOk = decimal.TryParse(tbBalance.Text, out balance);
+                    decimal balance = 0;
+                    if (tbBalance.Text != "")
+                    {
+                        decimal.TryParse(tbBalance.Text, out balance);
+                    }
 
                     var connect = new Connector.Banking.Connect();
                     var request = new AccountRequest();
@@ -245,10 +245,10 @@ namespace BOA.UI.Banking.AccountAdd
                     if (response.IsSuccess)
                     {
                         MessageBox.Show("Hesap kaydetme işlemi başarılı", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
+                        ClearInputs();
 
                     }
-                } 
+                }
             }
 
         }
@@ -274,6 +274,17 @@ namespace BOA.UI.Banking.AccountAdd
             btnKaydet.Visibility = Visibility.Hidden;
             DisableUserInputs(true);
             RetrieveDetailsAfterGiveUp();
+        }
+
+        private void ClearInputs()
+        {
+            tbAdditionNo.Text = "";
+            tbCustomerId.Text = "";
+            cbBranchId.SelectedIndex = -1;
+            cbCurrencyId.SelectedIndex = -1;
+            tbBalance.Text = "";
+            tbIBAN.Text = "";
+            cbIsActive.IsChecked = false;
         }
     }
 }

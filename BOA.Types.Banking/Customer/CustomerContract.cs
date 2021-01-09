@@ -22,11 +22,11 @@ namespace BOA.Types.Banking
 
         public string PlaceOfBirth { get; set; }
 
-        public int  JobId { get; set; }
+        public int?  JobId { get; set; }
 
-        public int EducationLvId { get; set; }
+        public int? EducationLvId { get; set; }
 
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
         public List<CustomerPhoneContract> PhoneNumbers { get; set; }
 

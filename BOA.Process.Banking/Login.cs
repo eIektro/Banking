@@ -10,14 +10,22 @@ namespace BOA.Process.Banking
     public class Login
     {
         
-            public ResponseBase UserLogin(LoginRequest request)
-            {
-                Business.Banking.Login loginBusiness = new Business.Banking.Login();
-                var response = loginBusiness.UserLogin(request);
+        public ResponseBase UserLogin(LoginRequest request)
+        {
+            Business.Banking.Login loginBusiness = new Business.Banking.Login();
+            var response = loginBusiness.UserLogin(request);
 
-                return response;
+            return response;
 
-            }
+        }
+            
+        public ResponseBase GetAllUsers(LoginRequest request)
+        {
+            Business.Banking.Login loginBusiness = new Business.Banking.Login();
+            var response = loginBusiness.GetAllUsers(request);
+            return response;
+        }
+
         
     }
 }

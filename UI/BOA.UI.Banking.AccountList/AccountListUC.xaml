@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.AccountList"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -36,7 +36,8 @@
                     <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
-                        <Button x:Name="btnFiltrele" Click="btnFiltrele_Click" Content="Filtrele" Height="20" Width="100"></Button>
+                        <Button x:Name="btnFiltrele" Click="btnFiltrele_Click" Content="Filtrele" Height="20" Width="80"></Button>
+                        <Button x:Name="btnTemizle" Click="btnTemizle_Click" Content="Temizle" Height="20" Width="80" Margin="15,0,0,0"></Button>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
@@ -45,13 +46,18 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="Şube Id:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyBranchId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyBranchId_PreviewTextInput"></TextBox>
+                        <Label Content="Şube:" FontSize="11"></Label>
+                        <ComboBox x:Name="cbFilterByBranchId" Width="120" HorizontalAlignment="Center"></ComboBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Müşteri Id:" FontSize="11"></Label>
                         <TextBox x:Name="tbFilterbyCustomerId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyCustomerId_PreviewTextInput"></TextBox>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Ek No:" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterByAdditionNo" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
@@ -80,8 +86,8 @@
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
-                        <Label Content="Oluşturan Id:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyFormedUserId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyFormedUserId_PreviewTextInput"/>
+                        <Label Content="Oluşturan:" FontSize="11"></Label>
+                        <ComboBox x:Name="cbFilterbyFormedUserId" Width="120" HorizontalAlignment="Center"/>
                     </StackPanel>
 
 
@@ -125,15 +131,15 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="  ID  " Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="  Şube  " Binding="{Binding BranchId}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn x:Name="dgccBranch" Header="  Şube  " ItemsSource="{Binding}" SelectedValueBinding="{Binding BranchId}" SelectedValuePath="Id" DisplayMemberPath="BranchName"></DataGridComboBoxColumn>
                     <DataGridTextColumn Header="  Müşteri No  " Binding="{Binding CustomerId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Ek No  " Binding="{Binding AdditionNo}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="  Döviz  " Binding="{Binding CurrencyId}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn x:Name="dgccCurrency" Header="  Döviz  " ItemsSource="{Binding}" SelectedValueBinding="{Binding CurrencyId}" SelectedValuePath="id" DisplayMemberPath="name"></DataGridComboBoxColumn>
                     <DataGridTextColumn Header="  Bakiye  " Binding="{Binding Balance}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Oluşturulma  " Binding="{Binding DateOfFormation,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  IBAN  " Binding="{Binding IBAN}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="  Aktif  " Binding="{Binding IsActive}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="  Oluşturan  " Binding="{Binding FormedUserId}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="  Aktif  " Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+                    <DataGridComboBoxColumn x:Name="dgccFormedUser" Header="  Oluşturan  " ItemsSource="{Binding}" SelectedValueBinding="{Binding FormedUserId}" SelectedValuePath="Id" DisplayMemberPath="LoginName"></DataGridComboBoxColumn>
 
                 </DataGrid.Columns>
             </DataGrid>

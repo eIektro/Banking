@@ -57,58 +57,117 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvMusteriEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            /* ÖNEMLİ */
-            /**  AYNI TABITEM BİRDEN FAZLA AÇILAMAYACAK. BUNUN İÇİN ELDEKİLER LİSTEYE ATILIP LİSTEYE BAKILABİLİR VEYA TAB CONTROL'ÜN ELEMANLARI ARASINDA TITLE İLE ARANABİLİR  **/
-            
-            //CustomerAdd.CustomerAddUC customerAdd = new CustomerAdd.CustomerAddUC();
-            //CloseableTab theTabItem = new CloseableTab();
-            //theTabItem.Title = "Müşteri Ekle";
-            //theTabItem.Content = customerAdd; 
-            //tabControl1.Items.Add(theTabItem);
-            //theTabItem.Focus();
+            var theCustomerAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Ekle");
+            if (theCustomerAddTab != null)
+            {
+                theCustomerAddTab.Focus();
+            }
+            else
+            {
+                CustomerAdd.CustomerAddUC customerAdd = new CustomerAdd.CustomerAddUC();
+                CloseableTab theTabItem = new CloseableTab();
+                theTabItem.Title = "Müşteri Ekle";
+                theTabItem.Content = customerAdd;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         private void tvMusteriListele_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            /* ÖNEMLİ */
-            /**  AYNI TABITEM BİRDEN FAZLA AÇILAMAYACAK. BUNUN İÇİN ELDEKİLER LİSTEYE ATILIP LİSTEYE BAKILABİLİR VEYA TAB CONTROL'ÜN ELEMANLARI ARASINDA TITLE İLE ARANABİLİR  **/
-
-            CustomerList.CustomerListUC customerList = new CustomerList.CustomerListUC();
-            CloseableTab theTabItem = new CloseableTab();
-            theTabItem.Title = "Müşteri Listele";
-            theTabItem.Content = customerList;
-            tabControl1.Items.Add(theTabItem);
-            theTabItem.Focus();
+           
+            var theCustomerTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Listele");
+            if (theCustomerTab != null) {
+                theCustomerTab.Focus();
+            }
+            
+            else
+            {
+                CustomerList.CustomerListUC customerList = new CustomerList.CustomerListUC();
+                CloseableTab theTabItem = new CloseableTab();
+                theTabItem.Title = "Müşteri Listele";
+                theTabItem.Content = customerList;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         private void tvSubeEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            //BranchAdd.BranchAdd branchAdd = new BranchAdd.BranchAdd();
-            //CloseableTab theTabItem = new CloseableTab();
-            //theTabItem.Title = "Şube Ekle";
-            //theTabItem.Content = branchAdd;
-            //tabControl1.Items.Add(theTabItem);
-            //theTabItem.Focus();
+
+
+            var theBranchAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Şube Ekle");
+            if (theBranchAddTab != null)
+            {
+                theBranchAddTab.Focus();
+            }
+
+            BranchAdd.BranchAddUC branchAdd = new BranchAdd.BranchAddUC();
+            CloseableTab theTabItem = new CloseableTab();
+            theTabItem.Title = "Şube Ekle";
+            theTabItem.Content = branchAdd;
+            tabControl1.Items.Add(theTabItem);
+            theTabItem.Focus();
         }
 
         private void tvSubeListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            BranchList.BranchListUC branchListUc = new BranchList.BranchListUC();
-            CloseableTab theTabItem = new CloseableTab();
-            theTabItem.Title = "Şube Listesi";
-            theTabItem.Content = branchListUc;
-            tabControl1.Items.Add(theTabItem);
-            theTabItem.Focus();
+            var theBranchesTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Şube Listesi");
+            if (theBranchesTab != null)
+            {
+                theBranchesTab.Focus(); 
+            }
+            
+            else
+            {
+                BranchList.BranchListUC branchListUc = new BranchList.BranchListUC();
+                CloseableTab theTabItem = new CloseableTab();
+                theTabItem.Title = "Şube Listesi";
+                theTabItem.Content = branchListUc;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         private void tvHesapListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            AccountList.AccountListUC accountListUC = new AccountList.AccountListUC();
-            CloseableTab theTabItem = new CloseableTab();
-            theTabItem.Title = "Hesap Listesi";
-            theTabItem.Content = accountListUC;
-            tabControl1.Items.Add(theTabItem);
-            theTabItem.Focus();
+            
+                var theAccountsTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Listesi");
+            if (theAccountsTab != null)
+            {
+                theAccountsTab.Focus();
+            }
+
+            else
+            {
+
+                AccountList.AccountListUC accountListUC = new AccountList.AccountListUC();
+                CloseableTab theTabItem = new CloseableTab();
+                theTabItem.Title = "Hesap Listesi";
+                theTabItem.Content = accountListUC;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
+        }
+
+        private void tvHesapEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var theAccountAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Ekle");
+            if (theAccountAddTab != null)
+            {
+                theAccountAddTab.Focus();
+            }
+
+            else
+            {
+
+                AccountAdd.AccountAddUC accountAddUC = new AccountAdd.AccountAddUC();
+                CloseableTab theTabItem = new CloseableTab();
+                theTabItem.Title = "Hesap Ekle";
+                theTabItem.Content = accountAddUC;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         /* ↓↓ STORYBOARD KODLARI ↓↓ */

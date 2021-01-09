@@ -11,6 +11,19 @@ namespace BOA.Process.Banking
     public class Customer
     {
 
+        public ResponseBase FilterCustomersByProperties(CustomerRequest request)
+        {
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            
+            if(request.DataContract.DateOfBirth.GetValueOrDefault() < new DateTime(1753, 01, 01))
+            {
+                DateTime sqlRange = new DateTime(1753, 01, 01);
+                request.DataContract.DateOfBirth = sqlRange;
+            }
+            var response = customerBusiness.FilterCustomersByProperties(request);
+            return response;
+        }
+
         public ResponseBase GetAllCustomers(CustomerRequest request) /* TO-DO: Connect sınıfından gelen GetAllCustomersRequest'ten buraya yönlendirme,
                                                                                         * connect sınıfındaki parse mantığından dolayı düzgün yapılamıyor. Düzeltilecek.
                                                                                         * (Linq ile contains e bakılıp yapılabilir.)
@@ -51,11 +64,11 @@ namespace BOA.Process.Banking
             {
                 Process.Banking.CustomerPhone phoneProcess = new CustomerPhone();
 
-                foreach(CustomerPhoneContract x in request.DataContract.PhoneNumbers)
+                foreach(CustomerPhoneContract customerPhone in request.DataContract.PhoneNumbers)
                 {
-                    x.CustomerId = contract.CustomerId;
+                    customerPhone.CustomerId = contract.CustomerId;
                     CustomerPhoneRequest customerPhoneRequest = new CustomerPhoneRequest();
-                    customerPhoneRequest.DataContract = x;
+                    customerPhoneRequest.DataContract = customerPhone;
                     var responsePhoneAdd = phoneProcess.PhoneAdd(customerPhoneRequest);
                 }
             }
