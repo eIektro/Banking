@@ -6,8 +6,10 @@
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerAdd"
              xmlns:enums="clr-namespace:BOA.Types.Banking.Enums;assembly=BOA.Types.Banking"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <CollectionViewSource x:Key="Jobs" Source="{Binding Jobs}"></CollectionViewSource>
+        <CollectionViewSource x:Key="EducationLevels" Source="{Binding EducationLevels}"></CollectionViewSource>
         <ObjectDataProvider x:Key="phoneTypes"
        MethodName="GetValues" ObjectType="{x:Type enums:PhoneTypes}">
             <ObjectDataProvider.MethodParameters>
@@ -31,8 +33,7 @@
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnKaydet" Click="btnKaydet_Click" Content="Kaydet" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="LightGreen" BorderBrush="#A370AF"></Button>
-                <Button x:Name="btnVazgec" Click="btnVazgec_Click" Visibility="Hidden" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
-                <Button x:Name="btnDuzenle" Click="btnDuzenle_Click" Visibility="Hidden" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
+                <Button x:Name="btnTemizle" Click="btnTemizle_Click" Content="Temizle" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="20,0,0,0" Background="PaleVioletRed" BorderBrush="#A370AF"></Button>
             </StackPanel>
 
         </Grid>
@@ -42,41 +43,41 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="390" Margin="0,0,15,0" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri Adı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbCustomerName" Text="{Binding customerContract.CustomerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri Soyadı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerLastName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbCustomerLastName" Text="{Binding customerContract.CustomerLastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Müşteri TCKN: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCitizenshipId" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbCitizenshipId_PreviewTextInput"></TextBox>
+                    <TextBox x:Name="tbCitizenshipId" Text="{Binding customerContract.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbCitizenshipId_PreviewTextInput"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Anne Adı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbMotherName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbMotherName" Text="{Binding customerContract.MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Baba Adı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbFatherName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbFatherName" Text="{Binding customerContract.FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Doğum Yeri: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbPlaceOfBirth" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbPlaceOfBirth" Text="{Binding customerContract.PlaceOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Doğum Tarihi: " Height="25" Margin="0,10,0,0"></Label>
-                    <DatePicker x:Name="dpDateOfBirth" Margin="0,10,0,0" Width="150" Height="25" PreviewTextInput="dpDateOfBirth_PreviewTextInput"></DatePicker>
+                    <DatePicker x:Name="dpDateOfBirth" SelectedDate="{Binding customerContract.DateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Margin="0,10,0,0" Width="150" Height="25" PreviewTextInput="dpDateOfBirth_PreviewTextInput"></DatePicker>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Meslek: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbJobId" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    <ComboBox x:Name="cbJobId" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedIndex="{Binding customerContract.JobId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="JobName" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Eğitim Düzeyi: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbEducationLvId" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    <ComboBox x:Name="cbEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedIndex="{Binding customerContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
                     <Button x:Name="btnPhonePopOpen" Click="btnPhonePopOpen_Click" Width="150" Height="25" Margin="0,10,0,0" Content="Telefon Ekle"></Button>
@@ -100,13 +101,13 @@
                                     <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnPhoneAddToDataGrid" Width="120" Background="Green" Height="20" Margin="0,10,5,0" Click="btnPhoneAddToDataGrid_Click"></Button>
                                     <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnPhoneDeleteFromDataGrid" Click="btnPhoneDeleteFromDataGrid_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
                                 </StackPanel>
-                                <DataGrid Width="auto" x:Name="dgPhoneNumbers" AutoGenerateColumns="False"  IsReadOnly="True" Height="160" Margin="7,15,0,0">
+                                <DataGrid Width="auto" x:Name="dgPhoneNumbers" ItemsSource="{Binding customerContract.PhoneNumbers,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False"  IsReadOnly="True" Height="160" Margin="7,15,0,0">
                                     <DataGrid.Resources>
 
                                     </DataGrid.Resources>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="  Numara  " Binding="{Binding PhoneNumber}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="  Numara Türü  " Binding="{Binding PhoneType}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Numara  " Binding="{Binding PhoneNumber,Mode=TwoWay}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Numara Türü  " Binding="{Binding PhoneType,Mode=TwoWay}"></DataGridTextColumn>
 
                                     </DataGrid.Columns>
 
