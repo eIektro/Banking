@@ -145,12 +145,7 @@ namespace BOA.UI.Banking.BranchList
         #endregion
 
         #region Button Operations
-        private void btnSubeEkle_Click(object sender, RoutedEventArgs e)
-        {
-            BranchAdd.BranchAdd branchAdd = new BranchAdd.BranchAdd();
-            branchAdd.ShowDialog();
-        }
-
+        
         private void btnSubeDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgBranchList.SelectedItem == null) return;

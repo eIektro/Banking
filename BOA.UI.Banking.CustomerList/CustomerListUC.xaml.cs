@@ -199,12 +199,6 @@ namespace BOA.UI.Banking.CustomerList
             else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
-        private void btnMusteriEkle_Click(object sender, RoutedEventArgs e)
-        {
-            CustomerAdd.CustomerAdd addNewCustomer = new CustomerAdd.CustomerAdd();
-            addNewCustomer.ShowDialog();
-        }
-
         private void btnTemizle_Click(object sender, RoutedEventArgs e)
         {
             FilterContract = new CustomerContract();

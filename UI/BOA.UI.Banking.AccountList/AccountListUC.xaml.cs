@@ -249,13 +249,6 @@ namespace BOA.UI.Banking.AccountList
             accountAdd.ShowDialog();
         }
 
-        private void btnHesapEkle_Click(object sender, RoutedEventArgs e)
-        {
-            AccountAdd.AccountAdd accountAdd = new AccountAdd.AccountAdd();
-            accountAdd.ShowDialog();
-            GetAllAccounts();
-        }
-
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
             var response = FilterEngine(FilterContract);

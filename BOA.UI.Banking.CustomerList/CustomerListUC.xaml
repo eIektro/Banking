@@ -17,8 +17,7 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnMusteriEkle" Click="btnMusteriEkle_Click" Content="Ekle" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="LightGreen" BorderBrush="#A370AF"></Button>
-                <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
                 <Button x:Name="btnMusteriSil" Click="btnMusteriSil_Click" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
             </StackPanel>
             
