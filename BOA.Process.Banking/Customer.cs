@@ -90,5 +90,23 @@ namespace BOA.Process.Banking
 
             return response;
         }
+
+        public ResponseBase getAllJobs(CustomerRequest request)
+        {
+            Business.Banking.Job jobBusiness = new Business.Banking.Job();
+            var response = jobBusiness.getAllJobs(request);
+
+            return response;
+
+        }
+
+        public ResponseBase getAllEducationLevels(CustomerRequest request)
+        {
+            Business.Banking.EducationLevel educationLvBusiness = new Business.Banking.EducationLevel();
+            var response = educationLvBusiness.getAllEducationLevels(request);
+
+            return response;
+
+        }
     }
 }

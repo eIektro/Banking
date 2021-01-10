@@ -11,7 +11,7 @@ namespace BOA.Business.Banking
 {
     public class EducationLevel
     {
-        public ResponseBase getAllEducationLevels(EducationLevelRequest jobRequest)
+        public ResponseBase getAllEducationLevels(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<EducationLevelContract> dataContracts = new List<EducationLevelContract>();

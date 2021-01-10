@@ -12,7 +12,7 @@ namespace BOA.Business.Banking
     public class Job
     {
 
-        public ResponseBase getAllJobs(JobRequest jobRequest)
+        public ResponseBase getAllJobs(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<JobContract> dataContracts = new List<JobContract>();

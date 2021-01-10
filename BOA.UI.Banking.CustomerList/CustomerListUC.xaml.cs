@@ -139,7 +139,7 @@ namespace BOA.UI.Banking.CustomerList
         private ResponseBase GetAllEducationLevels()
         {
             var connect = new Connector.Banking.Connect();
-            var request = new EducationLevelRequest();
+            var request = new CustomerRequest();
             request.MethodName = "getAllEducationLevels";
             var response = connect.Execute(request);
             return response;
@@ -147,7 +147,7 @@ namespace BOA.UI.Banking.CustomerList
         private ResponseBase GetAllJobs()
         {
             var connect = new Connector.Banking.Connect();
-            var request = new JobRequest();
+            var request = new CustomerRequest();
             request.MethodName = "getAllJobs";
             var response = connect.Execute(request);
             return response;

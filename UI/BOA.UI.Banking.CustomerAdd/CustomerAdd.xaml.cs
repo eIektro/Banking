@@ -217,7 +217,7 @@ namespace BOA.UI.Banking.CustomerAdd
         public void BindAllEducationLevelsToCombobox()
         {
             var connect = new BOA.Connector.Banking.Connect();
-            var request = new BOA.Types.Banking.EducationLevelRequest();
+            var request = new BOA.Types.Banking.CustomerRequest();
             //var contract = new BOA.Types.Banking.EducationLevelContract();
 
             request.MethodName = "getAllEducationLevels";
@@ -243,7 +243,7 @@ namespace BOA.UI.Banking.CustomerAdd
         void BindAllJobsToCombobox()
         {
             var connect = new BOA.Connector.Banking.Connect();
-            var request = new BOA.Types.Banking.JobRequest();
+            var request = new BOA.Types.Banking.CustomerRequest();
             //var contract = new BOA.Types.Banking.JobContract();
 
             request.MethodName = "getAllJobs";

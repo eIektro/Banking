@@ -58,10 +58,8 @@
     <Compile Include="EducationLevelContract.cs" />
     <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Enums\PhoneTypes.cs" />
-    <Compile Include="EducationLevelRequest.cs" />
     <Compile Include="Enums\RequestTypes.cs" />
     <Compile Include="JobContract.cs" />
-    <Compile Include="JobRequest.cs" />
     <Compile Include="Login\LoginContract.cs" />
     <Compile Include="Login\LoginRequest.cs" />
     <Compile Include="Login\LoginResponse.cs" />

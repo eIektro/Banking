@@ -46,8 +46,6 @@
     <Compile Include="Customer.cs" />
     <Compile Include="CustomerEmail.cs" />
     <Compile Include="CustomerPhone.cs" />
-    <Compile Include="EducationLevel.cs" />
-    <Compile Include="Job.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
