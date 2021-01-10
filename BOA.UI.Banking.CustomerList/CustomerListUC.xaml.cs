@@ -2,8 +2,10 @@
 using BOA.Types.Banking.Customer;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Data;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -22,213 +24,144 @@ namespace BOA.UI.Banking.CustomerList
     /// <summary>
     /// Interaction logic for CustomerListUC.xaml
     /// </summary>
-    public partial class CustomerListUC : UserControl
+    public partial class CustomerListUC : UserControl, INotifyPropertyChanged
     {
-        CustomerContract selectedCustomer;
-
-        List<CustomerContract> customersList;
-
-        List<JobContract> jobContractsSource;
-
         public CustomerListUC()
         {
+            #region responses
+            var _EducationLevelsResponse = GetAllEducationLevels();
+            if (_EducationLevelsResponse.IsSuccess)
+            {
+                EducationLevels = (List<EducationLevelContract>)_EducationLevelsResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_EducationLevelsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var _JobsResponse = GetAllJobs();
+            if (_JobsResponse.IsSuccess)
+            {
+                Jobs = (List<JobContract>)_JobsResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_JobsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var _CustomersResponse = GetAllCustomers();
+            if (_CustomersResponse.IsSuccess)
+            {
+                AllCustomers = (List<CustomerContract>)_CustomersResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_CustomersResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            } 
+            #endregion
+
             InitializeComponent();
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            BindGrid();
-            BindAllEducationLevelsToCombobox();
-            BindAllJobsToCombobox();
+            FilterContract = new CustomerContract();
         }
 
-        public void BindAllEducationLevelsToCombobox()
-        {
-            var connect = new BOA.Connector.Banking.Connect();
-            var request = new BOA.Types.Banking.EducationLevelRequest();
-            //var contract = new BOA.Types.Banking.EducationLevelContract();
+        #region Event Handling
+        public event PropertyChangedEventHandler PropertyChanged;
 
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region Getters and Setters
+        private CustomerContract _FilterContract;
+        public CustomerContract FilterContract
+        {
+            get { return this._FilterContract; }
+            set
+            {
+                this._FilterContract = value;
+                OnPropertyChanged("FilterContract");
+            }
+        }
+
+        private CustomerContract _SelectedCustomer;
+        public CustomerContract SelectedCustomer
+        {
+            get { return this._SelectedCustomer; }
+            set
+            {
+                this._SelectedCustomer = value;
+                OnPropertyChanged("SelectedCustomer");
+            }
+        }
+
+        private List<EducationLevelContract> _EducationLevels;
+        public List<EducationLevelContract> EducationLevels
+        {
+            get { return this._EducationLevels; }
+            set
+            {
+                this._EducationLevels = value;
+                OnPropertyChanged("EducationLevels");
+            }
+        }
+
+        private List<JobContract> _Jobs;
+        public List<JobContract> Jobs
+        {
+            get { return this._Jobs; }
+            set
+            {
+                this._Jobs = value;
+                OnPropertyChanged("Jobs");
+            }
+        }
+
+        private List<CustomerContract> _AllCustomers;
+        public List<CustomerContract> AllCustomers
+        {
+            get { return this._AllCustomers; }
+            set
+            {
+                this._AllCustomers = value;
+                OnPropertyChanged("AllCustomers");
+            }
+        }
+        #endregion
+
+        #region Db Operations
+        private ResponseBase GetAllEducationLevels()
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new EducationLevelRequest();
             request.MethodName = "getAllEducationLevels";
-
-
-            var response = (ResponseBase)connect.Execute(request);
-
-            if (response.IsSuccess)
-            {
-                var educationLevels = (List<EducationLevelContract>)response.DataContract;
-
-                cbcEducationLv.ItemsSource = educationLevels;
-
-                foreach (EducationLevelContract item in educationLevels)
-                {
-                    cbFilterByEducationLvId.Items.Add(item.EducationLevel);
-                    
-                }
-
-            }
-            else
-            {
-                MessageBox.Show(response.ErrorMessage);
-            }
+            var response = connect.Execute(request);
+            return response;
         }
-
-        void BindAllJobsToCombobox()
+        private ResponseBase GetAllJobs()
         {
-            var connect = new BOA.Connector.Banking.Connect();
-            var request = new BOA.Types.Banking.JobRequest();
-            //var contract = new BOA.Types.Banking.JobContract();
-
+            var connect = new Connector.Banking.Connect();
+            var request = new JobRequest();
             request.MethodName = "getAllJobs";
-
-
-            var response = (ResponseBase)connect.Execute(request);
-
-            if (response.IsSuccess)
-            {
-                var jobs = (List<JobContract>)response.DataContract;
-
-                cbcJob.ItemsSource = jobs;
-
-                foreach (JobContract item in jobs)
-                {
-                    cbFilterByJobId.Items.Add(item.JobName);
-                }
-
-            }
-            else
-            {
-                MessageBox.Show(response.ErrorMessage);
-            }
+            var response = connect.Execute(request);
+            return response;
         }
-
-        private void BindGrid()
+        private ResponseBase GetAllCustomers()
         {
-            var connect = new BOA.Connector.Banking.Connect();
-            var request = new BOA.Types.Banking.CustomerRequest();
-
+            var connect = new Connector.Banking.Connect();
+            var request = new CustomerRequest();
             request.MethodName = "GetAllCustomers";
-
-            var response = (ResponseBase)connect.Execute(request);
-
-            customersList = (List<CustomerContract>)response.DataContract;
-
-
-            if (response.IsSuccess)
-            {
-                
-                dgMusteriListesi.ItemsSource = customersList;
-            }
-            else
-            { 
-                
-            }
+            var response = connect.Execute(request);
+            return response;
         }
 
-        
-        private List<CustomerContract> SearchEngine(string name="", string surname="", string placeofbirh="", string citizenshipid="", DateTime dateofbirth=default)
-        {
-            var result = customersList.FindAll(x => x.CustomerName.ToLower().Contains(name.ToLower()) && x.CustomerLastName.ToLower().Contains(surname.ToLower()) 
-            && x.PlaceOfBirth.ToLower().Contains(placeofbirh.ToLower()) && x.CitizenshipId.ToLower().Contains(citizenshipid.ToLower()) && x.DateOfBirth >= dateofbirth /* && x.DateOfBirth.ToString("dd.MM.yyyy").Contains(dateofbirth)*/);
-            return result;
-        }
-        private List<CustomerContract> SearchEngine(int id) //TO-DO: refactor edilecek, zaten id primary key olduğundan tek item dönüyor
-        {
-            var result = customersList.FindAll(x => x.CustomerId == id);
-            return result;
-        }
-
-        private void btnMusteriSil_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedCustomer != null)
-            {
-                if (MessageBox.Show($"{selectedCustomer.CustomerName} {selectedCustomer.CustomerLastName} ({selectedCustomer.CustomerId}) isimli müşteriyi veritabanından silmeye emin misiniz?", "Silme Uyarısı", MessageBoxButton.YesNoCancel, MessageBoxImage.Warning) == MessageBoxResult.Yes)
-                {
-
-                    BOA.Connector.Banking.Connect connect = new Connector.Banking.Connect();
-                    CustomerRequest request = new CustomerRequest();
-                    request.MethodName = "CustomerDelete";
-                    request.DataContract = selectedCustomer;
-                    var response = connect.Execute(request);
-
-                    if (response.IsSuccess)
-                    {
-                        MessageBox.Show("Silme işlemi başarılı","Bilgi",MessageBoxButton.OK,MessageBoxImage.Information);
-                        BindGrid();
-                    }
-
-                   
-
-                } 
-            }
-        }
-
-        private void btnMusteriDetay_Click(object sender, RoutedEventArgs e)
-        {
-            if (selectedCustomer != null)
-            {
-                CustomerAdd.CustomerAdd customerDetails = new CustomerAdd.CustomerAdd(selectedCustomer,true);
-                customerDetails.ShowDialog();
-                BindGrid();
-            }
-        }
-
-       
-        private void dgMusteriListesi_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;
-            
-        }
-        public CustomerContract FilterContract;
-
-        private void btnFiltrele_Click(object sender, RoutedEventArgs e)
-        {
-            int? id = null;
-            int? educationlvid = null;
-            int? jobid = null;
-            
-            if (tbFilterbyId.Text != "")
-            {
-                id = Convert.ToInt32(tbFilterbyId.Text);
-            }
-            
-            if(cbFilterByEducationLvId.SelectedIndex != -1)
-            {
-                educationlvid = cbFilterByEducationLvId.SelectedIndex;
-            }
-
-            if(cbFilterByJobId.SelectedIndex != -1)
-            {
-                jobid = cbFilterByJobId.SelectedIndex;
-            }
-
-            CustomerContract customerProperties = new CustomerContract() {
-                CustomerId = id,
-                CitizenshipId = tbFilterbyCitizenshipId.Text,
-                CustomerName = tbFilterbyName.Text,
-                CustomerLastName = tbFilterbySurname.Text,
-                DateOfBirth = (DateTime)dpFilterbyDateOfBirth.SelectedDate.GetValueOrDefault(),
-                PlaceOfBirth = tbFilterbyPlaceOfBirth.Text,
-                EducationLvId = educationlvid,
-                JobId = jobid,
-                FatherName = tbFilterbyFatherName.Text,
-                MotherName = tbFilterByMotherName.Text,
-            };
-
-            dgMusteriListesi.ItemsSource = FilterEngine(customerProperties);
-
-
-            //if (tbFilterbyId.Text != "")
-            //{
-            //    int id = ;
-            //    dgMusteriListesi.ItemsSource = SearchEngine(id);
-            //}
-            //else
-            //{
-            //    dgMusteriListesi.ItemsSource = SearchEngine(tbFilterbyName.Text, tbFilterbySurname.Text, tbFilterbyPlaceOfBirth.Text, tbFilterbyCitizenshipId.Text, dpFilterbyDateOfBirth.SelectedDate.GetValueOrDefault());
-            //}
-        }
-
-        private List<CustomerContract> FilterEngine(CustomerContract _contract)
+        private ResponseBase FilterEngine(CustomerContract _contract)
         {
             var connect = new Connector.Banking.Connect();
             var request = new CustomerRequest();
@@ -238,40 +171,53 @@ namespace BOA.UI.Banking.CustomerList
 
             var response = connect.Execute(request);
 
+            return response;
+        }
+        #endregion
+
+        #region Button Operations
+        private void btnMusteriSil_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void btnMusteriDetay_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgMusteriListesi.SelectedItem == null) return;
+            SelectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;
+            CustomerAdd.CustomerAdd customerAdd = new CustomerAdd.CustomerAdd(SelectedCustomer, true); //true false gönderme kalkacak
+            customerAdd.ShowDialog();
+        }
+
+        private void btnFiltrele_Click(object sender, RoutedEventArgs e)
+        {
+            var response = FilterEngine(FilterContract);
             if (response.IsSuccess)
             {
-                var _customersList = (List<CustomerContract>) response.DataContract;
-                return _customersList;
+                var responseCustomers = (List<CustomerContract>)response.DataContract;
+                AllCustomers = responseCustomers;
             }
-            return new List<CustomerContract>();
+            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
         }
 
         private void btnMusteriEkle_Click(object sender, RoutedEventArgs e)
         {
             CustomerAdd.CustomerAdd addNewCustomer = new CustomerAdd.CustomerAdd();
             addNewCustomer.ShowDialog();
-            BindGrid();
-        }
-
-        private void tbFilterbyId_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void btnTemizle_Click(object sender, RoutedEventArgs e)
         {
-          //  FilterContract = new CustomerContract();
-            tbFilterbyCitizenshipId.Text = "";
-            tbFilterbyFatherName.Text = "";
-            tbFilterbyId.Text = "";
-            tbFilterByMotherName.Text = "";
-            tbFilterbyName.Text = "";
-            tbFilterbyPlaceOfBirth.Text = "";
-            tbFilterbySurname.Text = "";
-            dpFilterbyDateOfBirth.SelectedDate = default;
-            cbFilterByEducationLvId.SelectedIndex = -1;
-            cbFilterByJobId.SelectedIndex = -1;
+            FilterContract = new CustomerContract();
         }
+        #endregion
+
+        #region regex operations
+        private void tbFilterbyId_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9]+");
+            e.Handled = regex.IsMatch(e.Text);
+        } 
+        #endregion
     }
 }

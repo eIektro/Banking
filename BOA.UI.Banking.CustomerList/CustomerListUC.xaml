@@ -5,8 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerList"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="White">
-
+             d:DesignHeight="450" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="White" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Jobs" Source="{Binding Jobs}"></CollectionViewSource>
+        <CollectionViewSource x:Key="EducationLevels" Source="{Binding EducationLevels}"></CollectionViewSource>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -39,57 +42,57 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Id" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
+                        <TextBox x:Name="tbFilterbyId" Text="{Binding FilterContract.Id,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="İsim" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyName" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyName" Text="{Binding FilterContract.CustomerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Soyisim" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbySurname" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbySurname" Text="{Binding FilterContract.CustomerLastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Anne Adı" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterByMotherName" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterByMotherName" Text="{Binding FilterContract.MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Baba Adı" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyFatherName" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyFatherName" Text="{Binding FilterContract.FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Doğum Yeri" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Text="{Binding FilterContract.PlaceOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="TCKN" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyCitizenshipId" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyCitizenshipId" Text="{Binding FilterContract.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Doğum Tarihi" FontSize="11"></Label>
-                        <DatePicker x:Name="dpFilterbyDateOfBirth" Width="120" HorizontalAlignment="Center"></DatePicker>
+                        <DatePicker x:Name="dpFilterbyDateOfBirth" Width="120" SelectedDate="{Binding FilterContract.DateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Center"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Meslek" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterByJobId" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterByJobId" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedIndex="{Binding FilterContract.JobId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="JobName" Width="120" HorizontalAlignment="Center"></ComboBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Eğitim Düzeyi:" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterByEducationLvId" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterByEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedIndex="{Binding FilterContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Width="120" HorizontalAlignment="Center"></ComboBox>
                     </StackPanel>
 
                     <!--Doğum Tarihi Büyüktür Küçüktür Hesabıyla Gelecek-->
                 </StackPanel>
             </Grid>
 
-            <DataGrid SelectionChanged="dgMusteriListesi_SelectionChanged" Grid.Column="1"  IsReadOnly="True" Height="440" DataContext="{Binding CustomerContract}" ItemsSource="{Binding CustomerContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
+            <DataGrid Grid.Column="1"  IsReadOnly="True" Height="440" ItemsSource="{Binding AllCustomers,Mode=TwoWay}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -135,7 +138,7 @@
 
                 <DataGrid.Columns>
 
-                    <DataGridTextColumn Header="  ID  " Binding="{Binding XPath= FilterContract.CustomerId,Mode=TwoWay}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  ID  " Binding="{Binding CustomerId,Mode=TwoWay}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  TCKN  " Binding="{Binding CitizenshipId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  İsim  " Binding="{Binding CustomerName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Soyisim  " Binding="{Binding CustomerLastName}"></DataGridTextColumn>
@@ -143,8 +146,8 @@
                     <DataGridTextColumn Header="  Baba  " Binding="{Binding FatherName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Doğum Yeri  " Binding="{Binding PlaceOfBirth}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn Header="  Meslek  " x:Name="cbcJob" ItemsSource="{Binding}" SelectedValueBinding="{Binding JobId}" SelectedValuePath="Id" DisplayMemberPath="JobName"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="  Eğitim Düzeyi  " x:Name="cbcEducationLv" ItemsSource="{Binding}" SelectedValueBinding="{Binding EducationLvId}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="  Meslek  " x:Name="cbcJob" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedValueBinding="{Binding JobId}" SelectedValuePath="Id" DisplayMemberPath="JobName"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="  Eğitim Düzeyi  " x:Name="cbcEducationLv" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedValueBinding="{Binding EducationLvId}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel"></DataGridComboBoxColumn>
                     
                     <!--<DataGridTextColumn Header="Soyadi" Binding="{Binding JobId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Soyadi" Binding="{Binding EducationLevelId}"></DataGridTextColumn>-->
