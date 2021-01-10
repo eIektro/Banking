@@ -196,15 +196,6 @@ namespace BOA.UI.Banking.AccountList
             return response;
         }
 
-        private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
-        {
-            if (dgAccountList.SelectedItem == null) return;
-            SelectedAccount = (AccountContract)dgAccountList.SelectedItem;
-            AccountAdd.AccountAdd accountAdd = new AccountAdd.AccountAdd(SelectedAccount);
-            accountAdd.ShowDialog();
-            GetAllAccounts();
-        }
-
         private ResponseBase FilterEngine(AccountContract _contract)
         {
             var connect = new Connector.Banking.Connect();
@@ -249,6 +240,14 @@ namespace BOA.UI.Banking.AccountList
         #endregion
 
         #region Button Operations
+
+        private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
+        {
+            if (dgAccountList.SelectedItem == null) return;
+            SelectedAccount = (AccountContract)dgAccountList.SelectedItem;
+            AccountAdd.AccountAdd accountAdd = new AccountAdd.AccountAdd(SelectedAccount);
+            accountAdd.ShowDialog();
+        }
 
         private void btnHesapEkle_Click(object sender, RoutedEventArgs e)
         {

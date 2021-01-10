@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.BranchList"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Cities" Source="{Binding Cities}"></CollectionViewSource>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -38,44 +41,44 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Id" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyId" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyId" Text="{Binding FilterContract.Id,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Şube İsmi" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyName" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyName" Text="{Binding FilterContract.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Şehir" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterbyCityId" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterbyCityId" ItemsSource="{Binding Source={StaticResource Cities}}" SelectedIndex="{Binding FilterContract.CityId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="id" DisplayMemberPath="name" Width="120" HorizontalAlignment="Center"></ComboBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Açılış Tarihi" FontSize="11"></Label>
-                        <DatePicker x:Name="dpFilterbyDateOfLaunch" Width="120" HorizontalAlignment="Center"></DatePicker>
+                        <DatePicker x:Name="dpFilterbyDateOfLaunch" Width="120" SelectedDate="{Binding FilterContract.DateOfLaunch,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Center"></DatePicker>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Telefon:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyPhoneNumber" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyPhoneNumber" Text="{Binding FilterContract.PhoneNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="e-Posta Adresi" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyEmail" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyEmail" Text="{Binding FilterContract.MailAdress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Adres" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyAdress" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyAdress" Text="{Binding FilterContract.Adress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
 
                 </StackPanel>
             </Grid>
 
-            <DataGrid SelectionChanged="dgBranchList_SelectionChanged" Grid.Column="1"  IsReadOnly="True" Height="440" DataContext="{Binding BranchContract}" ItemsSource="{Binding BranchContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgBranchList">
+            <DataGrid Grid.Column="1"  IsReadOnly="True" Height="440" ItemsSource="{Binding Branches,Mode=TwoWay}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgBranchList">
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -122,7 +125,7 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="  ID  " Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn Header="  Şehir  " x:Name="dgccCity" ItemsSource="{Binding}" SelectedValueBinding="{Binding CityId}" SelectedValuePath="id" DisplayMemberPath="name" ></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="  Şehir  " x:Name="dgccCity" ItemsSource="{Binding Source={StaticResource Cities}}" SelectedValueBinding="{Binding CityId}" SelectedValuePath="id" DisplayMemberPath="name" ></DataGridComboBoxColumn>
                     <DataGridTextColumn Header="  Şube Adı  " Binding="{Binding BranchName}"></DataGridTextColumn>
                     <!--<DataGridTextColumn Header="  Şehir  " Binding="{Binding CityId}"></DataGridTextColumn>-->
                     <DataGridTextColumn Header="  Açılma Tarihi  " Binding="{Binding DateOfLaunch,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
