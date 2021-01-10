@@ -12,6 +12,7 @@ namespace BOA.Business.Banking
     {
         public ResponseBase AddNewBranch(BranchRequest request)
         {
+            request.DataContract.DateOfLaunch = DateTime.Now;
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] parameters = new SqlParameter[] {
                 new SqlParameter("@BranchName",request.DataContract.BranchName),

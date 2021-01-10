@@ -1,7 +1,9 @@
 ﻿using BOA.Types.Banking;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,172 +22,116 @@ namespace BOA.UI.Banking.BranchAdd
     /// <summary>
     /// Interaction logic for BranchAddUC.xaml
     /// </summary>
-    public partial class BranchAddUC : UserControl
+    public partial class BranchAddUC : UserControl, INotifyPropertyChanged
     {
-        public Boolean isEditing = false;
-        public BranchContract editingBranch;
-
         public BranchAddUC()
         {
+            #region responses
+            var _AllCitiesResponse = GetAllCities();
+            if (_AllCitiesResponse.IsSuccess)
+            {
+                Cities = (List<CityContract>)_AllCitiesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllCitiesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            } 
+            #endregion
+
             InitializeComponent();
-            BindCbbox();
         }
 
-        //public BranchAdd(BranchContract _editingBranch)
-        //{
-        //    InitializeComponent();
-        //    isEditing = true;
-        //    editingBranch = _editingBranch;
-        //    tbBranchName.Text = editingBranch.BranchName;
-        //    tbBranchAdress.Text = editingBranch.Adress;
-        //    BindCbbox();
-        //    cbCityId.SelectedIndex = (int)editingBranch.CityId;
-        //    tbBranchEmailAdress.Text = editingBranch.MailAdress;
-        //    tbBranchPhoneNumber.Text = editingBranch.PhoneNumber;
-        //    disableUserInputs(true);
-        //    btnDuzenle.Visibility = Visibility.Visible;
-        //    btnKaydet.Visibility = Visibility.Hidden;
-        //}
-
-        public void disableUserInputs(bool wannaDisable)
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            tbBranchName.IsEnabled = !wannaDisable;
-            tbBranchAdress.IsEnabled = !wannaDisable;
-            cbCityId.IsEnabled = !wannaDisable;
-            tbBranchEmailAdress.IsEnabled = !wannaDisable;
-            tbBranchPhoneNumber.IsEnabled = !wannaDisable;
+            Branch = new BranchContract();
         }
 
-        public void retrieveInputsAfterGiveUp()
+        #region event handling
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            tbBranchName.Text = editingBranch.BranchName;
-            tbBranchAdress.Text = editingBranch.Adress;
-            cbCityId.SelectedIndex = (int)editingBranch.CityId;
-            tbBranchEmailAdress.Text = editingBranch.MailAdress;
-            tbBranchPhoneNumber.Text = editingBranch.PhoneNumber;
-            btnDuzenle.Visibility = Visibility.Visible;
-            btnKaydet.Visibility = Visibility.Hidden;
-            btnVazgec.Visibility = Visibility.Hidden;
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
+        }
+        #endregion
+
+        #region getters and setters
+        private List<CityContract> _Cities;
+        public List<CityContract> Cities
+        {
+            get { return this._Cities; }
+            set
+            {
+                this._Cities = value;
+                OnPropertyChanged("Cities");
+            }
         }
 
-        public void BindCbbox()
+        private BranchContract _Branch;
+        public BranchContract Branch
         {
-            Connector.Banking.Connect connect = new Connector.Banking.Connect();
-            BranchRequest request = new BranchRequest();
+            get { return this._Branch; }
+            set
+            {
+                this._Branch = value;
+                OnPropertyChanged("Branch");
+            }
+        }
+        #endregion
 
-            request.MethodName = "getAllCities";
+        #region db operations
+        private ResponseBase AddBranch(BranchContract _contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new BranchRequest();
+
+            request.MethodName = "AddNewBranch";
+            request.DataContract = _contract;
 
             var response = connect.Execute(request);
 
-            if (response.IsSuccess)
-            {
-                var cities = (List<CityContract>)response.DataContract;
-                foreach (CityContract x in cities)
-                {
-                    cbCityId.Items.Add(x.name);
-                }
-            }
+            return response;
         }
 
-        private void btnKaydet_Click(object sender, RoutedEventArgs e)
+        private ResponseBase GetAllCities()
         {
-
-            if (isEditing == true)
-            {
-                if (MessageBox.Show("Şube bilgileri güncellensin mi?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    Connector.Banking.Connect connect = new Connector.Banking.Connect();
-                    BranchRequest request = new BranchRequest();
-                    request.DataContract = new BranchContract()
-                    {
-                        Id = editingBranch.Id,
-                        Adress = tbBranchAdress.Text,
-                        MailAdress = tbBranchEmailAdress.Text,
-                        BranchName = tbBranchName.Text,
-                        CityId = cbCityId.SelectedIndex,
-                        PhoneNumber = tbBranchPhoneNumber.Text
-                    };
-                    request.MethodName = "UpdateBranchDetailsById";
-
-                    var response = connect.Execute(request);
-
-                    if (response.IsSuccess)
-                    {
-                        MessageBox.Show("Şube güncellenmiştir");
-                        
-                    }
-                }
-            }
-
-            if (isEditing == false)
-            {
-                if (MessageBox.Show("Şube veri tabanına kaydedilsin mi?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    BranchContract yeniSube = new BranchContract()
-                    {
-                        BranchName = tbBranchName.Text,
-                        Adress = tbBranchAdress.Text,
-                        CityId = cbCityId.SelectedIndex,
-                        DateOfLaunch = DateTime.Now,
-                        MailAdress = tbBranchEmailAdress.Text,
-                        PhoneNumber = tbBranchPhoneNumber.Text,
-
-                    };
-
-
-                    Connector.Banking.Connect connect = new Connector.Banking.Connect();
-                    BranchRequest request = new BranchRequest();
-
-                    request.DataContract = yeniSube;
-                    request.MethodName = "AddNewBranch";
-
-                    var response = connect.Execute(request);
-
-                    if (response.IsSuccess)
-                    {
-                        var id = response.DataContract;
-
-                        MessageBox.Show($"Şube {id} id'si ile oluşturuldu.");
-
-                        ClearUserInputs();
-                    }
-
-
-                }
-            }
+            var connect = new Connector.Banking.Connect();
+            var request = new BranchRequest();
+            request.MethodName = "getAllCities";
+            var response = connect.Execute(request);
+            return response;
         }
+        #endregion
 
-        private void ClearUserInputs()
-        {
-            tbBranchName.Text = "";
-            tbBranchAdress.Text = "";
-            cbCityId.SelectedIndex = -1;
-
-            tbBranchEmailAdress.Text = "";
-            tbBranchPhoneNumber.Text = "";
-        }
-
+        #region regex
         private void tbBranchPhoneNumber_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
         }
+        #endregion
 
-        private void btnDuzenle_Click(object sender, RoutedEventArgs e)
+        #region button operations
+        private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            disableUserInputs(false);
-            btnKaydet.Visibility = Visibility.Visible;
-            btnVazgec.Visibility = Visibility.Visible;
-            btnDuzenle.Visibility = Visibility.Hidden;
-        }
+            var response = AddBranch(Branch);
+            if (response.IsSuccess)
+            {
+                MessageBox.Show($"Şube eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                Branch = new BranchContract();
+            }
+            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
+        } 
+        #endregion
 
-        private void btnVazgec_Click(object sender, RoutedEventArgs e)
-        {
-            disableUserInputs(true);
-            retrieveInputsAfterGiveUp();
-            btnVazgec.Visibility = Visibility.Hidden;
-            btnKaydet.Visibility = Visibility.Hidden;
-            btnDuzenle.Visibility = Visibility.Visible;
-        }
+        //public void disableUserInputs(bool wannaDisable)
+        //{
+        //    tbBranchName.IsEnabled = !wannaDisable;
+        //    tbBranchAdress.IsEnabled = !wannaDisable;
+        //    cbCityId.IsEnabled = !wannaDisable;
+        //    tbBranchEmailAdress.IsEnabled = !wannaDisable;
+        //    tbBranchPhoneNumber.IsEnabled = !wannaDisable;
+        //}
     }
 }
