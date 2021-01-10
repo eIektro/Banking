@@ -47,13 +47,11 @@
     <Compile Include="BranchRequest.cs" />
     <Compile Include="CityContract.cs" />
     <Compile Include="CurrencyContract.cs" />
-    <Compile Include="Customer\CustomerEmailRequest.cs" />
     <Compile Include="Customer\CustomerPhoneContract.cs" />
     <Compile Include="Customer\CustomerContract.cs" />
     <Compile Include="Customer\CustomerEducationLevelContract.cs" />
     <Compile Include="Customer\CustomerEmailContract.cs" />
     <Compile Include="Customer\CustomerJobContract.cs" />
-    <Compile Include="Customer\CustomerPhoneRequest.cs" />
     <Compile Include="Customer\CustomerRequest.cs" />
     <Compile Include="EducationLevelContract.cs" />
     <Compile Include="Enums\EmailTypes.cs" />

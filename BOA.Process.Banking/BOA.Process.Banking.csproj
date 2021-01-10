@@ -44,8 +44,6 @@
     <Compile Include="Account.cs" />
     <Compile Include="Branch.cs" />
     <Compile Include="Customer.cs" />
-    <Compile Include="CustomerEmail.cs" />
-    <Compile Include="CustomerPhone.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

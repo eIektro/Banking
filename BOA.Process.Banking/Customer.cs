@@ -1,5 +1,4 @@
 ﻿using BOA.Types.Banking;
-using BOA.Types.Banking.Customer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,41 +52,7 @@ namespace BOA.Process.Banking
         public ResponseBase CustomerAdd(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
-           
-            var response = customerBusiness.CustomerAdd(request);
-            CustomerContract contract = (CustomerContract)response.DataContract;
-
-
-
-            /* TO-DO: business classına taşınacak */
-            if (request.DataContract.PhoneNumbers != null)
-            {
-                Process.Banking.CustomerPhone phoneProcess = new CustomerPhone();
-
-                foreach(CustomerPhoneContract customerPhone in request.DataContract.PhoneNumbers)
-                {
-                    customerPhone.CustomerId = contract.CustomerId;
-                    CustomerPhoneRequest customerPhoneRequest = new CustomerPhoneRequest();
-                    customerPhoneRequest.DataContract = customerPhone;
-                    var responsePhoneAdd = phoneProcess.PhoneAdd(customerPhoneRequest);
-                }
-            }
-
-            if (request.DataContract.Emails != null)
-            {
-                Process.Banking.CustomerEmail emailProcess = new Process.Banking.CustomerEmail();
-
-                foreach (CustomerEmailContract x in request.DataContract.Emails)
-                {
-                    x.CustomerId = contract.CustomerId;
-                    CustomerEmailRequest customerEmailRequest = new CustomerEmailRequest();
-                    customerEmailRequest.DataContract = x;
-                    var responseEmailAdd = emailProcess.EmailAdd(customerEmailRequest);
-                }
-            }
-
-
-
+           var response = customerBusiness.CustomerAdd(request);
             return response;
         }
 

@@ -8,7 +8,6 @@ using System.Text;
 using System.Threading.Tasks;
 using BOA.Business.Banking;
 using BOA.Types.Banking;
-using BOA.Types.Banking.Customer;
 
 namespace BOA.Business.Banking
 {
@@ -66,6 +65,8 @@ namespace BOA.Business.Banking
         }
         public ResponseBase CustomerAdd(CustomerRequest request)
         {
+            Business.Banking.Email emailBusiness = new Email();
+            Business.Banking.Phone phoneBusiness = new Phone();
             DbOperation dbOperation = new DbOperation();
 
             SqlParameter[] parameters = new SqlParameter[] {
@@ -84,7 +85,38 @@ namespace BOA.Business.Banking
             try
             {
                 int id = Convert.ToInt32(dbOperation.spExecuteScalar("CUS.ins_AddNewCustomer", parameters));
+                if (request.DataContract.Emails != null)
+                {
+                    try
+                    {
+                        foreach (CustomerEmailContract email in request.DataContract.Emails)
+                        {
+                            emailBusiness.EmailAdd(new CustomerEmailContract() { CustomerId = id, EmailType = email.EmailType, MailAdress = email.MailAdress });
+                        }
 
+                    }
+                    catch (Exception)
+                    {
+                        return new ResponseBase { IsSuccess = false, ErrorMessage = "EmailAdd operasyonu başarısız!" };
+                    }
+                }
+
+                if (request.DataContract.PhoneNumbers != null)
+                {
+                    try
+                    {
+                        foreach (CustomerPhoneContract phone in request.DataContract.PhoneNumbers)
+                        {
+                            phoneBusiness.PhoneAdd(new CustomerPhoneContract() { CustomerId = id, PhoneType = phone.PhoneType, PhoneNumber = phone.PhoneNumber });
+                        }
+                    
+                    }
+                    catch (Exception)
+                    {
+                        return new ResponseBase { IsSuccess = false, ErrorMessage = "PhoneNumberAdd operasyonu başarısız!" };
+                    }
+                }
+                
                 return new ResponseBase { DataContract = new CustomerContract { CustomerId = id }, IsSuccess = true };
             }
             catch (Exception)

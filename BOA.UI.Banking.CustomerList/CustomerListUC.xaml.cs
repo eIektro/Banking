@@ -1,5 +1,4 @@
 ﻿using BOA.Types.Banking;
-using BOA.Types.Banking.Customer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

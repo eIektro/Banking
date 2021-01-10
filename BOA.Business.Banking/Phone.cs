@@ -1,5 +1,4 @@
 ﻿using BOA.Types.Banking;
-using BOA.Types.Banking.Customer;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,14 +10,14 @@ namespace BOA.Business.Banking
 {
     public class Phone
     {
-        public ResponseBase PhoneAdd(CustomerPhoneRequest request)
+        public ResponseBase PhoneAdd(CustomerPhoneContract phoneContract)
         {
             DbOperation dbOperation = new DbOperation();
 
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@CustomerId",request.DataContract.CustomerId),
-                new SqlParameter("@PhoneNumber",request.DataContract.PhoneNumber),
-                new SqlParameter("@PhoneType",request.DataContract.PhoneType)
+                new SqlParameter("@CustomerId",phoneContract.CustomerId),
+                new SqlParameter("@PhoneNumber",phoneContract.PhoneNumber),
+                new SqlParameter("@PhoneType",phoneContract.PhoneType)
 
             };
 

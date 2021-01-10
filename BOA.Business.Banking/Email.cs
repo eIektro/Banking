@@ -1,5 +1,4 @@
 ﻿using BOA.Types.Banking;
-using BOA.Types.Banking.Customer;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -11,14 +10,14 @@ namespace BOA.Business.Banking
 {
     public class Email
     {
-        public ResponseBase EmailAdd(CustomerEmailRequest request)
+        public ResponseBase EmailAdd(CustomerEmailContract emailContract)
         {
             DbOperation dbOperation = new DbOperation();
 
             SqlParameter[] parameters = new SqlParameter[] {
-                new SqlParameter("@CustomerId",request.DataContract.CustomerId),
-                new SqlParameter("@EmailType",request.DataContract.EmailType),
-                new SqlParameter("@MailAdress",request.DataContract.MailAdress)
+                new SqlParameter("@CustomerId",emailContract.CustomerId),
+                new SqlParameter("@EmailType",emailContract.EmailType),
+                new SqlParameter("@MailAdress",emailContract.MailAdress)
 
             };
 
