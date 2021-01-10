@@ -101,6 +101,7 @@ namespace BOA.Business.Banking
 
         public ResponseBase AddNewAccount(AccountRequest request)
         {
+            request.DataContract.DateOfFormation = DateTime.Now;
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] sqlParameters = new SqlParameter[] { 
                 new SqlParameter("@BranchId",request.DataContract.BranchId),
