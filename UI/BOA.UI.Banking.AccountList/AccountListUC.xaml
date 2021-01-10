@@ -3,9 +3,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BOA.UI.Banking.AccountList"
+             xmlns:local="clr-namespace:BOA.UI.Banking.AccountList" 
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded">
+             d:DesignHeight="450" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Currencies" Source="{Binding Currencies}"></CollectionViewSource>
+        <CollectionViewSource x:Key="Users" Source="{Binding Users}"></CollectionViewSource>
+        <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
+    </UserControl.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -32,7 +38,7 @@
                     <ColumnDefinition Width="63*"/>
                     <ColumnDefinition Width="137*"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Orientation="Vertical" Grid.ColumnSpan="2" >
+                <StackPanel Orientation="Vertical" Grid.ColumnSpan="2">
                     <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
@@ -42,59 +48,68 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Id:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
+                        <TextBox x:Name="tbFilterbyId" Text="{Binding FilterContract.Id,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Şube:" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterByBranchId" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterByBranchId" ItemsSource="{Binding Source={StaticResource Branches},Mode=OneTime}" SelectedIndex="{Binding FilterContract.BranchId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="BranchName"  Width="120" HorizontalAlignment="Center">
+                            
+                        <!--<ComboBox.ItemsSource>
+                                <CompositeCollection>
+                                    <ComboBoxItem IsEnabled="False">Lütfen Seçiniz</ComboBoxItem>
+                                    <CollectionContainer Collection="{Binding Source={StaticResource Branches}}"></CollectionContainer>
+                                </CompositeCollection>
+                            </ComboBox.ItemsSource>-->
+                        </ComboBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Müşteri Id:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyCustomerId" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyCustomerId_PreviewTextInput"></TextBox>
+                        <TextBox x:Name="tbFilterbyCustomerId" Text="{Binding FilterContract.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyCustomerId_PreviewTextInput"></TextBox>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Ek No:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterByAdditionNo" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterByAdditionNo" Text="{Binding FilterContract.AdditionNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Bakiye" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyBalance" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyBalance_PreviewTextInput"></TextBox>
+                        <TextBox x:Name="tbFilterbyBalance" Text="{Binding FilterContract.Balance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyBalance_PreviewTextInput"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Döviz Cinsi:" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterbyCurrencyId" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterbyCurrencyId" ItemsSource="{Binding Source={StaticResource Currencies}}" SelectedIndex="{Binding FilterContract.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="id" DisplayMemberPath="name" Width="120" HorizontalAlignment="Center"></ComboBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Oluşturulma:" FontSize="11"></Label>
-                        <DatePicker x:Name="dpFilterbyDateOfFormation" Width="120" HorizontalAlignment="Center"></DatePicker>
+                        <DatePicker x:Name="dpFilterbyDateOfFormation" SelectedDate="{Binding FilterContract.DateOfFormation,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></DatePicker>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="IBAN:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyIban" Width="120" HorizontalAlignment="Center"></TextBox>
+                        <TextBox x:Name="tbFilterbyIban" Text="{Binding FilterContract.IBAN,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Aktif:" FontSize="11"></Label>
-                        <CheckBox x:Name="cbIsActive" Width="120" HorizontalAlignment="Center" Height="15"/>
+                        <CheckBox x:Name="cbIsActive" IsChecked="{Binding FilterContract.IsActive,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" Height="15"/>
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Oluşturan:" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterbyFormedUserId" Width="120" HorizontalAlignment="Center"/>
+                        <ComboBox x:Name="cbFilterbyFormedUserId" ItemsSource="{Binding Source={StaticResource Users}}" SelectedIndex="{Binding FilterContract.FormedUserId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="LoginName" Width="120" HorizontalAlignment="Center"/>
                     </StackPanel>
 
 
                 </StackPanel>
             </Grid>
 
-            <DataGrid x:Name="dgAccountList" Grid.Column="1" SelectionChanged="dgAccountList_SelectionChanged" IsReadOnly="True" Height="440" DataContext="{Binding AccountContract}" ItemsSource="{Binding AccountContract}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+            <DataGrid IsReadOnly="True" x:Name="dgAccountList" ItemsSource="{Binding AllAccounts,Mode=TwoWay}" AutoGenerateColumns="False" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Top" Height="440">
+                
 
                 <DataGrid.Resources>
                     <Style TargetType="{x:Type Border}">
@@ -111,12 +126,8 @@
                         <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
 
                     </Style>
-                    <!--<Style TargetType="{x:Type DataGridTextColumn}">
-                    <Setter Property="FontSize" Value="12"></Setter>
                     
-                </Style>-->
-
-                    <!-- Datagrid içeriğinin olduğu satırların borderlerı çok kaba duruyor. İlgilenilecek. -->
+                
 
                 </DataGrid.Resources>
                 <DataGrid.RowStyle>
@@ -128,9 +139,64 @@
                     </Style>
                 </DataGrid.RowStyle>
 
+                
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="  ID  " Binding="{Binding Id}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn x:Name="dgccBranch" Header="  Şube  " ItemsSource="{Binding Source={StaticResource Branches}}" SelectedValueBinding="{Binding Path=BranchId}" SelectedValuePath="Id" DisplayMemberPath="BranchName"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Müşteri No  " Binding="{Binding CustomerId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Ek No  " Binding="{Binding AdditionNo}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn x:Name="dgccCurrency" Header="  Döviz  " ItemsSource="{Binding Source={StaticResource Currencies}}" SelectedValueBinding="{Binding Path=CurrencyId}" SelectedValuePath="id" DisplayMemberPath="name"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Bakiye  " Binding="{Binding Balance}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Oluşturulma  " Binding="{Binding DateOfFormation,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  IBAN  " Binding="{Binding IBAN}"></DataGridTextColumn>
+                    <DataGridCheckBoxColumn Header="  Aktif  " Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
+                    <DataGridComboBoxColumn x:Name="dgccFormedUser" Header="  Oluşturan  " ItemsSource="{Binding Source={StaticResource Users}}" SelectedValueBinding="{Binding Path=FormedUserId}" SelectedValuePath="Id" DisplayMemberPath="LoginName"></DataGridComboBoxColumn>
+
+                </DataGrid.Columns>
+                
+            
+
+            </DataGrid>
+
+            <!--<DataGrid x:Name="dgAccountList" Grid.Column="1" SelectionChanged="dgAccountList_SelectionChanged" IsReadOnly="True" Height="440" DataContext="{Binding AllAccounts}" ItemsSource="{Binding AllAccounts}" 
+          AutoGenerateColumns="True" VerticalAlignment="Top" HorizontalAlignment="Stretch">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+                        <Setter Property="BorderBrush" Value="#F2F2F2"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Height" Value="30"></Setter>
+                        <Setter Property="FontSize" Value="13"></Setter>
+
+                        <Setter Property="Background" Value="AliceBlue"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+
+                    </Style>
+                    --><!--<Style TargetType="{x:Type DataGridTextColumn}">
+                    <Setter Property="FontSize" Value="12"></Setter>
+                    
+                </Style>-->
+
+                    <!-- Datagrid içeriğinin olduğu satırların borderlerı çok kaba duruyor. İlgilenilecek. --><!--
+
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        <Setter Property="Background" Value="#FEFAFC"></Setter>
+
+
+                    </Style>
+                </DataGrid.RowStyle>
+
+                --><!--<DataGrid.Columns>
+
+                    <DataGridTextColumn Header="  ID  " Binding="{Binding AllAccounts.Id}"></DataGridTextColumn>
                     <DataGridComboBoxColumn x:Name="dgccBranch" Header="  Şube  " ItemsSource="{Binding}" SelectedValueBinding="{Binding BranchId}" SelectedValuePath="Id" DisplayMemberPath="BranchName"></DataGridComboBoxColumn>
                     <DataGridTextColumn Header="  Müşteri No  " Binding="{Binding CustomerId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Ek No  " Binding="{Binding AdditionNo}"></DataGridTextColumn>
@@ -141,8 +207,8 @@
                     <DataGridCheckBoxColumn Header="  Aktif  " Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
                     <DataGridComboBoxColumn x:Name="dgccFormedUser" Header="  Oluşturan  " ItemsSource="{Binding}" SelectedValueBinding="{Binding FormedUserId}" SelectedValuePath="Id" DisplayMemberPath="LoginName"></DataGridComboBoxColumn>
 
-                </DataGrid.Columns>
-            </DataGrid>
+                </DataGrid.Columns>--><!--
+            </DataGrid>-->
 
 
 
