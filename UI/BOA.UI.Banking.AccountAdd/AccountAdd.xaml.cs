@@ -1,7 +1,9 @@
 ﻿using BOA.Types.Banking;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -20,157 +22,137 @@ namespace BOA.UI.Banking.AccountAdd
     /// <summary>
     /// Interaction logic for AccountAdd.xaml
     /// </summary>
-    public partial class AccountAdd : Window
+    public partial class AccountAdd : Window,INotifyPropertyChanged
     {
-        public AccountContract EditingAccount;
         public bool IsEditing;
 
-        public AccountAdd()
-        {
-            InitializeComponent();
-            BindCurrencyCB();
-            //FillBranchAutoCompleteBox();
-            BindBranchsCB();
-
-        }
-
-        public void BindBranchsCB()
-        {
-            var connect = new Connector.Banking.Connect();
-            var request = new BranchRequest();
-
-            request.MethodName = "GetAllBranches";
-
-            var response = (ResponseBase)connect.Execute(request);
-
-            if (response.IsSuccess)
-            {
-                var branches = (List<BranchContract>)response.DataContract;
-
-                //cbBranchId.ItemsSource = branches;
-
-                foreach (BranchContract x in branches)
-                {
-                    cbBranchId.Items.Add(x.BranchName);
-                }
-            }
-        }
 
         public AccountAdd(AccountContract _editingAccount)
         {
+            Account = _editingAccount;
+
+            #region responses
+            var _AllCurrenciesResponse = GetAllCurrencies();
+            if (_AllCurrenciesResponse.IsSuccess)
+            {
+                Currencies = (List<CurrencyContract>)_AllCurrenciesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllCurrenciesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var _AllBranchesResponse = GetAllBranchs();
+            if (_AllBranchesResponse.IsSuccess)
+            {
+                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            #endregion
+
             InitializeComponent();
-            BindCurrencyCB();
-            BindBranchsCB();
-            EditingAccount = _editingAccount;
-            IsEditing = true;
-            tbAdditionNo.Text = EditingAccount.AdditionNo.ToString();
-            tbBalance.Text = EditingAccount.Balance.ToString();
-            cbBranchId.SelectedIndex = (int)EditingAccount.BranchId;
-            tbCustomerId.Text = EditingAccount.CustomerId.ToString();
-            tbIBAN.Text = EditingAccount.IBAN.ToString();
-            cbCurrencyId.SelectedIndex = (int)EditingAccount.CurrencyId;
-            cbIsActive.IsChecked = EditingAccount.IsActive;
+
             DisableUserInputs(true);
             btnDuzenle.Visibility = Visibility.Visible;
             btnKaydet.Visibility = Visibility.Hidden;
             btnVazgec.Visibility = Visibility.Hidden;
-            
-
-
         }
 
-        public void DisableUserInputs(bool WannaDisable)
+        private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            tbAdditionNo.IsEnabled = !WannaDisable;
-            tbBalance.IsEnabled = !WannaDisable;
-            cbBranchId.IsEnabled = !WannaDisable;
-            tbCustomerId.IsEnabled = !WannaDisable;
-            tbIBAN.IsEnabled = !WannaDisable;
-            cbCurrencyId.IsEnabled = !WannaDisable;
-            cbIsActive.IsEnabled = !WannaDisable;
+            //Account = new AccountContract();
         }
 
-        public void RetrieveDetailsAfterGiveUp()
+        #region event handling
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            tbAdditionNo.Text = EditingAccount.AdditionNo.ToString();
-            tbBalance.Text = EditingAccount.Balance.ToString();
-            cbBranchId.SelectedIndex = (int)EditingAccount.BranchId;
-            tbCustomerId.Text = EditingAccount.CustomerId.ToString();
-            tbIBAN.Text = EditingAccount.IBAN.ToString();
-            cbCurrencyId.SelectedIndex = (int)EditingAccount.CurrencyId;
-            cbIsActive.IsChecked = EditingAccount.IsActive;
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
+        #endregion
 
-        public void BindCurrencyCB()
+        #region getters and setters
+        private AccountContract _Account;
+        public AccountContract Account
         {
-            var connect = new Connector.Banking.Connect();
-            var request = new AccountRequest();
-
-            request.MethodName = "GetAllCurrencies";
-
-            var response = (ResponseBase)connect.Execute(request);
-
-            if (response.IsSuccess)
+            get
             {
-                var currencies = (List<CurrencyContract>)response.DataContract;
-
-                foreach(CurrencyContract x in currencies)
-                {
-                    cbCurrencyId.Items.Add(x.code);
-                }
+                return this._Account;
+            }
+            set
+            {
+                this._Account = value;
+                OnPropertyChanged("Account");
             }
         }
 
-        //public interface IYourViewModel
-        //{
-        //    IEnumerable<string> Names { get; set; }
-        //    string SelectedName { get; set; }
-        //}
-
-        //public class myViewModel /*: IYourViewModel*/
-        //{
-        //    public IEnumerable<string> Names { get; set; }
-
-
-        //    public string SelectedName { get; set; }
-
-
-        //}
-
-        public class BranchesViewModel
+        private List<BranchContract> _Branches;
+        public List<BranchContract> Branches
         {
-            public List<BranchContract> Branches;
-            public BranchContract SelectedBranch;
+            get { return this._Branches; }
+            set
+            {
+                this._Branches = value;
+                OnPropertyChanged("Branches");
+            }
         }
 
-        
+        private List<CurrencyContract> _Currencies;
+        public List<CurrencyContract> Currencies
+        {
+            get { return this._Currencies; }
+            set
+            {
+                this._Currencies = value;
+                OnPropertyChanged("Currencies");
+            }
+        }
+        #endregion
 
-        //public void FillBranchAutoCompleteBox() {
+        #region db operations
+        private ResponseBase GetAllCurrencies()
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new AccountRequest();
+            request.MethodName = "GetAllCurrencies";
+            var response = connect.Execute(request);
+            return response;
+        }
 
-        //    BranchesViewModel branchesViewModel = new BranchesViewModel();
+        private ResponseBase GetAllBranchs()
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new BranchRequest();
+            request.MethodName = "GetAllBranches";
+            var response = connect.Execute(request);
+            return response;
+        }
 
-        //    var connect = new BOA.Connector.Banking.Connect();
-        //    var request = new BOA.Types.Banking.BranchRequest();
+        private ResponseBase AddAccount(AccountContract contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new AccountRequest();
+            request.MethodName = "AddNewAccount";
+            request.DataContract = contract;
+            var response = connect.Execute(request);
+            return response;
+        }
+        #endregion
 
-        //    request.MethodName = "GetAllBranches";
+        #region regex
+        private void tbBalance_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            Regex regex = new Regex("[^0-9,]+");
+            e.Handled = regex.IsMatch(e.Text);
+        }
+        #endregion
 
-        //    var response = (ResponseBase)connect.Execute(request);
-
-
-        //    if (response.IsSuccess)
-        //    {
-        //        var branches = (List<BranchContract>)response.DataContract;
-        //        branchesViewModel.Branches = branches;
-        //        acbBranchId.ItemsSource = branchesViewModel.Branches;
-        //    }
-        //    else
-        //    {
-
-        //    }
-
-           
-        //}
-
+        #region button operations
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
 
@@ -178,85 +160,19 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Tasdik", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    decimal balance = 0;
-                    if(tbBalance.Text != "")
-                    {
-                        Decimal.TryParse(tbBalance.Text, out balance);
-                    }
-
-                    var connect = new Connector.Banking.Connect();
-                    var request = new AccountRequest();
-                    request.MethodName = "UpdateAccountDetailsById";
-                    request.DataContract = new AccountContract()
-                    {
-                        Id = EditingAccount.Id,
-                        CustomerId = Convert.ToInt32(tbCustomerId.Text),
-                        AdditionNo = Convert.ToInt32(tbAdditionNo.Text),
-                        CurrencyId = cbCurrencyId.SelectedIndex,
-                        Balance = balance,
-                        BranchId = (int)cbBranchId.SelectedIndex,
-                        IBAN = tbIBAN.Text,
-                        IsActive = (bool)cbIsActive.IsChecked,
-
-                    };
-
-                    if ((bool)!cbIsActive.IsChecked)
-                    {
-                        request.DataContract.DateOfDeactivation = DateTime.Now;
-                        
-                    }                   
-
-                    var response = connect.Execute(request);
-
+                    var response = AddAccount(Account);
                     if (response.IsSuccess)
                     {
-                        MessageBox.Show("Detaylar güncellendi.", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Information);
+                        MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                         Close();
+                    }
+                    else
+                    {
+                        MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
                     }
                 }
             }
 
-            if (IsEditing == false)
-            {
-                if (MessageBox.Show("Bilgileri girmiş olduğunuz hesap oluşturulsun mu?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
-                {
-                    decimal balance;
-                    bool parsedOk = decimal.TryParse(tbBalance.Text, out balance);
-
-                    var connect = new Connector.Banking.Connect();
-                    var request = new AccountRequest();
-                    request.MethodName = "AddNewAccount";
-                    request.DataContract = new AccountContract()
-                    {
-                        FormedUserId = Login.LoginScreen._userId,
-                        DateOfFormation = DateTime.Now,
-                        AdditionNo = Convert.ToInt32(tbAdditionNo.Text),
-                        IBAN = tbIBAN.Text,
-                        Balance = balance,
-                        BranchId = (int)cbBranchId.SelectedIndex,
-                        CurrencyId = cbCurrencyId.SelectedIndex,
-                        CustomerId = Convert.ToInt32(tbCustomerId.Text),
-                        IsActive = (bool)cbIsActive.IsChecked,
-
-                    };
-
-                    var response = connect.Execute(request);
-
-                    if (response.IsSuccess)
-                    {
-                        MessageBox.Show("Hesap kaydetme işlemi başarılı", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
-
-                    }
-                } 
-            }
-
-        }
-
-        private void tbBalance_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-            Regex regex = new Regex("[^0-9,]+");
-            e.Handled = regex.IsMatch(e.Text);
         }
 
         private void btnDuzenle_Click(object sender, RoutedEventArgs e)
@@ -269,11 +185,25 @@ namespace BOA.UI.Banking.AccountAdd
 
         private void btnVazgec_Click(object sender, RoutedEventArgs e)
         {
+            Account = new AccountContract();
+            DisableUserInputs(true);
             btnVazgec.Visibility = Visibility.Hidden;
             btnDuzenle.Visibility = Visibility.Visible;
             btnKaydet.Visibility = Visibility.Hidden;
-            DisableUserInputs(true);
-            RetrieveDetailsAfterGiveUp();
         }
+        #endregion
+
+        #region user inputs
+        public void DisableUserInputs(bool WannaDisable)
+        {
+            tbAdditionNo.IsReadOnly = WannaDisable;
+            tbBalance.IsReadOnly = WannaDisable;
+            cbBranchId.IsReadOnly = WannaDisable;
+            tbCustomerId.IsReadOnly = WannaDisable;
+            tbIBAN.IsReadOnly = WannaDisable;
+            cbCurrencyId.IsReadOnly = WannaDisable;
+            cbIsActive.IsHitTestVisible = !WannaDisable;
+        } 
+        #endregion
     }
 }
