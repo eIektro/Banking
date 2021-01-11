@@ -133,11 +133,11 @@ namespace BOA.UI.Banking.AccountAdd
             return response;
         }
 
-        private ResponseBase AddAccount(AccountContract contract)
+        private ResponseBase UpdateAccount(AccountContract contract)
         {
             var connect = new Connector.Banking.Connect();
             var request = new AccountRequest();
-            request.MethodName = "AddNewAccount";
+            request.MethodName = "UpdateAccountDetailsById";
             request.DataContract = contract;
             var response = connect.Execute(request);
             return response;
@@ -160,7 +160,7 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Tasdik", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var response = AddAccount(Account);
+                    var response = UpdateAccount(Account);
                     if (response.IsSuccess)
                     {
                         MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);

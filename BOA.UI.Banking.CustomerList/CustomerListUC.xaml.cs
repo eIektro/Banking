@@ -184,7 +184,7 @@ namespace BOA.UI.Banking.CustomerList
         {
             if (dgMusteriListesi.SelectedItem == null) return;
             SelectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;
-            CustomerAdd.CustomerAdd customerAdd = new CustomerAdd.CustomerAdd(SelectedCustomer, true); //true false gönderme kalkacak
+            CustomerAdd.CustomerAdd customerAdd = new CustomerAdd.CustomerAdd(SelectedCustomer);
             customerAdd.ShowDialog();
         }
 

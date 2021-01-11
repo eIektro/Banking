@@ -5,7 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BOA.UI.Banking.BranchAdd"
         mc:Ignorable="d"
-        Title="Şube Ekle" Height="310" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow">
+        Title="Şube Ekle" Height="310" Width="400" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" WindowStyle="ToolWindow" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        
+            <CollectionViewSource x:Key="Cities" Source="{Binding Cities}"></CollectionViewSource>
+
+        
+    </Window.Resources>
     <Grid>
         <Grid Width="Auto" Height="35" VerticalAlignment="Top">
 
@@ -23,27 +29,27 @@
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="Auto" Margin="0,0,15,0" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Şube Adı: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbBranchName" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbBranchName" Text="{Binding Branch.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Telefon Numarası: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbBranchPhoneNumber" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbBranchPhoneNumber_PreviewTextInput"></TextBox>
+                    <TextBox x:Name="tbBranchPhoneNumber" Text="{Binding Branch.PhoneNumber,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0" MaxLength="11" PreviewTextInput="tbBranchPhoneNumber_PreviewTextInput"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="e-Posta Adresi: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbBranchEmailAdress" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <TextBox x:Name="tbBranchEmailAdress" Text="{Binding Branch.MailAdress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Şehir: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbCityId" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    <ComboBox x:Name="cbCityId" ItemsSource="{Binding Source={StaticResource Cities}}" SelectedIndex="{Binding Branch.CityId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="id" DisplayMemberPath="name" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Adres: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbBranchAdress" Height="75" Width="150" Margin="0,10,0,0" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ></TextBox>
+                    <TextBox x:Name="tbBranchAdress" Text="{Binding Branch.Adress,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="75" Width="150" Margin="0,10,0,0" AcceptsReturn="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ></TextBox>
                 </StackPanel>
             </StackPanel>
         </Grid>

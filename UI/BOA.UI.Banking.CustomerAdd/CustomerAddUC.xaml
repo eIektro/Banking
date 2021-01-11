@@ -138,13 +138,13 @@
                                     <Button HorizontalAlignment="Right"  Content="Ekle" x:Name="btnEmailAddToDataGrid" Click="btnEmailAddToDataGrid_Click" Width="120" Background="Green" Height="20" Margin="0,10,5,0"></Button>
                                     <Button HorizontalAlignment="Left"  Content="Sil" Background="Red" x:Name="btnEmailDeleteFromDataGrid" Click="btnEmailDeleteFromDataGrid_Click" Width="120"  Height="20" Margin="0,10,5,0"></Button>
                                 </StackPanel>
-                                <DataGrid Width="auto" x:Name="dgEmails" AutoGenerateColumns="False" IsReadOnly="True" Height="160" Margin="7,15,0,0">
+                                <DataGrid Width="auto" ItemsSource="{Binding customerContract.Emails,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" x:Name="dgEmails" AutoGenerateColumns="False" IsReadOnly="True" Height="160" Margin="7,15,0,0">
                                     <DataGrid.Resources>
 
                                     </DataGrid.Resources>
                                     <DataGrid.Columns>
-                                        <DataGridTextColumn Header="  Mail  " Binding="{Binding MailAdress}"></DataGridTextColumn>
-                                        <DataGridTextColumn Header="  Mail Türü  " Binding="{Binding EmailType}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Mail  " Binding="{Binding MailAdress,Mode=TwoWay}"></DataGridTextColumn>
+                                        <DataGridTextColumn Header="  Mail Türü  " Binding="{Binding EmailType,Mode=TwoWay}"></DataGridTextColumn>
 
                                     </DataGrid.Columns>
 
