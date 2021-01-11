@@ -24,9 +24,6 @@ namespace BOA.UI.Banking.AccountAdd
     /// </summary>
     public partial class AccountAdd : Window,INotifyPropertyChanged
     {
-        public bool IsEditing;
-
-
         public AccountAdd(AccountContract _editingAccount)
         {
             Account = _editingAccount;
@@ -155,24 +152,19 @@ namespace BOA.UI.Banking.AccountAdd
         #region button operations
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-
-            if (IsEditing)
+            if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Tasdik", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Tasdik", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                var response = UpdateAccount(Account);
+                if (response.IsSuccess)
                 {
-                    var response = UpdateAccount(Account);
-                    if (response.IsSuccess)
-                    {
-                        MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
-                        Close();
-                    }
-                    else
-                    {
-                        MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
+                    MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
-
         }
 
         private void btnDuzenle_Click(object sender, RoutedEventArgs e)
@@ -198,10 +190,10 @@ namespace BOA.UI.Banking.AccountAdd
         {
             tbAdditionNo.IsReadOnly = WannaDisable;
             tbBalance.IsReadOnly = WannaDisable;
-            cbBranchId.IsReadOnly = WannaDisable;
+            cbBranchId.IsHitTestVisible = !WannaDisable;
             tbCustomerId.IsReadOnly = WannaDisable;
             tbIBAN.IsReadOnly = WannaDisable;
-            cbCurrencyId.IsReadOnly = WannaDisable;
+            cbCurrencyId.IsHitTestVisible = !WannaDisable;
             cbIsActive.IsHitTestVisible = !WannaDisable;
         } 
         #endregion

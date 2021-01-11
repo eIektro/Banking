@@ -263,27 +263,27 @@ namespace BOA.UI.Banking.CustomerAdd
         #endregion
 
         #region user inputs
-        public void SetUserInputsEditableFunction(Boolean IsNotEditable)
+        public void SetUserInputsEditableFunction(Boolean WannaDisable)
         {
 
-            cbJobId.IsReadOnly = IsNotEditable;
-            cbEducationLvId.IsReadOnly = IsNotEditable;
-            tbCustomerName.IsReadOnly = IsNotEditable;
-            tbCitizenshipId.IsReadOnly = IsNotEditable;
-            tbCustomerLastName.IsReadOnly = IsNotEditable;
-            tbFatherName.IsReadOnly = IsNotEditable;
-            tbMotherName.IsReadOnly = IsNotEditable;
-            tbPlaceOfBirth.IsReadOnly = IsNotEditable;
-            dpDateOfBirth.IsHitTestVisible = IsNotEditable;
-            btnEmailAddToDataGrid.IsHitTestVisible = IsNotEditable;
-            btnPhoneAddToDataGrid.IsHitTestVisible = IsNotEditable;
-            cbPhoneType.IsReadOnly = IsNotEditable;
-            tbPhoneNumber.IsReadOnly = IsNotEditable;
-            tbEmail.IsReadOnly = IsNotEditable;
-            cbPhoneType.IsReadOnly = IsNotEditable;
-            btnEmailDeleteFromDataGrid.IsHitTestVisible = IsNotEditable;
-            btnPhoneDeleteFromDataGrid.IsHitTestVisible = IsNotEditable;
-            cbEmailType.IsReadOnly = IsNotEditable;
+            cbJobId.IsHitTestVisible = !WannaDisable;
+            cbEducationLvId.IsHitTestVisible = !WannaDisable;
+            tbCustomerName.IsReadOnly = WannaDisable;
+            tbCitizenshipId.IsReadOnly = WannaDisable;
+            tbCustomerLastName.IsReadOnly = WannaDisable;
+            tbFatherName.IsReadOnly = WannaDisable;
+            tbMotherName.IsReadOnly = WannaDisable;
+            tbPlaceOfBirth.IsReadOnly = WannaDisable;
+            dpDateOfBirth.IsHitTestVisible = !WannaDisable;
+            btnEmailAddToDataGrid.IsHitTestVisible = !WannaDisable;
+            btnPhoneAddToDataGrid.IsHitTestVisible = !WannaDisable;
+            cbPhoneType.IsHitTestVisible = !WannaDisable;
+            tbPhoneNumber.IsReadOnly = WannaDisable;
+            tbEmail.IsReadOnly = WannaDisable;
+            cbPhoneType.IsHitTestVisible = !WannaDisable;
+            btnEmailDeleteFromDataGrid.IsHitTestVisible = !WannaDisable;
+            btnPhoneDeleteFromDataGrid.IsHitTestVisible = !WannaDisable;
+            cbEmailType.IsHitTestVisible = !WannaDisable;
 
         } 
         #endregion
