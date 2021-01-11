@@ -124,7 +124,7 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="  ID  " Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn Header="  Şehir  " x:Name="dgccCity" ItemsSource="{Binding Source={StaticResource Cities}}" SelectedValueBinding="{Binding CityId}" SelectedValuePath="id" DisplayMemberPath="name" ></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Şehir  " Binding="{Binding City}" ></DataGridTextColumn>
                     <DataGridTextColumn Header="  Şube Adı  " Binding="{Binding BranchName}"></DataGridTextColumn>
                     <!--<DataGridTextColumn Header="  Şehir  " Binding="{Binding CityId}"></DataGridTextColumn>-->
                     <DataGridTextColumn Header="  Açılma Tarihi  " Binding="{Binding DateOfLaunch,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>

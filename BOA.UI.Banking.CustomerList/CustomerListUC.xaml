@@ -145,8 +145,8 @@
                     <DataGridTextColumn Header="  Baba  " Binding="{Binding FatherName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Doğum Yeri  " Binding="{Binding PlaceOfBirth}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn Header="  Meslek  " x:Name="cbcJob" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedValueBinding="{Binding JobId}" SelectedValuePath="Id" DisplayMemberPath="JobName"></DataGridComboBoxColumn>
-                    <DataGridComboBoxColumn Header="  Eğitim Düzeyi  " x:Name="cbcEducationLv" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedValueBinding="{Binding EducationLvId}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Meslek  " Binding="{Binding JobName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Eğitim Düzeyi  " Binding="{Binding EducationLevelName}"></DataGridTextColumn>
                     
                     <!--<DataGridTextColumn Header="Soyadi" Binding="{Binding JobId}"></DataGridTextColumn>
                 <DataGridTextColumn Header="Soyadi" Binding="{Binding EducationLevelId}"></DataGridTextColumn>-->

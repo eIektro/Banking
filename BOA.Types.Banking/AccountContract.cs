@@ -27,5 +27,11 @@ namespace BOA.Types.Banking
 
         public DateTime? DateOfLastTrasaction { get; set; }
 
-	}
+        public string FormedUserName { get; set; }
+
+        public string BranchName { get; set; }
+
+        public string CurrencyCode { get; set; }
+
+    }
 }

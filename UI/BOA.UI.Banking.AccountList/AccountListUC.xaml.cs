@@ -22,7 +22,7 @@ namespace BOA.UI.Banking.AccountList
     /// <summary>
     /// Interaction logic for AccountListUC.xaml
     /// </summary>
-    public partial class AccountListUC : UserControl,INotifyPropertyChanged
+    public partial class AccountListUC : UserControl,INotifyPropertyChanged //contract base e atılacak, method overload tab ui şeklinde
     {
         public AccountListUC()
         {

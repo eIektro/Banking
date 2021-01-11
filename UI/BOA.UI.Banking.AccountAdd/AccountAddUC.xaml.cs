@@ -51,6 +51,7 @@ namespace BOA.UI.Banking.AccountAdd
             InitializeComponent();
         }
 
+        
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             Account = new AccountContract();
@@ -67,7 +68,7 @@ namespace BOA.UI.Banking.AccountAdd
         #endregion
 
         #region getters and setters
-        private AccountContract _Account;
+        private AccountContract _Account; //küçük harfler
         public AccountContract Account
         {
             get
@@ -156,6 +157,8 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
+
         } 
         #endregion
 

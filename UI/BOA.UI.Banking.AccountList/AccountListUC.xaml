@@ -41,7 +41,7 @@
                     <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
-                        <Button x:Name="btnFiltrele" Click="btnFiltrele_Click" Content="Filtrele" Height="20" Width="80"></Button>
+                        <Button x:Name="btnFiltrele" Click="btnFiltrele_Click" Content="Bilgi Getir" Height="20" Width="80"></Button>
                         <Button x:Name="btnTemizle" Click="btnTemizle_Click" Content="Temizle" Height="20" Width="80" Margin="15,0,0,0"></Button>
                     </StackPanel>
 
@@ -80,7 +80,7 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Döviz Cinsi:" FontSize="11"></Label>
-                        <ComboBox x:Name="cbFilterbyCurrencyId" ItemsSource="{Binding Source={StaticResource Currencies}}" SelectedIndex="{Binding FilterContract.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="id" DisplayMemberPath="name" Width="120" HorizontalAlignment="Center"></ComboBox>
+                        <ComboBox x:Name="cbFilterbyCurrencyId" ItemsSource="{Binding Source={StaticResource Currencies}}" SelectedIndex="{Binding FilterContract.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="id" DisplayMemberPath="name" Width="120" HorizontalAlignment="Center"></ComboBox> <!--//Selected Value-->
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
@@ -142,15 +142,15 @@
                 <DataGrid.Columns>
 
                     <DataGridTextColumn Header="  ID  " Binding="{Binding Id}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn x:Name="dgccBranch" Header="  Şube  " ItemsSource="{Binding Source={StaticResource Branches}}" SelectedValueBinding="{Binding Path=BranchId}" SelectedValuePath="Id" DisplayMemberPath="BranchName"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Şube  " Binding="{Binding BranchName}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Müşteri No  " Binding="{Binding CustomerId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Ek No  " Binding="{Binding AdditionNo}"></DataGridTextColumn>
-                    <DataGridComboBoxColumn x:Name="dgccCurrency" Header="  Döviz  " ItemsSource="{Binding Source={StaticResource Currencies}}" SelectedValueBinding="{Binding Path=CurrencyId}" SelectedValuePath="id" DisplayMemberPath="name"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Döviz  " Binding="{Binding CurrencyCode}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Bakiye  " Binding="{Binding Balance}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  Oluşturulma  " Binding="{Binding DateOfFormation,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
                     <DataGridTextColumn Header="  IBAN  " Binding="{Binding IBAN}"></DataGridTextColumn>
                     <DataGridCheckBoxColumn Header="  Aktif  " Binding="{Binding IsActive}"></DataGridCheckBoxColumn>
-                    <DataGridComboBoxColumn x:Name="dgccFormedUser" Header="  Oluşturan  " ItemsSource="{Binding Source={StaticResource Users}}" SelectedValueBinding="{Binding Path=FormedUserId}" SelectedValuePath="Id" DisplayMemberPath="LoginName"></DataGridComboBoxColumn>
+                    <DataGridTextColumn Header="  Oluşturan  " Binding="{Binding FormedUserName}" ></DataGridTextColumn>
 
                 </DataGrid.Columns>
                 

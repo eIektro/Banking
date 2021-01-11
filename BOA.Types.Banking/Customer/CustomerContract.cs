@@ -31,5 +31,10 @@ namespace BOA.Types.Banking
         public List<CustomerPhoneContract> PhoneNumbers { get; set; }
 
         public List<CustomerEmailContract> Emails { get; set; }
+
+        public string JobName { get; set; }
+
+        public string EducationLevelName { get; set; }
+
     }
 }

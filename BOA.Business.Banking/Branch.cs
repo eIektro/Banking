@@ -64,7 +64,8 @@ namespace BOA.Business.Banking
                         MailAdress = (string)reader["MailAdress"],
                         BranchName = (string)reader["BranchName"],
                         DateOfLaunch = (DateTime)reader["DateOfLaunch"],
-                        PhoneNumber = (string)reader["PhoneNumber"]
+                        PhoneNumber = (string)reader["PhoneNumber"],
+                        City = reader["CityName"].ToString()
 
                     });
                 }
@@ -140,7 +141,8 @@ namespace BOA.Business.Banking
                         MailAdress = (string)reader["MailAdress"],
                         BranchName = (string)reader["BranchName"],
                         DateOfLaunch = (DateTime)reader["DateOfLaunch"],
-                        PhoneNumber = (string)reader["PhoneNumber"]
+                        PhoneNumber = (string)reader["PhoneNumber"],
+                        City = reader["CityName"].ToString()
 
                     });
                 }

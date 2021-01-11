@@ -9,7 +9,7 @@ namespace BOA.Process.Banking
 {
     public class Customer
     {
-
+        //TO-DO: Update fonksiyonu için email ve telefon numaralarına çözüm bulunacak
         public ResponseBase FilterCustomersByProperties(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
@@ -23,10 +23,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase GetAllCustomers(CustomerRequest request) /* TO-DO: Connect sınıfından gelen GetAllCustomersRequest'ten buraya yönlendirme,
-                                                                                        * connect sınıfındaki parse mantığından dolayı düzgün yapılamıyor. Düzeltilecek.
-                                                                                        * (Linq ile contains e bakılıp yapılabilir.)
-                                                                                        */
+        public ResponseBase GetAllCustomers(CustomerRequest request) 
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.GetAllCustomers(request);

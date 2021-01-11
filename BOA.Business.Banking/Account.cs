@@ -32,6 +32,9 @@ namespace BOA.Business.Banking
                         IsActive = (bool)reader["IsActive"],
                         /*DateOfDeactivation = (DateTime)reader["DateOfDeactivation"]*/
                         FormedUserId = (int)reader["FormedUserId"],
+                        BranchName = reader["BranchName"].ToString(),
+                        CurrencyCode = reader["code"].ToString(),
+                        FormedUserName = reader["UserName"].ToString()
                         /*DateOfLastTrasaction = (DateTime)reader["DateOfLastTransaction"]*/
                     });
                 }
@@ -85,6 +88,9 @@ namespace BOA.Business.Banking
                         IsActive = (bool)reader["IsActive"],
                         //DateOfDeactivation = (DateTime)reader["DateOfDeactivation"],
                         FormedUserId = (int)reader["FormedUserId"],
+                        BranchName = reader["BranchName"].ToString(),
+                        CurrencyCode = reader["code"].ToString(),
+                        FormedUserName = reader["UserName"].ToString()
                         //DateOfLastTrasaction = (DateTime)reader["DateOfLastTransaction"]
 
                     });

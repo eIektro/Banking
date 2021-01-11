@@ -228,9 +228,9 @@ namespace BOA.UI.Banking.CustomerAdd
 
         private void btnEmailAddToDataGrid_Click(object sender, RoutedEventArgs e)
         {
-            if (tbEmail.Text != "" && cbEmailType.SelectedItem != null) //SelectedIndex -1 yazmak gerekiyor olabilir ikisine de bak
+            if (tbEmail.Text != "" && cbEmailType.SelectedItem != null)
             {
-                dgEmails.Items.Add(new CustomerEmailContract() { EmailType = cbEmailType.SelectedIndex, MailAdress = tbEmail.Text });
+                customerContract.Emails.Add(new CustomerEmailContract() { EmailType = cbEmailType.SelectedIndex, MailAdress = tbEmail.Text, CustomerId = customerContract.CustomerId });
 
             }
         }
@@ -239,7 +239,7 @@ namespace BOA.UI.Banking.CustomerAdd
         {
             if (dgEmails.SelectedIndex != -1)
             {
-
+                customerContract.Emails.Remove((CustomerEmailContract)dgEmails.SelectedItem);
 
             }
         }

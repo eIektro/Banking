@@ -49,6 +49,8 @@ namespace BOA.Business.Banking
                         JobId = (int)reader["JobId"],
                         EducationLvId = (int)reader["EducationLvId"],
                         DateOfBirth = (DateTime)reader["DateOfBirth"],
+                        EducationLevelName = reader["EducationLevel"].ToString(),
+                        JobName = reader["JobName"].ToString(),
                         PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])),
                         Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
 
@@ -200,6 +202,8 @@ namespace BOA.Business.Banking
                     JobId = (int)reader["JobId"],
                     EducationLvId = (int)reader["EducationLvId"],
                     DateOfBirth = (DateTime)reader["DateOfBirth"],
+                    EducationLevelName = reader["EducationLevel"].ToString(),
+                    JobName = reader["JobName"].ToString(),
                     PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])), //Bunda sakınca var mı? Sor
                     Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
                 });
