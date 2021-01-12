@@ -73,11 +73,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Meslek: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbJobId" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedIndex="{Binding customerContract.JobId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="JobName" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    <ComboBox x:Name="cbJobId" ItemsSource="{Binding Source={StaticResource Jobs}}" SelectedValue="{Binding customerContract.JobId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="JobName" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Eğitim Düzeyi: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedIndex="{Binding customerContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    <ComboBox x:Name="cbEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedValue="{Binding customerContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
                     <Button x:Name="btnPhonePopOpen" Click="btnPhonePopOpen_Click" Width="150" Height="25" Margin="0,10,0,0" Content="Telefon Ekle"></Button>
