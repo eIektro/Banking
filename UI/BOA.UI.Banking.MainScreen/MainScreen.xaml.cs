@@ -57,7 +57,7 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvMusteriEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var theCustomerAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Ekle");
+            var theCustomerAddTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Ekle");
             if (theCustomerAddTab != null)
             {
                 theCustomerAddTab.Focus();
@@ -65,7 +65,7 @@ namespace BOA.UI.Banking.MainScreen
             else
             {
                 CustomerAdd.CustomerAddUC customerAdd = new CustomerAdd.CustomerAddUC();
-                CloseableTab theTabItem = new CloseableTab();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
                 theTabItem.Title = "Müşteri Ekle";
                 theTabItem.Content = customerAdd;
                 tabControl1.Items.Add(theTabItem);
@@ -76,7 +76,7 @@ namespace BOA.UI.Banking.MainScreen
         private void tvMusteriListele_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
            
-            var theCustomerTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Listele");
+            var theCustomerTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Müşteri Listele");
             if (theCustomerTab != null) {
                 theCustomerTab.Focus();
             }
@@ -84,7 +84,7 @@ namespace BOA.UI.Banking.MainScreen
             else
             {
                 CustomerList.CustomerListUC customerList = new CustomerList.CustomerListUC(tabControl1);
-                CloseableTab theTabItem = new CloseableTab();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
                 theTabItem.Title = "Müşteri Listele";
                 theTabItem.Content = customerList;
                 tabControl1.Items.Add(theTabItem);
@@ -96,14 +96,14 @@ namespace BOA.UI.Banking.MainScreen
         {
 
 
-            var theBranchAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Şube Ekle");
+            var theBranchAddTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Şube Ekle");
             if (theBranchAddTab != null)
             {
                 theBranchAddTab.Focus();
             }
 
             BranchAdd.BranchAddUC branchAdd = new BranchAdd.BranchAddUC();
-            CloseableTab theTabItem = new CloseableTab();
+            CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
             theTabItem.Title = "Şube Ekle";
             theTabItem.Content = branchAdd;
             tabControl1.Items.Add(theTabItem);
@@ -112,7 +112,7 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvSubeListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var theBranchesTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Şube Listesi");
+            var theBranchesTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Şube Listesi");
             if (theBranchesTab != null)
             {
                 theBranchesTab.Focus(); 
@@ -121,7 +121,7 @@ namespace BOA.UI.Banking.MainScreen
             else
             {
                 BranchList.BranchListUC branchListUc = new BranchList.BranchListUC(tabControl1);
-                CloseableTab theTabItem = new CloseableTab();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
                 theTabItem.Title = "Şube Listesi";
                 theTabItem.Content = branchListUc;
                 tabControl1.Items.Add(theTabItem);
@@ -132,7 +132,7 @@ namespace BOA.UI.Banking.MainScreen
         private void tvHesapListesi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             
-                var theAccountsTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Listesi");
+                var theAccountsTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Listesi");
             if (theAccountsTab != null)
             {
                 theAccountsTab.Focus();
@@ -142,7 +142,7 @@ namespace BOA.UI.Banking.MainScreen
             {
 
                 AccountList.AccountListUC accountListUC = new AccountList.AccountListUC(tabControl1);
-                CloseableTab theTabItem = new CloseableTab();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
                 theTabItem.Title = "Hesap Listesi";
                 theTabItem.Content = accountListUC;
                 tabControl1.Items.Add(theTabItem);
@@ -152,7 +152,7 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvHesapEkle_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var theAccountAddTab = tabControl1.Items.OfType<CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Ekle");
+            var theAccountAddTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Hesap Ekle");
             if (theAccountAddTab != null)
             {
                 theAccountAddTab.Focus();
@@ -162,7 +162,7 @@ namespace BOA.UI.Banking.MainScreen
             {
 
                 AccountAdd.AccountAddUC accountAddUC = new AccountAdd.AccountAddUC();
-                CloseableTab theTabItem = new CloseableTab();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
                 theTabItem.Title = "Hesap Ekle";
                 theTabItem.Content = accountAddUC;
                 tabControl1.Items.Add(theTabItem);

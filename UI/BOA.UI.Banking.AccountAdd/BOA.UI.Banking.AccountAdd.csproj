@@ -58,19 +58,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="AccountAdd.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="AccountAddUC.xaml.cs">
       <DependentUpon>AccountAddUC.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="AccountAdd.xaml.cs">
-      <DependentUpon>AccountAdd.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="AccountAddUC.xaml">

@@ -58,16 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CustomerAdd.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CustomerAdd.xaml.cs">
-      <DependentUpon>CustomerAdd.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="CustomerAddUC.xaml">

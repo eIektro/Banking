@@ -58,16 +58,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BranchAdd.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BranchAdd.xaml.cs">
-      <DependentUpon>BranchAdd.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="BranchAddUC.xaml">
