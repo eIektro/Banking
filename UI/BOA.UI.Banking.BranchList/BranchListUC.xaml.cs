@@ -71,46 +71,46 @@ namespace BOA.UI.Banking.BranchList
         #endregion
 
         #region Getters and Setters
-        private BranchContract _FilterContract;
+        private BranchContract filtercontract;
         public BranchContract FilterContract
         {
-            get { return this._FilterContract; }
+            get { return this.filtercontract; }
             set
             {
-                this._FilterContract = value;
+                this.filtercontract = value;
                 OnPropertyChanged("FilterContract");
             }
         }
 
-        private List<CityContract> _Cities;
+        private List<CityContract> cities;
         public List<CityContract> Cities
         {
-            get { return this._Cities; }
+            get { return this.cities; }
             set
             {
-                this._Cities = value;
+                this.cities = value;
                 OnPropertyChanged("Cities");
             }
         }
 
-        private BranchContract _SelectedBranch;
+        private BranchContract selectedbranch;
         public BranchContract SelectedBranch
         {
-            get { return this._SelectedBranch; }
+            get { return this.selectedbranch; }
             set
             {
-                this._SelectedBranch = value;
+                this.selectedbranch = value;
                 OnPropertyChanged("SelectedBranch");
             }
         }
 
-        private List<BranchContract> _Branches;
+        private List<BranchContract> branches;
         public List<BranchContract> Branches
         {
-            get { return this._Branches; }
+            get { return this.branches; }
             set
             {
-                this._Branches = value;
+                this.branches = value;
                 OnPropertyChanged("Branches");
             }
         }

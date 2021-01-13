@@ -104,38 +104,38 @@ namespace BOA.UI.Banking.AccountAdd
         #endregion
 
         #region getters and setters
-        private AccountContract _Account; //küçük harfler
+        private AccountContract account; //küçük harfler
         public AccountContract Account
         {
             get
             {
-                return this._Account;
+                return this.account;
             }
             set
             {
-                this._Account = value;
+                this.account = value;
                 OnPropertyChanged("Account");
             }
         }
 
-        private List<BranchContract> _Branches;
+        private List<BranchContract> branches;
         public List<BranchContract> Branches
         {
-            get { return this._Branches; }
+            get { return this.branches; }
             set
             {
-                this._Branches = value;
+                this.branches = value;
                 OnPropertyChanged("Branches");
             }
         }
 
-        private List<CurrencyContract> _Currencies;
+        private List<CurrencyContract> currencies;
         public List<CurrencyContract> Currencies
         {
-            get { return this._Currencies; }
+            get { return this.currencies; }
             set
             {
-                this._Currencies = value;
+                this.currencies = value;
                 OnPropertyChanged("Currencies");
             }
         }

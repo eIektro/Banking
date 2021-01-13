@@ -107,35 +107,35 @@ namespace BOA.UI.Banking.CustomerAdd
         #endregion
 
         #region getters and setters
-        private List<EducationLevelContract> _EducationLevels;
+        private List<EducationLevelContract> educationlevels;
         public List<EducationLevelContract> EducationLevels
         {
-            get { return this._EducationLevels; }
+            get { return this.educationlevels; }
             set
             {
-                this._EducationLevels = value;
+                this.educationlevels = value;
                 OnPropertyChanged("EducationLevels");
             }
         }
 
-        private List<JobContract> _Jobs;
+        private List<JobContract> jobs;
         public List<JobContract> Jobs
         {
-            get { return this._Jobs; }
+            get { return this.jobs; }
             set
             {
-                this._Jobs = value;
+                this.jobs = value;
                 OnPropertyChanged("Jobs");
             }
         }
 
-        private CustomerContract _customerContract;
+        private CustomerContract customercontract;
         public CustomerContract customerContract
         {
-            get { return this._customerContract; }
+            get { return this.customercontract; }
             set
             {
-                this._customerContract = value;
+                this.customercontract = value;
                 OnPropertyChanged("customerContract");
             }
         } 

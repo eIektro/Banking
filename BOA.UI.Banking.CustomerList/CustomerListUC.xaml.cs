@@ -82,57 +82,57 @@ namespace BOA.UI.Banking.CustomerList
         #endregion
 
         #region Getters and Setters
-        private CustomerContract _FilterContract;
+        private CustomerContract filtercontract;
         public CustomerContract FilterContract
         {
-            get { return this._FilterContract; }
+            get { return this.filtercontract; }
             set
             {
-                this._FilterContract = value;
+                this.filtercontract = value;
                 OnPropertyChanged("FilterContract");
             }
         }
 
-        private CustomerContract _SelectedCustomer;
+        private CustomerContract selectedcustomer;
         public CustomerContract SelectedCustomer
         {
-            get { return this._SelectedCustomer; }
+            get { return this.selectedcustomer; }
             set
             {
-                this._SelectedCustomer = value;
+                this.selectedcustomer = value;
                 OnPropertyChanged("SelectedCustomer");
             }
         }
 
-        private List<EducationLevelContract> _EducationLevels;
+        private List<EducationLevelContract> educationlevels;
         public List<EducationLevelContract> EducationLevels
         {
-            get { return this._EducationLevels; }
+            get { return this.educationlevels; }
             set
             {
-                this._EducationLevels = value;
+                this.educationlevels = value;
                 OnPropertyChanged("EducationLevels");
             }
         }
 
-        private List<JobContract> _Jobs;
+        private List<JobContract> jobs;
         public List<JobContract> Jobs
         {
-            get { return this._Jobs; }
+            get { return this.jobs; }
             set
             {
-                this._Jobs = value;
+                this.jobs = value;
                 OnPropertyChanged("Jobs");
             }
         }
 
-        private List<CustomerContract> _AllCustomers;
+        private List<CustomerContract> allcustomers;
         public List<CustomerContract> AllCustomers
         {
-            get { return this._AllCustomers; }
+            get { return this.allcustomers; }
             set
             {
-                this._AllCustomers = value;
+                this.allcustomers = value;
                 OnPropertyChanged("AllCustomers");
             }
         }

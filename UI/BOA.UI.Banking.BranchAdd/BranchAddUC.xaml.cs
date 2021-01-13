@@ -83,24 +83,24 @@ namespace BOA.UI.Banking.BranchAdd
         #endregion
 
         #region getters and setters
-        private List<CityContract> _Cities;
+        private List<CityContract> cities;
         public List<CityContract> Cities
         {
-            get { return this._Cities; }
+            get { return this.cities; }
             set
             {
-                this._Cities = value;
+                this.cities = value;
                 OnPropertyChanged("Cities");
             }
         }
 
-        private BranchContract _Branch;
+        private BranchContract branch;
         public BranchContract Branch
         {
-            get { return this._Branch; }
+            get { return this.branch; }
             set
             {
-                this._Branch = value;
+                this.branch = value;
                 OnPropertyChanged("Branch");
             }
         }

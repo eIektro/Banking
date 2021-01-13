@@ -92,71 +92,71 @@ namespace BOA.UI.Banking.AccountList
 
         #region Getters and Setters
 
-        private List<BranchContract> _Branches;
+        private List<BranchContract> branches;
         public List<BranchContract> Branches
         {
-            get { return this._Branches; }
+            get { return this.branches; }
             set
             {
-                this._Branches = value;
+                this.branches = value;
                 OnPropertyChanged("Branches");
             }
         }
 
-        private List<LoginContract> _Users;
+        private List<LoginContract> users;
         public List<LoginContract> Users
         {
-            get { return this._Users; }
+            get { return this.users; }
             set
             {
-                this._Users = value;
+                this.users = value;
                 OnPropertyChanged("Users");
             }
         }
 
-        private List<CurrencyContract> _Currencies;
+        private List<CurrencyContract> currencies;
         public List<CurrencyContract> Currencies
         {
-            get { return this._Currencies; }
+            get { return this.currencies; }
             set
             {
-                this._Currencies = value;
+                this.currencies = value;
                 OnPropertyChanged("Currencies");
             }
         }
 
-        private AccountContract _SelectedAccount;
+        private AccountContract selectedaccount;
         public AccountContract SelectedAccount
         {
-            get { return this._SelectedAccount; }
+            get { return this.selectedaccount; }
             set
             {
-                this._SelectedAccount = value;
+                this.selectedaccount = value;
                 OnPropertyChanged("SelectedAccount");
             }
         }
 
-        private List<AccountContract> _AllAccounts;
+        private List<AccountContract> allaccounts;
         public List<AccountContract> AllAccounts
         {
-            get { return this._AllAccounts; }
+            get { return this.allaccounts; }
             set
             {
-                this._AllAccounts = value;
+                this.allaccounts = value;
                 OnPropertyChanged("AllAccounts");
             }
         }
 
-        private AccountContract _FilterContract;
+        private AccountContract filtercontract;
         public AccountContract FilterContract
         {
             get
             {
-                return this._FilterContract;
+                return this.filtercontract;
             }
             set
             {
-                this._FilterContract = value;
+                this.filtercontract = value;
                 OnPropertyChanged("FilterContract");
             }
         }
