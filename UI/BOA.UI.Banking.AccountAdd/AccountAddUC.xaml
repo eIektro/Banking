@@ -32,7 +32,8 @@
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnKaydet" Click="btnKaydet_Click" Content="Kaydet" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="LightGreen" BorderBrush="#A370AF"></Button>
-                
+                <Button Click="btnVazgec_Click" x:Name="btnVazgec" Width="120" Height="20" VerticalAlignment="Top" HorizontalAlignment="Center" Content="Vazgec" Background="IndianRed" Margin="20,5,0,0" Visibility="Hidden"></Button>
+                <Button Click="btnDuzenle_Click" x:Name="btnDuzenle" Width="120" Height="20" VerticalAlignment="Top" HorizontalAlignment="Right" Content="Düzenle" Background="LightBlue" Margin="20,5,5,0" Visibility="Hidden"></Button>
             </StackPanel>
 
         </Grid>

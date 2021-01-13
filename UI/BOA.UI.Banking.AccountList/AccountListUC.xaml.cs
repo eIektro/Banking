@@ -24,8 +24,12 @@ namespace BOA.UI.Banking.AccountList
     /// </summary>
     public partial class AccountListUC : UserControl,INotifyPropertyChanged //contract base e atılacak, method overload tab ui şeklinde
     {
-        public AccountListUC()
+        public TabControl MainScreenTabControl { get; set; }
+
+        public AccountListUC(TabControl tabcontrol)
         {
+            MainScreenTabControl = tabcontrol;
+
             #region Responses
             var _AllAccountsResponse = GetAllAccounts();
             if (_AllAccountsResponse.IsSuccess)
@@ -244,9 +248,17 @@ namespace BOA.UI.Banking.AccountList
         private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgAccountList.SelectedItem == null) return;
+            if (MainScreenTabControl == null) return;
+
             SelectedAccount = (AccountContract)dgAccountList.SelectedItem;
-            AccountAdd.AccountAdd accountAdd = new AccountAdd.AccountAdd(SelectedAccount);
-            accountAdd.ShowDialog();
+            AccountAdd.AccountAddUC accountAddUC = new AccountAdd.AccountAddUC(SelectedAccount);
+
+            CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+            theTabItem.Title = $"Hesap Detayları - MüşteriId: {SelectedAccount.CustomerId}";
+            theTabItem.Content = accountAddUC;
+            MainScreenTabControl.Items.Add(theTabItem);
+            theTabItem.Focus();
+
         }
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)

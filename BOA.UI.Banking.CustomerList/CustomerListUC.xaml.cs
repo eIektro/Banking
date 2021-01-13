@@ -25,8 +25,12 @@ namespace BOA.UI.Banking.CustomerList
     /// </summary>
     public partial class CustomerListUC : UserControl, INotifyPropertyChanged
     {
-        public CustomerListUC()
+        private TabControl MainScreenTabControl { get; set; }
+
+        public CustomerListUC(TabControl tabcontrol)
         {
+            MainScreenTabControl = tabcontrol;
+
             #region responses
             var _EducationLevelsResponse = GetAllEducationLevels();
             if (_EducationLevelsResponse.IsSuccess)
@@ -183,9 +187,18 @@ namespace BOA.UI.Banking.CustomerList
         private void btnMusteriDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgMusteriListesi.SelectedItem == null) return;
+            if (MainScreenTabControl == null) return;
+
+
             SelectedCustomer = (CustomerContract)dgMusteriListesi.SelectedItem;
-            CustomerAdd.CustomerAdd customerAdd = new CustomerAdd.CustomerAdd(SelectedCustomer);
-            customerAdd.ShowDialog();
+            CustomerAdd.CustomerAddUC customerAddUC = new CustomerAdd.CustomerAddUC(SelectedCustomer);
+
+            CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+            theTabItem.Title = $"Müşteri Detayları - ({SelectedCustomer.CustomerId}) {SelectedCustomer.CustomerName} {SelectedCustomer.CustomerLastName}";
+            theTabItem.Content = customerAddUC;
+            MainScreenTabControl.Items.Add(theTabItem);
+            theTabItem.Focus();
+
         }
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)

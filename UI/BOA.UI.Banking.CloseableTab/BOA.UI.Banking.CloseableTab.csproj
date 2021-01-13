@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{F4FD4ADE-862D-4069-98CC-C21C0E8D8969}</ProjectGuid>
+    <ProjectGuid>{B4E37E17-6F55-4DBB-9616-1226AA7419D0}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BOA.UI.Banking.BranchList</RootNamespace>
-    <AssemblyName>BOA.UI.Banking.BranchList</AssemblyName>
+    <RootNamespace>BOA.UI.Banking.CloseableTab</RootNamespace>
+    <AssemblyName>BOA.UI.Banking.CloseableTab</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetProjects.Input.Toolkit, Version=6.0.85.0, Culture=neutral, PublicKeyToken=79778c5f2eed289b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetProjects.WpfToolkit.Input.6.0.85\lib\net40\DotNetProjects.Input.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,9 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BranchListUC.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="CloseableHeader.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -70,9 +67,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BranchListUC.xaml.cs">
-      <DependentUpon>BranchListUC.xaml</DependentUpon>
+    <Compile Include="CloseableHeader.xaml.cs">
+      <DependentUpon>CloseableHeader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CloseableTab.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -96,7 +94,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -104,24 +101,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
-      <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
-      <Name>BOA.Connector.Banking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
-      <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
-      <Name>BOA.Types.Banking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.BranchAdd\BOA.UI.Banking.BranchAdd.csproj">
-      <Project>{c31d8b79-36ae-41e3-a322-366f7982e9e4}</Project>
-      <Name>BOA.UI.Banking.BranchAdd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CloseableTab\BOA.UI.Banking.CloseableTab.csproj">
-      <Project>{b4e37e17-6f55-4dbb-9616-1226aa7419d0}</Project>
-      <Name>BOA.UI.Banking.CloseableTab</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

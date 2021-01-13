@@ -24,6 +24,9 @@ namespace BOA.UI.Banking.AccountAdd
     /// </summary>
     public partial class AccountAddUC : UserControl,INotifyPropertyChanged
     {
+        private bool isEditingOption = false;
+        //public AccountContract editingAccount { get; set; }
+
         public AccountAddUC()
         {
             #region responses
@@ -51,10 +54,43 @@ namespace BOA.UI.Banking.AccountAdd
             InitializeComponent();
         }
 
+        public AccountAddUC(AccountContract contract)
+        {
+            #region responses
+            var _AllCurrenciesResponse = GetAllCurrencies();
+            if (_AllCurrenciesResponse.IsSuccess)
+            {
+                Currencies = (List<CurrencyContract>)_AllCurrenciesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllCurrenciesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var _AllBranchesResponse = GetAllBranchs();
+            if (_AllBranchesResponse.IsSuccess)
+            {
+                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            #endregion
+
+            Account = contract;
+            isEditingOption = true;
+            InitializeComponent();
+            DisableUserInputs(true);
+            SetVisibilitiesForDetail();
+        }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Account = new AccountContract();
+            if(!isEditingOption){
+                Account = new AccountContract();
+            }
+            
         }
 
         #region event handling
@@ -133,6 +169,16 @@ namespace BOA.UI.Banking.AccountAdd
             var response = connect.Execute(request);
             return response;
         }
+
+        private ResponseBase UpdateAccount(AccountContract contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new AccountRequest();
+            request.MethodName = "UpdateAccountDetailsById";
+            request.DataContract = contract;
+            var response = connect.Execute(request);
+            return response;
+        }
         #endregion
 
         #region regex
@@ -146,6 +192,27 @@ namespace BOA.UI.Banking.AccountAdd
         #region button operations
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
+            if (isEditingOption)
+            {
+                if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    var responseUpdate = UpdateAccount(Account);
+                    if (responseUpdate.IsSuccess)
+                    {
+                        MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btnVazgec_Click(new object(), new RoutedEventArgs());
+
+                    }
+                    else
+                    {
+                        MessageBox.Show($"{responseUpdate.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+                return;
+            }
+
+
             Account.FormedUserId = Login.LoginScreen._userId;
             var response = AddAccount(Account);
             if (response.IsSuccess)
@@ -159,8 +226,45 @@ namespace BOA.UI.Banking.AccountAdd
             }
 
 
-        } 
+        }
+
+        private void btnVazgec_Click(object sender, RoutedEventArgs e)
+        {
+            DisableUserInputs(true);
+            btnVazgec.Visibility = Visibility.Hidden;
+            btnDuzenle.Visibility = Visibility.Visible;
+            btnKaydet.Visibility = Visibility.Hidden;
+        }
+
+        private void btnDuzenle_Click(object sender, RoutedEventArgs e)
+        {
+            btnVazgec.Visibility = Visibility.Visible;
+            btnKaydet.Visibility = Visibility.Visible;
+            btnDuzenle.Visibility = Visibility.Hidden;
+            DisableUserInputs(false);
+        }
+
+
         #endregion
+
+        public void SetVisibilitiesForDetail()
+        {
+            btnDuzenle.Visibility = Visibility.Visible;
+            btnKaydet.Visibility = Visibility.Hidden;
+            btnVazgec.Visibility = Visibility.Hidden;
+        }
+
+        public void DisableUserInputs(bool WannaDisable)
+        {
+            tbAdditionNo.IsReadOnly = WannaDisable;
+            tbBalance.IsReadOnly = WannaDisable;
+            cbBranchId.IsHitTestVisible = !WannaDisable;
+            tbCustomerId.IsReadOnly = WannaDisable;
+            tbIBAN.IsReadOnly = WannaDisable;
+            cbCurrencyId.IsHitTestVisible = !WannaDisable;
+            cbIsActive.IsHitTestVisible = !WannaDisable;
+        }
+
 
         //private void ClearInputs()
         //{

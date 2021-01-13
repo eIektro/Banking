@@ -23,8 +23,12 @@ namespace BOA.UI.Banking.BranchList
     /// </summary>
     public partial class BranchListUC : UserControl, INotifyPropertyChanged
     {
-        public BranchListUC()
+        private TabControl MainWindowTabControl { get; set; }
+
+        public BranchListUC(TabControl tabControl)
         {
+            MainWindowTabControl = tabControl;
+
             #region responses
             var _AllBranchesResponse = GetAllBranchs();
             if (_AllBranchesResponse.IsSuccess)
@@ -149,9 +153,16 @@ namespace BOA.UI.Banking.BranchList
         private void btnSubeDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgBranchList.SelectedItem == null) return;
+            if (MainWindowTabControl == null) return;
+
             SelectedBranch = (BranchContract)dgBranchList.SelectedItem;
-            BranchAdd.BranchAdd branchAdd = new BranchAdd.BranchAdd(SelectedBranch);
-            branchAdd.ShowDialog();
+
+            BranchAdd.BranchAddUC branchAdd = new BranchAdd.BranchAddUC(SelectedBranch);
+            CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+            theTabItem.Title = $"Şube Detayları - {SelectedBranch.BranchName}";
+            theTabItem.Content = branchAdd;
+            MainWindowTabControl.Items.Add(theTabItem);
+            theTabItem.Focus();
         }
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)

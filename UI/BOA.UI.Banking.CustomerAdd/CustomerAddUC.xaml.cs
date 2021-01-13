@@ -24,6 +24,8 @@ namespace BOA.UI.Banking.CustomerAdd
     /// </summary>
     public partial class CustomerAddUC : UserControl, INotifyPropertyChanged
     {
+        private bool IsEditingOption = false;
+
         public CustomerAddUC()
         {
 
@@ -53,9 +55,45 @@ namespace BOA.UI.Banking.CustomerAdd
             
         }
 
+        public CustomerAddUC(CustomerContract contract)
+        {
+            customerContract = contract;
+            IsEditingOption = true;
+
+            #region responses
+            var _EducationLevelsResponse = GetAllEducationLevels();
+            if (_EducationLevelsResponse.IsSuccess)
+            {
+                EducationLevels = (List<EducationLevelContract>)_EducationLevelsResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_EducationLevelsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
+            var _JobsResponse = GetAllJobs();
+            if (_JobsResponse.IsSuccess)
+            {
+                Jobs = (List<JobContract>)_JobsResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_JobsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            #endregion
+
+            InitializeComponent();
+
+            SetUserInputsEditableFunction(true);
+            SetVisibilitiesForDetailOption();
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            customerContract = new CustomerContract();
+            if (!IsEditingOption)
+            {
+                customerContract = new CustomerContract(); 
+            }
         }
 
         #region event handling
@@ -132,7 +170,20 @@ namespace BOA.UI.Banking.CustomerAdd
             var response = connect.Execute(request);
 
             return response;
-        } 
+        }
+
+        private ResponseBase UpdateCustomer(CustomerContract _contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new CustomerRequest();
+
+            request.MethodName = "UpdateCustomerbyId";
+            request.DataContract = _contract;
+
+            var response = connect.Execute(request);
+
+            return response;
+        }
         #endregion
 
         #region regex operations
@@ -158,6 +209,27 @@ namespace BOA.UI.Banking.CustomerAdd
         #region button operations
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
+            if (IsEditingOption)
+            {
+                if (MessageBox.Show("Yaptığınız değişlikler müşteri bilgilerine yansısın mı?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+                    var responseUpdate = UpdateCustomer(customerContract);
+                    if (responseUpdate.IsSuccess)
+                    {
+                        MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btnVazgec_Click(new object(), new RoutedEventArgs());
+
+                    }
+                    else
+                    {
+                        MessageBox.Show($"{responseUpdate.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+                return;
+            }
+
+
 
             if (MessageBox.Show("Bilgilerini girdiğiniz müşteri veritabanına kaydedilsin mi?", "Kayıt", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
@@ -224,10 +296,54 @@ namespace BOA.UI.Banking.CustomerAdd
 
         }
 
-        private void btnTemizle_Click(object sender, RoutedEventArgs e)
+        private void btnDuzenle_Click(object sender, RoutedEventArgs e)
+        {
+            btnKaydet.Visibility = Visibility.Visible;
+            btnVazgec.Visibility = Visibility.Visible;
+            btnDuzenle.Visibility = Visibility.Hidden;
+            SetUserInputsEditableFunction(false);
+        }
+
+        private void btnVazgec_Click(object sender, RoutedEventArgs e)
+        {
+            btnKaydet.Visibility = Visibility.Hidden;
+            btnDuzenle.Visibility = Visibility.Visible;
+            btnVazgec.Visibility = Visibility.Hidden;
+            SetUserInputsEditableFunction(true);
+        }
+
+        #endregion
+
+        public void SetUserInputsEditableFunction(Boolean WannaDisable)
         {
 
-        } 
-        #endregion
+            cbJobId.IsHitTestVisible = !WannaDisable;
+            cbEducationLvId.IsHitTestVisible = !WannaDisable;
+            tbCustomerName.IsReadOnly = WannaDisable;
+            tbCitizenshipId.IsReadOnly = WannaDisable;
+            tbCustomerLastName.IsReadOnly = WannaDisable;
+            tbFatherName.IsReadOnly = WannaDisable;
+            tbMotherName.IsReadOnly = WannaDisable;
+            tbPlaceOfBirth.IsReadOnly = WannaDisable;
+            dpDateOfBirth.IsHitTestVisible = !WannaDisable;
+            btnEmailAddToDataGrid.IsHitTestVisible = !WannaDisable;
+            btnPhoneAddToDataGrid.IsHitTestVisible = !WannaDisable;
+            cbPhoneType.IsHitTestVisible = !WannaDisable;
+            tbPhoneNumber.IsReadOnly = WannaDisable;
+            tbEmail.IsReadOnly = WannaDisable;
+            cbPhoneType.IsHitTestVisible = !WannaDisable;
+            btnEmailDeleteFromDataGrid.IsHitTestVisible = !WannaDisable;
+            btnPhoneDeleteFromDataGrid.IsHitTestVisible = !WannaDisable;
+            cbEmailType.IsHitTestVisible = !WannaDisable;
+
+        }
+
+        public void SetVisibilitiesForDetailOption()
+        {
+            btnKaydet.Visibility = Visibility.Hidden;
+            btnVazgec.Visibility = Visibility.Hidden;
+            btnDuzenle.Visibility = Visibility.Visible;
+        }
+
     }
 }

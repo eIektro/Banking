@@ -83,7 +83,7 @@ namespace BOA.UI.Banking.MainScreen
             
             else
             {
-                CustomerList.CustomerListUC customerList = new CustomerList.CustomerListUC();
+                CustomerList.CustomerListUC customerList = new CustomerList.CustomerListUC(tabControl1);
                 CloseableTab theTabItem = new CloseableTab();
                 theTabItem.Title = "Müşteri Listele";
                 theTabItem.Content = customerList;
@@ -120,7 +120,7 @@ namespace BOA.UI.Banking.MainScreen
             
             else
             {
-                BranchList.BranchListUC branchListUc = new BranchList.BranchListUC();
+                BranchList.BranchListUC branchListUc = new BranchList.BranchListUC(tabControl1);
                 CloseableTab theTabItem = new CloseableTab();
                 theTabItem.Title = "Şube Listesi";
                 theTabItem.Content = branchListUc;
@@ -141,7 +141,7 @@ namespace BOA.UI.Banking.MainScreen
             else
             {
 
-                AccountList.AccountListUC accountListUC = new AccountList.AccountListUC();
+                AccountList.AccountListUC accountListUC = new AccountList.AccountListUC(tabControl1);
                 CloseableTab theTabItem = new CloseableTab();
                 theTabItem.Title = "Hesap Listesi";
                 theTabItem.Content = accountListUC;

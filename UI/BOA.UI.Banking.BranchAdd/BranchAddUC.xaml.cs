@@ -24,6 +24,8 @@ namespace BOA.UI.Banking.BranchAdd
     /// </summary>
     public partial class BranchAddUC : UserControl, INotifyPropertyChanged
     {
+        private bool isEditingOption { get; set; }
+
         public BranchAddUC()
         {
             #region responses
@@ -41,9 +43,33 @@ namespace BOA.UI.Banking.BranchAdd
             InitializeComponent();
         }
 
+        public BranchAddUC(BranchContract contract)
+        {
+            isEditingOption = true;
+            Branch = contract;
+
+            #region responses
+            var _AllCitiesResponse = GetAllCities();
+            if (_AllCitiesResponse.IsSuccess)
+            {
+                Cities = (List<CityContract>)_AllCitiesResponse.DataContract;
+            }
+            else
+            {
+                MessageBox.Show($"{_AllCitiesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            #endregion
+
+            InitializeComponent();
+            btnVazgec_Click(new object(), new RoutedEventArgs());
+        }
+
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Branch = new BranchContract();
+            if (!isEditingOption)
+            {
+                Branch = new BranchContract(); 
+            }
         }
 
         #region event handling
@@ -102,6 +128,19 @@ namespace BOA.UI.Banking.BranchAdd
             var response = connect.Execute(request);
             return response;
         }
+
+        private ResponseBase UpdateBranch(BranchContract _contract)
+        {
+            var connect = new Connector.Banking.Connect();
+            var request = new BranchRequest();
+
+            request.MethodName = "UpdateBranchDetailsById";
+            request.DataContract = _contract;
+
+            var response = connect.Execute(request);
+
+            return response;
+        }
         #endregion
 
         #region regex
@@ -115,15 +154,64 @@ namespace BOA.UI.Banking.BranchAdd
         #region button operations
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
-            var response = AddBranch(Branch);
-            if (response.IsSuccess)
+            if (isEditingOption)
             {
-                MessageBox.Show($"Şube eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
-                Branch = new BranchContract();
+                if (MessageBox.Show("Seçilen şube bilgileri güncellensin mi?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                {
+
+                    var response = UpdateBranch(Branch);
+
+                    if (response.IsSuccess)
+                    {
+                        MessageBox.Show("Şube güncellenmiştir", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                        btnVazgec_Click(new object(), new RoutedEventArgs());
+                    }
+                    else
+                    {
+                        MessageBox.Show($"Şube güncelleme işlemi başarısız. {response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+                }
+
+                return;
             }
-            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
-        } 
+
+            if (MessageBox.Show("Bilgilerini girdiğiniz şube kaydedilsin mi?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                var response = AddBranch(Branch);
+                if (response.IsSuccess)
+                {
+                    MessageBox.Show($"Şube eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
+                    Branch = new BranchContract();
+                }
+                else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
+            }
+        }
+
+        private void btnVazgec_Click(object sender, RoutedEventArgs e)
+        {
+            disableUserInputs(true);
+            btnVazgec.Visibility = Visibility.Hidden;
+            btnKaydet.Visibility = Visibility.Hidden;
+            btnDuzenle.Visibility = Visibility.Visible;
+        }
+
+        private void btnDuzenle_Click(object sender, RoutedEventArgs e)
+        {
+            disableUserInputs(false);
+            btnKaydet.Visibility = Visibility.Visible;
+            btnVazgec.Visibility = Visibility.Visible;
+            btnDuzenle.Visibility = Visibility.Hidden;
+        }
         #endregion
+
+        public void disableUserInputs(bool wannaDisable)
+        {
+            tbBranchName.IsReadOnly = wannaDisable;
+            tbBranchAdress.IsReadOnly = wannaDisable;
+            cbCityId.IsHitTestVisible = !wannaDisable;
+            tbBranchEmailAdress.IsReadOnly = wannaDisable;
+            tbBranchPhoneNumber.IsReadOnly = wannaDisable;
+        }
 
         //public void disableUserInputs(bool wannaDisable)
         //{

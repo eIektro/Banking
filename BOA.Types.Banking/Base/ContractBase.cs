@@ -11,6 +11,12 @@ namespace BOA.Types.Banking.Base
     public class ContractBase : INotifyPropertyChanged
     {
 
+        //public bool MyProperty
+        //{
+        //    get => GetProperty<int>();
+        //    set => SetProperty<int>(value);
+        //}
+
         private readonly Dictionary<string, object> _values = new Dictionary<string, object>();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -37,6 +43,7 @@ namespace BOA.Types.Banking.Base
                 return;
             }
             _values[propertyName] = value;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         private void EnsureElement<T>(string propertyName)
