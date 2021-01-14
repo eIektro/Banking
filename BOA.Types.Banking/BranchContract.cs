@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BOA.Types.Banking.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,24 +7,56 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class BranchContract
+    public class BranchContract : ContractBase
     {
 
-        public int? Id { get; set; }
-       
-        public string BranchName { get; set; }
-       
-        public int? CityId { get; set; }
+        public int? Id
+        {
+            get => GetProperty<int?>();
+            set => SetProperty<int?>(value);
+        }
 
-        public DateTime? DateOfLaunch { get; set; }
+        public string BranchName
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
 
-        public string Adress { get; set; }
+        public int? CityId
+        {
+            get => GetProperty<int?>();
+            set => SetProperty<int?>(value);
+        }
 
-        public string PhoneNumber { get; set; }
+        public DateTime? DateOfLaunch
+        {
+            get => GetProperty<DateTime?>();
+            set => SetProperty<DateTime?>(value);
+        }
 
-        public string MailAdress { get; set; }
+        public string Adress
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
 
-        public string City { get; set; }
+        public string PhoneNumber
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
+
+        public string MailAdress
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
+
+        public string City
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
 
     }
 }

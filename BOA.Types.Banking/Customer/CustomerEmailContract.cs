@@ -1,13 +1,31 @@
-﻿namespace BOA.Types.Banking
+﻿using BOA.Types.Banking.Base;
+
+namespace BOA.Types.Banking
 {
-    public class CustomerEmailContract
+    public class CustomerEmailContract : ContractBase
     {
-        public int? CustomerMailId { get; set; }
+        public int? CustomerMailId
+        {
+            get => GetProperty<int?>();
+            set => SetProperty<int?>(value);
+        }
 
-        public int? CustomerId { get; set; }
+        public int? CustomerId
+        {
+            get => GetProperty<int?>();
+            set => SetProperty<int?>(value);
+        }
 
-        public int EmailType { get; set; }
+        public int EmailType
+        {
+            get => GetProperty<int>();
+            set => SetProperty<int>(value);
+        }
 
-        public string MailAdress { get; set; }
+        public string MailAdress
+        {
+            get => GetProperty<string>();
+            set => SetProperty<string>(value);
+        }
     }
 }
