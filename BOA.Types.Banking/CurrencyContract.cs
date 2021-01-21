@@ -7,27 +7,46 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CurrencyContract : ContractBase
+    [Serializable]
+    public partial class CurrencyContract : ContractBase
     {
-        public int id
+        public CurrencyContract()
         {
-            get => GetProperty<int>();
-            set => SetProperty<int>(value);
+
         }
-        public string name
+
+        private int id;
+        private string name;
+        private string code;
+        private string symbol;
+
+        public int Id
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return id; }
+            set { id = value;
+                OnPropertyChanged("Id");
+            }
         }
-        public string code
+        public string Name
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return name; }
+            set { name = value;
+                OnPropertyChanged("Name");
+            }
         }
-        public string symbol
+        public string Code
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return code; }
+            set { code = value;
+                OnPropertyChanged("Code");
+            }
+        }
+        public string Symbol
+        {
+            get { return symbol; }
+            set { symbol = value;
+                OnPropertyChanged("Symbol");
+            }
         }
     }
 }

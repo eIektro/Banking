@@ -17,10 +17,10 @@ namespace BOA.Business.Banking
             SqlDataReader reader = dbOperation.GetData("COR.sel_AllCities");
             while (reader.Read())
             {
-                cityContracts.Add(new CityContract() {
-                    id = Convert.ToInt32(reader["id"]),
-                    code = reader["code"].ToString(),
-                    name = reader["name"].ToString()
+                cityContracts.Add(new CityContract() { 
+                    Id = Convert.ToInt32(reader["id"]),
+                    Code = reader["code"].ToString(),
+                    Name = reader["name"].ToString()
                     
                 });
             }

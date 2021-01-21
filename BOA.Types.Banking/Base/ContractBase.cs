@@ -8,51 +8,30 @@ using System.Runtime.CompilerServices;
 
 namespace BOA.Types.Banking.Base
 {
-    public class ContractBase : INotifyPropertyChanged
+    [Serializable]
+    public abstract class ContractBase : INotifyPropertyChanged
     {
+        public ContractBase()
+        {
+           
+        }
 
-        //public bool MyProperty
-        //{
-        //    get => GetProperty<int>();
-        //    set => SetProperty<int>(value);
-        //}
-
-        private readonly Dictionary<string, object> _values = new Dictionary<string, object>();
-
+        [field: NonSerialized]
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //[NotifyPropertyChangedInvocator]
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        /// <summary>
+        /// OnPropertyChanged Method Declaration
+        /// Auto Generated Documentation
+        /// BOA method standard is described as below:
+        /// Naming convention must be in Pascal-Case, naming standard must be in English and clear.
+        /// TODO: More detail
+        /// </summary>
+        public virtual void OnPropertyChanged(string propertyName)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
             if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
         }
-
-        public T GetProperty<T>([CallerMemberName] string propertyName = "")
-        {
-            EnsureElement<T>(propertyName);
-            return (T)_values[propertyName];
-        }
-
-        
-        public void SetProperty<T>(object value, [CallerMemberName] string propertyName = "")
-        {
-            EnsureElement<T>(propertyName);
-            if (_values[propertyName] == value)
-            {
-                return;
-            }
-            _values[propertyName] = value;
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        private void EnsureElement<T>(string propertyName)
-        {
-            if (!_values.ContainsKey(propertyName))
-            {
-                _values.Add(propertyName, default(T));
-            }
-        }
+ 
     }
     
 }

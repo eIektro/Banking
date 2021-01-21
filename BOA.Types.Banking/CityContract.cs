@@ -7,23 +7,39 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CityContract : ContractBase
+    [Serializable]
+    public partial class CityContract : ContractBase
     {
-        public int id
+        public CityContract()
         {
-            get => GetProperty<int>();
-            set => SetProperty<int>(value);
-        }
-        public string name
-        {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+
         }
 
-        public string code
+        private int id;
+        private string name;
+        private string code;
+
+        public int Id
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return id; }
+            set { id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+        public string Name
+        {
+            get { return name; }
+            set { name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+        public string Code
+        {
+            get { return code; }
+            set { code = value;
+                OnPropertyChanged("Code");
+            }
         }
 
     }

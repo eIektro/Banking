@@ -1,31 +1,51 @@
 ﻿using BOA.Types.Banking.Base;
+using System;
 
 namespace BOA.Types.Banking
 {
-    public class CustomerPhoneContract : ContractBase
+    [Serializable]
+    public partial class CustomerPhoneContract : ContractBase
     {
+        public CustomerPhoneContract()
+        {
+
+        }
+
+        private int? customerPhoneId;
+        private int? customerId;
+        private int phoneType;
+        private string phoneNumber;
+
         public int? CustomerPhoneId
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return customerPhoneId; }
+            set { customerPhoneId = value;
+                OnPropertyChanged("CustomerPhoneId");
+            }
         }
 
         public int? CustomerId
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return customerId; }
+            set { customerId = value;
+                OnPropertyChanged("CustomerId");
+            }
         }
 
         public int PhoneType
         {
-            get => GetProperty<int>();
-            set => SetProperty<int>(value);
+            get { return phoneType; }
+            set { phoneType = value;
+                OnPropertyChanged("PhoneType");
+            }
         }
 
         public string PhoneNumber
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return phoneNumber; }
+            set { phoneNumber = value;
+                OnPropertyChanged("PhoneNumber");
+            }
         }
     }
 }

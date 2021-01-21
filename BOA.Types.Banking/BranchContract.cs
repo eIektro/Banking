@@ -7,56 +7,97 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class BranchContract : ContractBase
+    [Serializable]
+    public partial class BranchContract : ContractBase
     {
+
+        public BranchContract()
+        {
+                
+        }
+
+        private int? id;
+        private string branchName;
+        private int? cityId;
+        private DateTime? dateOfLaunch;
+        private string adress;
+        private string phoneNumber;
+        private string mailAdress;
+        private string city;
+
 
         public int? Id
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return id; }
+            set { id = value;
+                OnPropertyChanged("Id");
+            }
+
         }
 
         public string BranchName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return branchName; }
+            set { branchName = value;
+                OnPropertyChanged("BranchName");
+            }
+
         }
 
         public int? CityId
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return cityId; }
+            set { cityId = value;
+                OnPropertyChanged("CityId");
+            }
+
         }
 
         public DateTime? DateOfLaunch
         {
-            get => GetProperty<DateTime?>();
-            set => SetProperty<DateTime?>(value);
+            get { return dateOfLaunch; }
+            set { dateOfLaunch = value;
+                OnPropertyChanged("DateOfLaunch");
+            }
+
         }
 
         public string Adress
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return adress; }
+            set { adress = value;
+                OnPropertyChanged("Adress");
+            }
+
         }
 
         public string PhoneNumber
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return phoneNumber; }
+            set { phoneNumber = value;
+                OnPropertyChanged("PhoneNumber");
+            }
+
         }
 
         public string MailAdress
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return mailAdress; }
+            set { mailAdress = value;
+                OnPropertyChanged("MailAdress");
+            }
+
         }
 
         public string City
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return city; }
+            set { city = value;
+                OnPropertyChanged("City");
+            }
+
         }
+
 
     }
 }

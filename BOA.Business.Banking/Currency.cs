@@ -19,10 +19,10 @@ namespace BOA.Business.Banking
             while (reader.Read())
             {
                 currencyContracts.Add(new CurrencyContract() { 
-                    symbol = reader["symbol"].ToString(),
-                    code = reader["code"].ToString(),
-                    id = Convert.ToInt32(reader["id"]),
-                    name = reader["name"].ToString()
+                    Symbol = reader["symbol"].ToString(),
+                    Code = reader["code"].ToString(),
+                    Id = Convert.ToInt32(reader["id"]),
+                    Name = reader["name"].ToString()
                 });
             }
 

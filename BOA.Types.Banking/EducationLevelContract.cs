@@ -7,24 +7,34 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class EducationLevelContract : ContractBase
+    [Serializable]
+    public partial class EducationLevelContract : ContractBase
     {
+        public EducationLevelContract()
+        {
+
+        }
+
+        private int id;
+        private string educationLevel;
+        private string educationLevelDescription;
+
         public int Id
         {
-            get => GetProperty<int>();
-            set => SetProperty<int>(value);
+            get { return id; }
+            set { id = value; OnPropertyChanged("Id"); }
         }
 
         public string EducationLevel
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return educationLevel; }
+            set { educationLevel = value; OnPropertyChanged("EducationLevel"); }
         }
 
         public string EducationLevelDescription
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return educationLevelDescription; }
+            set { educationLevelDescription = value; OnPropertyChanged("EducationLevelDescription"); }
         }
     }
 }

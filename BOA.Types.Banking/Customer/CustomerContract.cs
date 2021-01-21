@@ -7,90 +7,151 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CustomerContract : ContractBase //Domain class
+    [Serializable]
+    public partial class CustomerContract : ContractBase //Domain class
     {
-        public int? CustomerId {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+        public CustomerContract()
+        {
+
+        }
+
+        private int? customerId;
+        private string customerName;
+        private string customerLastName;
+        private string citizenshipId;
+        private string motherName;
+        private string fatherName;
+        private string placeOfBirth;
+        private int? jobId;
+        private int? educationLvId;
+        private DateTime? dateOfBirth;
+        private List<CustomerPhoneContract> phoneNumbers;
+        private List<CustomerEmailContract> emails;
+        private string jobName;
+        private string educationLevelName;
+
+
+        public int? CustomerId
+        {
+            get { return customerId; }
+            set { customerId = value;
+                OnPropertyChanged("CustomerId");
+            }
+            
         }
 
         public string CustomerName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return customerName; }
+            set { customerName = value;
+                OnPropertyChanged("CustomerName");
+            }
         }
 
         public string CustomerLastName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return customerLastName; }
+            set { customerLastName = value;
+                OnPropertyChanged("CustomerLastName");
+            }
+
         }
 
         public string CitizenshipId
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return citizenshipId; }
+            set { citizenshipId = value;
+                OnPropertyChanged("CitizenshipId");
+            }
+
         }
 
         public string MotherName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return motherName; }
+            set { motherName = value;
+                OnPropertyChanged("MotherName");
+            }
+
         }
 
         public string FatherName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return fatherName; }
+            set { fatherName = value;
+                OnPropertyChanged("FatherName");
+            }
+
         }
 
         public string PlaceOfBirth
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return placeOfBirth; }
+            set { placeOfBirth = value;
+                OnPropertyChanged("PlaceOfBirth");
+            }
+
         }
 
-        public int?  JobId
+        public int? JobId
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return jobId; }
+            set { jobId = value;
+                OnPropertyChanged("jobId");
+            }
+
         }
 
         public int? EducationLvId
         {
-            get => GetProperty<int?>();
-            set => SetProperty<int?>(value);
+            get { return educationLvId; }
+            set { educationLvId = value;
+                OnPropertyChanged("EducationLvId");
+            }
+
         }
 
         public DateTime? DateOfBirth
         {
-            get => GetProperty<DateTime?>();
-            set => SetProperty<DateTime?>(value);
+            get { return dateOfBirth; }
+            set { dateOfBirth = value;
+                OnPropertyChanged("DateOfBirth");
+            }
+
         }
 
         public List<CustomerPhoneContract> PhoneNumbers
         {
-            get => GetProperty<List<CustomerPhoneContract>>();
-            set => SetProperty<List<CustomerPhoneContract>>(value);
+            get { return phoneNumbers; }
+            set { phoneNumbers = value;
+                OnPropertyChanged("PhoneNumbers");
+            }
         }
 
         public List<CustomerEmailContract> Emails
         {
-            get => GetProperty<List<CustomerEmailContract>>();
-            set => SetProperty<List<CustomerEmailContract>>(value);
+            get { return emails; }
+            set { emails = value;
+                OnPropertyChanged("Emails");
+            }
         }
 
         public string JobName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
+            get { return jobName; }
+            set { jobName = value;
+                OnPropertyChanged("JobName");
+            }
+
         }
 
         public string EducationLevelName
         {
-            get => GetProperty<string>();
-            set => SetProperty<string>(value);
-        }
+            get { return educationLevelName; }
+            set { educationLevelName = value;
+                OnPropertyChanged("EducationLevelName");
+            }
 
+        }
     }
 }
