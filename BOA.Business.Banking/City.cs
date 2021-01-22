@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class City
     {
-        public ResponseBase getAllCities()
+        public GenericResponse<List<CityContract>> getAllCities()
         {
             DbOperation dbOperation = new DbOperation();
             List<CityContract> cityContracts = new List<CityContract>();
@@ -26,11 +26,11 @@ namespace BOA.Business.Banking
             }
             if (cityContracts.Count > 0)
             {
-                return new ResponseBase() { DataContract = cityContracts,IsSuccess=true};
+                return new GenericResponse<List<CityContract>>() { Value = cityContracts,IsSuccess=true};
             }
             else
             {
-                return new ResponseBase() { ErrorMessage = "getAllCities işlemi başarısız", IsSuccess = false };
+                return new GenericResponse<List<CityContract>>() { ErrorMessage = "getAllCities işlemi başarısız", IsSuccess = false };
             }
         }
     }

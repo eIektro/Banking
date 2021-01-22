@@ -31,45 +31,10 @@ namespace BOA.UI.Banking.AccountList
             MainScreenTabControl = tabcontrol;
 
             #region Responses
-            var _AllAccountsResponse = GetAllAccounts();
-            if (_AllAccountsResponse.IsSuccess)
-            {
-                AllAccounts = (List<AccountContract>)_AllAccountsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllAccountsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllCurrenciesResponse = GetAllCurrencies();
-            if (_AllCurrenciesResponse.IsSuccess)
-            {
-                Currencies = (List<CurrencyContract>)_AllCurrenciesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCurrenciesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllBranchesResponse = GetAllBranchs();
-            if (_AllBranchesResponse.IsSuccess)
-            {
-                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllUsersResponse = GetAllUsers();
-            if (_AllUsersResponse.IsSuccess)
-            {
-                Users = (List<LoginContract>)_AllUsersResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllUsersResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            AllAccounts = GetAllAccounts();
+            Currencies = GetAllCurrencies();
+            Branches = GetAllBranchs();
+            Users = GetAllUsers();
             #endregion
 
             InitializeComponent();
@@ -164,50 +129,75 @@ namespace BOA.UI.Banking.AccountList
         #endregion
 
         #region Db Operations
-        private ResponseBase GetAllAccounts()
+        private List<AccountContract> GetAllAccounts()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<AccountContract>>>();
             var request = new AccountRequest();
             request.MethodName = "GetAllAccounts";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllUsers()
+        private List<LoginContract> GetAllUsers()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<LoginContract>>>();
             var request = new LoginRequest();
             request.MethodName = "GetAllUsers";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllBranchs()
+        private List<BranchContract> GetAllBranchs()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse< List<BranchContract>>>();
             var request = new BranchRequest();
             request.MethodName = "GetAllBranches";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllCurrencies()
+        private List<CurrencyContract> GetAllCurrencies()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CurrencyContract>>>();
             var request = new AccountRequest();
             request.MethodName = "GetAllCurrencies";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase FilterEngine(AccountContract _contract)
+        private List<AccountContract> FilterEngine(AccountContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<AccountContract>>>();
             var request = new AccountRequest();
             request.MethodName = "FilterAccountsByProperties";
             request.DataContract = _contract;
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
         #endregion
 
@@ -263,13 +253,7 @@ namespace BOA.UI.Banking.AccountList
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
-            var response = FilterEngine(FilterContract);
-            if (response.IsSuccess)
-            {
-                var responseAccounts = (List<AccountContract>)response.DataContract;
-                AllAccounts = responseAccounts;
-            }
-            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
+            AllAccounts = FilterEngine(FilterContract);
         }
 
         private void btnHesapSil_Click(object sender, RoutedEventArgs e)

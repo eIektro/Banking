@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Phone
     {
-        public ResponseBase PhoneAdd(CustomerPhoneContract phoneContract)
+        public GenericResponse<CustomerPhoneContract> PhoneAdd(CustomerPhoneContract phoneContract)
         {
             DbOperation dbOperation = new DbOperation();
 
@@ -25,12 +25,12 @@ namespace BOA.Business.Banking
             {
                 int id = Convert.ToInt32(dbOperation.SpExecute("CUS.ins_AddNewCustomerPhone", parameters));
 
-                return new ResponseBase { IsSuccess = true };
+                return new GenericResponse<CustomerPhoneContract>() { IsSuccess = true, Value = new CustomerPhoneContract() { CustomerPhoneId = id} };
             }
             catch (Exception)
             {
 
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "CustomerPhoneAdd isteği başarısız." };
+                return new GenericResponse<CustomerPhoneContract>() { IsSuccess = false, ErrorMessage = "CustomerPhoneAdd isteği başarısız." };
             }
         }
     }

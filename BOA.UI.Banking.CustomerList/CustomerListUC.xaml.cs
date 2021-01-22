@@ -32,35 +32,9 @@ namespace BOA.UI.Banking.CustomerList
             MainScreenTabControl = tabcontrol;
 
             #region responses
-            var _EducationLevelsResponse = GetAllEducationLevels();
-            if (_EducationLevelsResponse.IsSuccess)
-            {
-                EducationLevels = (List<EducationLevelContract>)_EducationLevelsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_EducationLevelsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _JobsResponse = GetAllJobs();
-            if (_JobsResponse.IsSuccess)
-            {
-                Jobs = (List<JobContract>)_JobsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_JobsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _CustomersResponse = GetAllCustomers();
-            if (_CustomersResponse.IsSuccess)
-            {
-                AllCustomers = (List<CustomerContract>)_CustomersResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_CustomersResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            EducationLevels = GetAllEducationLevels();
+            Jobs = GetAllJobs();
+            AllCustomers = GetAllCustomers();
             #endregion
 
             InitializeComponent();
@@ -139,34 +113,49 @@ namespace BOA.UI.Banking.CustomerList
         #endregion
 
         #region Db Operations
-        private ResponseBase GetAllEducationLevels()
+        private List<EducationLevelContract> GetAllEducationLevels()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<EducationLevelContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "getAllEducationLevels";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
-        private ResponseBase GetAllJobs()
+        private List<JobContract> GetAllJobs()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<JobContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "getAllJobs";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
-        private ResponseBase GetAllCustomers()
+        private List<CustomerContract> GetAllCustomers()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CustomerContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "GetAllCustomers";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase FilterEngine(CustomerContract _contract)
+        private List<CustomerContract> FilterEngine(CustomerContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CustomerContract>>>();
             var request = new CustomerRequest();
 
             request.MethodName = "FilterCustomersByProperties";
@@ -174,7 +163,12 @@ namespace BOA.UI.Banking.CustomerList
 
             var response = connect.Execute(request);
 
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
         #endregion
 
@@ -203,13 +197,7 @@ namespace BOA.UI.Banking.CustomerList
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
-            var response = FilterEngine(FilterContract);
-            if (response.IsSuccess)
-            {
-                var responseCustomers = (List<CustomerContract>)response.DataContract;
-                AllCustomers = responseCustomers;
-            }
-            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
+            AllCustomers = FilterEngine(FilterContract);
         }
 
         private void btnTemizle_Click(object sender, RoutedEventArgs e)

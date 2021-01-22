@@ -19,7 +19,7 @@ namespace BOA.Process.Banking
 
         }
             
-        public ResponseBase GetAllUsers(LoginRequest request)
+        public GenericResponse<List<LoginContract>> GetAllUsers(LoginRequest request)
         {
             Business.Banking.Login loginBusiness = new Business.Banking.Login();
             var response = loginBusiness.GetAllUsers(request);

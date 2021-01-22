@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Email
     {
-        public ResponseBase EmailAdd(CustomerEmailContract emailContract)
+        public GenericResponse<CustomerEmailContract> EmailAdd(CustomerEmailContract emailContract)
         {
             DbOperation dbOperation = new DbOperation();
 
@@ -25,12 +25,12 @@ namespace BOA.Business.Banking
             {
                 int id = Convert.ToInt32(dbOperation.SpExecute("CUS.ins_AddNewCustomerEmail", parameters));
 
-                return new ResponseBase { IsSuccess = true };
+                return new GenericResponse<CustomerEmailContract>() { IsSuccess = true,Value = new CustomerEmailContract() { CustomerMailId = id } };
             }
             catch (Exception)
             {
 
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "CustomerEmailAdd isteği başarısız." };
+                return new GenericResponse<CustomerEmailContract>() { IsSuccess = false, ErrorMessage = "CustomerEmailAdd isteği başarısız." };
             }
         }
     }

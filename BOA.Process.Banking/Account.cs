@@ -16,7 +16,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase FilterAccountsByProperties(AccountRequest request)
+        public GenericResponse<List<AccountContract>> FilterAccountsByProperties(AccountRequest request)
         {
             if (request.DataContract.DateOfDeactivation.GetValueOrDefault() < new DateTime(1753, 01, 01))
             {
@@ -48,7 +48,7 @@ namespace BOA.Process.Banking
 
         }
 
-        public ResponseBase GetAllAccounts(AccountRequest request)
+        public GenericResponse<List<AccountContract>> GetAllAccounts(AccountRequest request)
         {
             BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();
             var response = accountBusiness.GetAllAccounts(request);

@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Currency
     {
-        public ResponseBase GetAllCurrencies (AccountRequest request)
+        public GenericResponse<List<CurrencyContract>> GetAllCurrencies (AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlDataReader reader = dbOperation.GetData("COR.sel_GetAllCurrencies");
@@ -28,11 +28,11 @@ namespace BOA.Business.Banking
 
             try
             {
-                return new ResponseBase() { DataContract = currencyContracts, IsSuccess = true };
+                return new GenericResponse<List<CurrencyContract>>() { Value = currencyContracts, IsSuccess = true };
             }
             catch
             {
-                return new ResponseBase() { ErrorMessage = "GetAllCurrencies operasyonu başarısız oldu.", IsSuccess = false };
+                return new GenericResponse<List<CurrencyContract>>() { ErrorMessage = "GetAllCurrencies operasyonu başarısız oldu.", IsSuccess = false };
             }
         }
     }

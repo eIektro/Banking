@@ -12,11 +12,11 @@ using BOA.Connector.Banking.Exceptions;
 
 namespace BOA.Connector.Banking
 {
-    public class Connect
+    public class Connect<T> where  T: ResponseBase
     {
         private object instance;
 
-        public ResponseBase Execute(RequestBase request) 
+        public T Execute(RequestBase request) //
         {
             Type requestType = request.GetType();
             string requestedClass = requestType.Name.Replace("Request", "");
@@ -38,7 +38,7 @@ namespace BOA.Connector.Banking
             {
                 var processMethodInfo = t.GetMethod(request.MethodName);
                 var response = processMethodInfo.Invoke(instance, new Object[] { request });
-                return (ResponseBase)response;
+                return (T)response;
             }
             catch (Exception e)
             { 

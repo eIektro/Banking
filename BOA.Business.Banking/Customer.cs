@@ -14,7 +14,7 @@ namespace BOA.Business.Banking
     public class Customer
     {
 
-        public ResponseBase FilterCustomersByProperties(CustomerRequest request) {
+        public GenericResponse<List<CustomerContract>> FilterCustomersByProperties(CustomerRequest request) {
             DbOperation dbOperation = new DbOperation();
             
             SqlParameter[] parameters = new SqlParameter[]
@@ -58,14 +58,14 @@ namespace BOA.Business.Banking
                     });
                 }
                 
-                return new ResponseBase { IsSuccess = true, DataContract = customerContracts};
+                return new GenericResponse<List<CustomerContract>>() { IsSuccess = true, Value = customerContracts};
             }
             catch
             {
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "FilterCustomersByProperties operasyonu başarısız." };
+                return new GenericResponse<List<CustomerContract>>() { IsSuccess = false, ErrorMessage = "FilterCustomersByProperties operasyonu başarısız." };
             }
         }
-        public ResponseBase CustomerAdd(CustomerRequest request)
+        public GenericResponse<CustomerContract> CustomerAdd(CustomerRequest request)
         {
             Business.Banking.Email emailBusiness = new Email();
             Business.Banking.Phone phoneBusiness = new Phone();
@@ -99,7 +99,7 @@ namespace BOA.Business.Banking
                     }
                     catch (Exception)
                     {
-                        return new ResponseBase { IsSuccess = false, ErrorMessage = "EmailAdd operasyonu başarısız!" };
+                        return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "EmailAdd operasyonu başarısız!" };
                     }
                 }
 
@@ -115,22 +115,22 @@ namespace BOA.Business.Banking
                     }
                     catch (Exception)
                     {
-                        return new ResponseBase { IsSuccess = false, ErrorMessage = "PhoneNumberAdd operasyonu başarısız!" };
+                        return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "PhoneNumberAdd operasyonu başarısız!" };
                     }
                 }
                 
-                return new ResponseBase { DataContract = new CustomerContract { CustomerId = id }, IsSuccess = true };
+                return new GenericResponse<CustomerContract>() { Value = new CustomerContract { CustomerId = id }, IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new ResponseBase { IsSuccess = false,ErrorMessage = "CustomerAdd isteği başarısız."};
+                return new GenericResponse<CustomerContract>() { IsSuccess = false,ErrorMessage = "CustomerAdd isteği başarısız."};
             }
            
 
         }
 
-        public ResponseBase UpdateCustomerbyId(CustomerRequest request)
+        public GenericResponse<CustomerContract> UpdateCustomerbyId(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] parameters = new SqlParameter[]
@@ -153,16 +153,16 @@ namespace BOA.Business.Banking
             {
                 var response = dbOperation.spExecuteScalar("CUS.upd_UpdateCustomerbyId", parameters);
                 //TO-DO: DataContract'taki telefon numaraları ve email adresleri için işlem yapılmıyor. Eklenecek.
-                return new ResponseBase { IsSuccess = true };
+                return new GenericResponse<CustomerContract>() { IsSuccess = true };
             }
             catch (Exception e)
             {
                 
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "UpdateCustomerbyId isteği başarısız oldu." };
+                return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "UpdateCustomerbyId isteği başarısız oldu." };
             }
         }
 
-        public ResponseBase CustomerDelete(CustomerRequest request)
+        public GenericResponse<CustomerContract> CustomerDelete(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
 
@@ -174,16 +174,16 @@ namespace BOA.Business.Banking
             {
                 var response = dbOperation.SpExecute("CUS.del_DeleteCustomerbyId", parameters);
 
-                return new ResponseBase { IsSuccess = true };
+                return new GenericResponse<CustomerContract>() { IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "CustomerDelete isteği başarısız." };
+                return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "CustomerDelete isteği başarısız." };
             }
         }
 
-        public ResponseBase GetAllCustomers(CustomerRequest request) 
+        public GenericResponse<List<CustomerContract>> GetAllCustomers(CustomerRequest request) 
         {
             DbOperation dbOperation = new DbOperation();
             List<CustomerContract> dataContracts = new List<CustomerContract>();
@@ -262,14 +262,14 @@ namespace BOA.Business.Banking
 
             if (dataContracts.Count > 0)
             {
-                return new ResponseBase { DataContract = dataContracts, IsSuccess = true };
+                return new GenericResponse<List<CustomerContract>>() { Value = dataContracts, IsSuccess = true };
             }
 
-            return new ResponseBase { ErrorMessage = "GetAllCustomers işlemi başarısız oldu." };
+            return new GenericResponse<List<CustomerContract>>() { ErrorMessage = "GetAllCustomers işlemi başarısız oldu.",IsSuccess=false };
 
         }
 
-        public List<CustomerPhoneContract> GetCustomerPhonesByCustomerId(int customerId)
+        public List<CustomerPhoneContract> GetCustomerPhonesByCustomerId(int customerId) //TODO: Buraları düzenle, email ile birlikte
         {
             DbOperation dbOperation = new DbOperation();
             List<CustomerPhoneContract> customerPhones = new List<CustomerPhoneContract>();

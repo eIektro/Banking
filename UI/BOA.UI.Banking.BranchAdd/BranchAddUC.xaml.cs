@@ -29,15 +29,7 @@ namespace BOA.UI.Banking.BranchAdd
         public BranchAddUC()
         {
             #region responses
-            var _AllCitiesResponse = GetAllCities();
-            if (_AllCitiesResponse.IsSuccess)
-            {
-                Cities = (List<CityContract>)_AllCitiesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCitiesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            Cities = GetAllCities();
             #endregion
 
             InitializeComponent();
@@ -49,15 +41,7 @@ namespace BOA.UI.Banking.BranchAdd
             Branch = contract;
 
             #region responses
-            var _AllCitiesResponse = GetAllCities();
-            if (_AllCitiesResponse.IsSuccess)
-            {
-                Cities = (List<CityContract>)_AllCitiesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCitiesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Cities = GetAllCities();
             #endregion
 
             InitializeComponent();
@@ -107,9 +91,9 @@ namespace BOA.UI.Banking.BranchAdd
         #endregion
 
         #region db operations
-        private ResponseBase AddBranch(BranchContract _contract)
+        private BranchContract AddBranch(BranchContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<BranchContract>>();
             var request = new BranchRequest();
 
             request.MethodName = "AddNewBranch";
@@ -117,21 +101,31 @@ namespace BOA.UI.Banking.BranchAdd
 
             var response = connect.Execute(request);
 
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllCities()
+        private List<CityContract> GetAllCities()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CityContract>>>();
             var request = new BranchRequest();
             request.MethodName = "getAllCities";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase UpdateBranch(BranchContract _contract)
+        private BranchContract UpdateBranch(BranchContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<BranchContract>>();
             var request = new BranchRequest();
 
             request.MethodName = "UpdateBranchDetailsById";
@@ -139,7 +133,12 @@ namespace BOA.UI.Banking.BranchAdd
 
             var response = connect.Execute(request);
 
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
         #endregion
 
@@ -159,31 +158,22 @@ namespace BOA.UI.Banking.BranchAdd
                 if (MessageBox.Show("Seçilen şube bilgileri güncellensin mi?", "Uyarı", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
 
-                    var response = UpdateBranch(Branch);
-
-                    if (response.IsSuccess)
+                    if (UpdateBranch(Branch) != null)
                     {
                         MessageBox.Show("Şube güncellenmiştir", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnVazgec_Click(new object(), new RoutedEventArgs());
                     }
-                    else
-                    {
-                        MessageBox.Show($"Şube güncelleme işlemi başarısız. {response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
                 }
-
                 return;
             }
 
             if (MessageBox.Show("Bilgilerini girdiğiniz şube kaydedilsin mi?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var response = AddBranch(Branch);
-                if (response.IsSuccess)
+                if (AddBranch(Branch) != null)
                 {
                     MessageBox.Show($"Şube eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                     Branch = new BranchContract();
                 }
-                else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
             }
         }
 
