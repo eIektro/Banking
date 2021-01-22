@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Login
     {
-        public ResponseBase UserLogin(LoginRequest request)
+        public GenericResponse<LoginContract> UserLogin(LoginRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             LoginContract loginContract = new LoginContract();
@@ -29,18 +29,18 @@ namespace BOA.Business.Banking
 
             try
             {
-                return new ResponseBase { DataContract = loginContract, IsSuccess = true };
+                return new GenericResponse<LoginContract>() { Value = loginContract, IsSuccess = true };
             }
             catch
             {
-                return new ResponseBase { ErrorMessage = "Başarısız login denemesi", IsSuccess = false };
+                return new GenericResponse<LoginContract>() { ErrorMessage = "Başarısız login denemesi", IsSuccess = false };
             }
 
             
 
         }
 
-        public ResponseBase GetAllUsers(LoginRequest request)
+        public GenericResponse<List<LoginContract>> GetAllUsers(LoginRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlDataReader reader = dbOperation.GetData("COR.sel_GetAllUsers");
@@ -55,12 +55,12 @@ namespace BOA.Business.Banking
                         LoginName = reader["UserName"].ToString()
                     });
                 }
-                return new ResponseBase() { DataContract = users, IsSuccess = true };
+                return new GenericResponse<List<LoginContract>>() { Value = users, IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new ResponseBase() { IsSuccess = false, ErrorMessage = "GetAllUsers operasyonu başarısız." };
+                return new GenericResponse<List<LoginContract>>() { IsSuccess = false, ErrorMessage = "GetAllUsers operasyonu başarısız." };
             }
         }
 

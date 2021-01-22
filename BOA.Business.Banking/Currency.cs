@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Currency
     {
-        public ResponseBase GetAllCurrencies (AccountRequest request)
+        public GenericResponse<List<CurrencyContract>> GetAllCurrencies (AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlDataReader reader = dbOperation.GetData("COR.sel_GetAllCurrencies");
@@ -19,20 +19,20 @@ namespace BOA.Business.Banking
             while (reader.Read())
             {
                 currencyContracts.Add(new CurrencyContract() { 
-                    symbol = reader["symbol"].ToString(),
-                    code = reader["code"].ToString(),
-                    id = Convert.ToInt32(reader["id"]),
-                    name = reader["name"].ToString()
+                    Symbol = reader["symbol"].ToString(),
+                    Code = reader["code"].ToString(),
+                    Id = Convert.ToInt32(reader["id"]),
+                    Name = reader["name"].ToString()
                 });
             }
 
             try
             {
-                return new ResponseBase() { DataContract = currencyContracts, IsSuccess = true };
+                return new GenericResponse<List<CurrencyContract>>() { Value = currencyContracts, IsSuccess = true };
             }
             catch
             {
-                return new ResponseBase() { ErrorMessage = "GetAllCurrencies operasyonu başarısız oldu.", IsSuccess = false };
+                return new GenericResponse<List<CurrencyContract>>() { ErrorMessage = "GetAllCurrencies operasyonu başarısız oldu.", IsSuccess = false };
             }
         }
     }

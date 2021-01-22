@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Account
     {
-        public ResponseBase GetAllAccounts(AccountRequest request)
+        public GenericResponse<List<AccountContract>> GetAllAccounts(AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<AccountContract> accountContracts = new List<AccountContract>();
@@ -39,17 +39,17 @@ namespace BOA.Business.Banking
                     });
                 }
 
-                return new ResponseBase() { DataContract = accountContracts, IsSuccess = true };
+                return new GenericResponse<List<AccountContract>>(){ IsSuccess = true, Value = accountContracts };
             }
             catch (Exception e)
             {
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "GetAllAccounts operasyonu başarısız" };
+                return new GenericResponse<List<AccountContract>>() { IsSuccess = false, ErrorMessage = "GetAllAccounts operasyonu başarısız" };
             }
 
                 
         }
 
-        public ResponseBase FilterAccountsByProperties(AccountRequest request)
+        public GenericResponse<List<AccountContract>> FilterAccountsByProperties(AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<AccountContract> accountContracts = new List<AccountContract>();
@@ -95,17 +95,17 @@ namespace BOA.Business.Banking
 
                     });
                 }
-                return new ResponseBase() { DataContract = accounts, IsSuccess = true };
+                return new GenericResponse<List<AccountContract>>() { Value = accounts, IsSuccess = true };
             }
             catch (Exception e)
             {
-                return new ResponseBase() { ErrorMessage = "FilterAccountsByProperties operasyonu başarısız.", IsSuccess = false };
+                return new GenericResponse<List<AccountContract>>() { ErrorMessage = "FilterAccountsByProperties operasyonu başarısız.", IsSuccess = false };
                 throw;
             }
         }
 
 
-        public ResponseBase AddNewAccount(AccountRequest request)
+        public GenericResponse<AccountContract> AddNewAccount(AccountRequest request) //New response
         {
             request.DataContract.DateOfFormation = DateTime.Now;
             DbOperation dbOperation = new DbOperation();
@@ -125,11 +125,11 @@ namespace BOA.Business.Banking
             try
             {
                 var response = dbOperation.spExecuteScalar("CUS.ins_AddNewAccount", sqlParameters);
-                return new ResponseBase() { IsSuccess = true };
+                return new GenericResponse<AccountContract>() { IsSuccess = true };
             }
             catch (Exception)
             {
-                return new ResponseBase() { IsSuccess = false, ErrorMessage = "AddNewAccount operasyonu başarısız oldu." };
+                return new GenericResponse<AccountContract>() { IsSuccess = false, ErrorMessage = "AddNewAccount operasyonu başarısız oldu." };
                 throw;
             }
 
@@ -137,7 +137,7 @@ namespace BOA.Business.Banking
 
         }
 
-        public ResponseBase UpdateAccountDetailsById(AccountRequest request)
+        public GenericResponse<AccountContract> UpdateAccountDetailsById(AccountRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] sqlParameters = new SqlParameter[] {
@@ -155,11 +155,11 @@ namespace BOA.Business.Banking
             try
             {
                 var response = dbOperation.spExecuteScalar("CUS.upd_UpdateAccountDetailsById", sqlParameters);
-                return new ResponseBase() { IsSuccess = true };
+                return new GenericResponse<AccountContract>() { IsSuccess = true };
             }
             catch (Exception e)
             {
-                return new ResponseBase() { IsSuccess = false, ErrorMessage = "UpdateAccountDetailsById operasyonu başarısız." };
+                return new GenericResponse<AccountContract>() { IsSuccess = false, ErrorMessage = "UpdateAccountDetailsById operasyonu başarısız." };
                 throw;
             }
         }

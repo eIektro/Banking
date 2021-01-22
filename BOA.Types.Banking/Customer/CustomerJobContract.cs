@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BOA.Types.Banking.Base;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,12 +7,40 @@ using System.Threading.Tasks;
 
 namespace BOA.Types.Banking
 {
-    public class CustomerJobContract
+    [Serializable]
+    public partial class CustomerJobContract : ContractBase
     {
-        public int Id { get; set; }
+        public CustomerJobContract()
+        {
+                
+        }
 
-        public string JobName { get; set; }
+        private int id;
+        private string jobName;
+        private string jobDescription;
 
-        public string JobDescription { get; set; }
+        public int Id
+        {
+            get { return id; }
+            set { id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        public string JobName
+        {
+            get { return jobName; }
+            set { jobName = value;
+                OnPropertyChanged("JobName");
+            }
+        }
+
+        public string JobDescription
+        {
+            get { return jobDescription; }
+            set { jobDescription = value;
+                OnPropertyChanged("JobDescription");
+            }
+        }
     }
 }

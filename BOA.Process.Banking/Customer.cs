@@ -10,7 +10,7 @@ namespace BOA.Process.Banking
     public class Customer
     {
         //TO-DO: Update fonksiyonu için email ve telefon numaralarına çözüm bulunacak
-        public ResponseBase FilterCustomersByProperties(CustomerRequest request)
+        public GenericResponse<List<CustomerContract>> FilterCustomersByProperties(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             
@@ -23,7 +23,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase GetAllCustomers(CustomerRequest request) 
+        public GenericResponse<List<CustomerContract>> GetAllCustomers(CustomerRequest request) 
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.GetAllCustomers(request);
@@ -53,7 +53,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase getAllJobs(CustomerRequest request)
+        public GenericResponse<List<JobContract>> getAllJobs(CustomerRequest request)
         {
             Business.Banking.Job jobBusiness = new Business.Banking.Job();
             var response = jobBusiness.getAllJobs(request);
@@ -62,7 +62,7 @@ namespace BOA.Process.Banking
 
         }
 
-        public ResponseBase getAllEducationLevels(CustomerRequest request)
+        public GenericResponse<List<EducationLevelContract>> getAllEducationLevels(CustomerRequest request)
         {
             Business.Banking.EducationLevel educationLvBusiness = new Business.Banking.EducationLevel();
             var response = educationLvBusiness.getAllEducationLevels(request);

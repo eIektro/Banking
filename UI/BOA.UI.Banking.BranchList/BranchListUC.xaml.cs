@@ -30,25 +30,8 @@ namespace BOA.UI.Banking.BranchList
             MainWindowTabControl = tabControl;
 
             #region responses
-            var _AllBranchesResponse = GetAllBranchs();
-            if (_AllBranchesResponse.IsSuccess)
-            {
-                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllCitiesResponse = GetAllCities();
-            if (_AllBranchesResponse.IsSuccess)
-            {
-                Cities = (List<CityContract>)_AllCitiesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCitiesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            Branches = GetAllBranchs();
+            Cities = GetAllCities();
             #endregion
 
             InitializeComponent();
@@ -117,34 +100,49 @@ namespace BOA.UI.Banking.BranchList
         #endregion
 
         #region Db Operations
-        private ResponseBase GetAllBranchs()
+        private List<BranchContract> GetAllBranchs()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<BranchContract>>>();
             var request = new BranchRequest();
             request.MethodName = "GetAllBranches";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllCities()
+        private List<CityContract> GetAllCities()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CityContract>>>();
             var request = new BranchRequest();
             request.MethodName = "getAllCities";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase FilterEngine(BranchContract _contract)
+        private List<BranchContract> FilterEngine(BranchContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<BranchContract>>>();
             var request = new BranchRequest();
 
             request.MethodName = "FilterBranchsByProperties";
             request.DataContract = _contract;
 
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         } 
         #endregion
 
@@ -167,13 +165,7 @@ namespace BOA.UI.Banking.BranchList
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
-            var response = FilterEngine(FilterContract);
-            if (response.IsSuccess)
-            {
-                var responseBranches = (List<BranchContract>)response.DataContract;
-                Branches = responseBranches;
-            }
-            else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
+            Branches = FilterEngine(FilterContract);
         }
 
         private void btnSubeSil_Click(object sender, RoutedEventArgs e)

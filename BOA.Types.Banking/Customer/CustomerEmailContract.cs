@@ -1,13 +1,52 @@
-﻿namespace BOA.Types.Banking
+﻿using BOA.Types.Banking.Base;
+using System;
+
+namespace BOA.Types.Banking
 {
-    public class CustomerEmailContract
+    [Serializable]
+    public partial class CustomerEmailContract : ContractBase
     {
-        public int? CustomerMailId { get; set; }
+        public CustomerEmailContract()
+        {
 
-        public int? CustomerId { get; set; }
+        }
 
-        public int EmailType { get; set; }
+        private int? customerMailId;
+        private int? customerId;
+        private int emailType;
+        private string mailAdress;
 
-        public string MailAdress { get; set; }
+
+        public int? CustomerMailId
+        {
+            get { return customerMailId; }
+            set { customerMailId = value;
+                OnPropertyChanged("CustomerMailId");
+            }
+        }
+
+        public int? CustomerId
+        {
+            get { return customerId; }
+            set { customerId = value;
+                OnPropertyChanged("CustomerId");
+            }
+        }
+
+        public int EmailType
+        {
+            get { return emailType; }
+            set { emailType = value;
+                OnPropertyChanged("EmailType");
+            }
+        }
+
+        public string MailAdress
+        {
+            get { return mailAdress; }
+            set { mailAdress = value;
+                OnPropertyChanged("MailAdress");
+            }
+        }
     }
 }

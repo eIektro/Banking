@@ -82,7 +82,7 @@
                             </Grid.RowDefinitions>
                         
                         <Grid Grid.Row="0">
-                            <Image Source="C:\Users\emrek\Desktop\banking.jpg" VerticalAlignment="Top" Margin="5,5,5,0"></Image>
+                            <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\banking.jpg" VerticalAlignment="Top" Margin="5,5,5,0"></Image>
                         </Grid>
                         <Grid Grid.Row="1" Margin="0,0,0,0">
                             <Grid.ColumnDefinitions>
@@ -90,14 +90,14 @@
                                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                             </Grid.ColumnDefinitions>
                             <Grid Grid.Column="0" Margin="7,0,0,0">
-                                <Image Source="C:\Users\emrek\Desktop\coding1.jpg" Width="440" HorizontalAlignment="Left"></Image>
+                                <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\coding1.jpg" Width="440" HorizontalAlignment="Left"></Image>
                             </Grid>
                             <Grid Grid.Column="1">
-                                <Image Source="C:\Users\emrek\Desktop\coding2.jpg" Width="440" Margin="0,0,0,0"></Image>
+                                <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\coding2.jpg" Width="440" Margin="0,0,0,0"></Image>
                             </Grid>
                         </Grid>
                         <Grid Grid.Row="2">
-                            <Image Source="C:\Users\emrek\Desktop\signature.png" Width="870" Margin="5,5,5,5"></Image>
+                            <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\signature.png" Width="870" Margin="5,5,5,5"></Image>
                         </Grid>
                     </Grid>
 

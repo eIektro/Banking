@@ -13,7 +13,12 @@ namespace BOA.Types.Banking
         public bool IsSuccess;
 
         public string ErrorMessage;
+    }
 
-        public Object DataContract { get; set; } //value
+
+    public class GenericResponse<T> : ResponseBase
+    {
+
+        public T Value { get; set; }
     }
 }

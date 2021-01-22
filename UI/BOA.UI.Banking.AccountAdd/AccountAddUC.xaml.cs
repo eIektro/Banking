@@ -30,25 +30,8 @@ namespace BOA.UI.Banking.AccountAdd
         public AccountAddUC()
         {
             #region responses
-            var _AllCurrenciesResponse = GetAllCurrencies();
-            if (_AllCurrenciesResponse.IsSuccess)
-            {
-                Currencies = (List<CurrencyContract>)_AllCurrenciesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCurrenciesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllBranchesResponse = GetAllBranchs();
-            if (_AllBranchesResponse.IsSuccess)
-            {
-                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            Currencies = GetAllCurrencies();
+            Branches = GetAllBranchs();
             #endregion
 
             InitializeComponent();
@@ -57,25 +40,8 @@ namespace BOA.UI.Banking.AccountAdd
         public AccountAddUC(AccountContract contract)
         {
             #region responses
-            var _AllCurrenciesResponse = GetAllCurrencies();
-            if (_AllCurrenciesResponse.IsSuccess)
-            {
-                Currencies = (List<CurrencyContract>)_AllCurrenciesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllCurrenciesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _AllBranchesResponse = GetAllBranchs();
-            if (_AllBranchesResponse.IsSuccess)
-            {
-                Branches = (List<BranchContract>)_AllBranchesResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_AllBranchesResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            Currencies = GetAllCurrencies();
+            Branches = GetAllBranchs();
             #endregion
 
             Account = contract;
@@ -142,42 +108,62 @@ namespace BOA.UI.Banking.AccountAdd
         #endregion
 
         #region db operations
-        private ResponseBase GetAllCurrencies()
+        private List<CurrencyContract> GetAllCurrencies()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<CurrencyContract>>>();
             var request = new AccountRequest();
             request.MethodName = "GetAllCurrencies";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase GetAllBranchs()
+        private List<BranchContract> GetAllBranchs()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<BranchContract>>>();
             var request = new BranchRequest();
             request.MethodName = "GetAllBranches";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase AddAccount(AccountContract contract)
+        private AccountContract AddAccount(AccountContract contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<AccountContract>>();
             var request = new AccountRequest();
             request.MethodName = "AddNewAccount";
             request.DataContract = contract;
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase UpdateAccount(AccountContract contract)
+        private AccountContract UpdateAccount(AccountContract contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<AccountContract>>();
             var request = new AccountRequest();
             request.MethodName = "UpdateAccountDetailsById";
             request.DataContract = contract;
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
         #endregion
 
@@ -196,35 +182,25 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var responseUpdate = UpdateAccount(Account);
-                    if (responseUpdate.IsSuccess)
+                    if (UpdateAccount(Account) != null)
                     {
                         MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnVazgec_Click(new object(), new RoutedEventArgs());
 
                     }
-                    else
-                    {
-                        MessageBox.Show($"{responseUpdate.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
                 }
-
                 return;
             }
 
 
             Account.FormedUserId = Login.LoginScreen._userId;
-            var response = AddAccount(Account);
-            if (response.IsSuccess)
+           
+            if (AddAccount(Account) != null)
             {
                 MessageBox.Show("Hesap eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                 Account = new AccountContract();
             }
-            else
-            {
-                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
+            
 
         }
 

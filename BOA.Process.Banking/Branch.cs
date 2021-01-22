@@ -9,7 +9,7 @@ namespace BOA.Process.Banking
 {
     public class Branch
     {
-        public ResponseBase getAllCities(BranchRequest request)
+        public GenericResponse<List<CityContract>> getAllCities(BranchRequest request)
         {
             Business.Banking.City cityBusiness = new Business.Banking.City();
             var response = cityBusiness.getAllCities();
@@ -17,7 +17,7 @@ namespace BOA.Process.Banking
             
         }
 
-        public ResponseBase FilterBranchsByProperties(BranchRequest request)
+        public GenericResponse<List<BranchContract>> FilterBranchsByProperties(BranchRequest request)
         {
             if (request.DataContract.DateOfLaunch.GetValueOrDefault() < new DateTime(1753, 01, 01))
             {
@@ -37,7 +37,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase GetAllBranches(BranchRequest request)
+        public GenericResponse<List<BranchContract>> GetAllBranches(BranchRequest request)
         {
             Business.Banking.Branch branchBusiness = new Business.Banking.Branch();
             var response = branchBusiness.GetAllBranches(request);

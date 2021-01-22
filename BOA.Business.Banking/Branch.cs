@@ -10,7 +10,7 @@ namespace BOA.Business.Banking
 {
     public class Branch
     {
-        public ResponseBase AddNewBranch(BranchRequest request)
+        public GenericResponse<BranchContract> AddNewBranch(BranchRequest request)
         {
             request.DataContract.DateOfLaunch = DateTime.Now;
             DbOperation dbOperation = new DbOperation();
@@ -26,16 +26,16 @@ namespace BOA.Business.Banking
             try
             {
                 var dbResponse =Convert.ToInt32(dbOperation.spExecuteScalar("COR.ins_AddNewBranch", parameters));
-                return new ResponseBase() { DataContract = dbResponse, IsSuccess = true };
+                return new GenericResponse<BranchContract>() { IsSuccess = true };
             }
             catch (Exception)
             {
-                return new ResponseBase() { ErrorMessage = "AddNewBranch fonksiyonu başarısız", IsSuccess = false };
+                return new GenericResponse<BranchContract>() { ErrorMessage = "AddNewBranch fonksiyonu başarısız", IsSuccess = false };
                 //throw;
             }
         }
 
-        public ResponseBase FilterBranchsByProperties(BranchRequest request)
+        public GenericResponse<List<BranchContract>> FilterBranchsByProperties(BranchRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             
@@ -70,19 +70,19 @@ namespace BOA.Business.Banking
                     });
                 }
 
-                return new ResponseBase { DataContract = branchsList, IsSuccess = true };
+                return new GenericResponse<List<BranchContract>>() { Value = branchsList, IsSuccess = true };
 
             }
             catch
             {
-                return new ResponseBase { IsSuccess = false, ErrorMessage = "FilterBranchsByProperties isteği başarısız." };
+                return new GenericResponse<List<BranchContract>>() { IsSuccess = false, ErrorMessage = "FilterBranchsByProperties isteği başarısız." };
             }
             
 
 
         }
 
-        public ResponseBase DeleteBranchById(BranchRequest request)
+        public GenericResponse<BranchContract> DeleteBranchById(BranchRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] parameters = new SqlParameter[]
@@ -92,16 +92,16 @@ namespace BOA.Business.Banking
             try
             {
                 var dbResponse = dbOperation.spExecuteScalar("COR.del_BranchDeleteById", parameters);
-                return new ResponseBase() { IsSuccess = true };
+                return new GenericResponse<BranchContract>() { IsSuccess = true };
             }
             catch (Exception)
             {
-                return new ResponseBase() { ErrorMessage = "DeleteBranchById işlemi başarısız oldu!", IsSuccess = false };
+                return new GenericResponse<BranchContract>() { ErrorMessage = "DeleteBranchById işlemi başarısız oldu!", IsSuccess = false };
                 //throw;
             }
 
         }
-        public ResponseBase UpdateBranchDetailsById(BranchRequest request)
+        public GenericResponse<BranchContract> UpdateBranchDetailsById(BranchRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] parameters = new SqlParameter[] {
@@ -115,16 +115,16 @@ namespace BOA.Business.Banking
             try
             {
                 var dbResponse = dbOperation.spExecuteScalar("COR.upd_UpdateBranchDetailsById", parameters);
-                return new ResponseBase() { IsSuccess = true, DataContract = request.DataContract };
+                return new GenericResponse<BranchContract>() { IsSuccess = true };
             }
             catch (Exception)
             {
 
-                return new ResponseBase() { ErrorMessage = "UpdateBranchDetailsById fonksiyonu başarısız", IsSuccess = false };
+                return new GenericResponse<BranchContract>() { ErrorMessage = "UpdateBranchDetailsById fonksiyonu başarısız", IsSuccess = false };
             }
         }
 
-        public ResponseBase GetAllBranches(BranchRequest request)
+        public GenericResponse<List<BranchContract>> GetAllBranches(BranchRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<BranchContract> branchContracts = new List<BranchContract>();
@@ -150,16 +150,16 @@ namespace BOA.Business.Banking
             catch (Exception)
             {
 
-                return new ResponseBase() { ErrorMessage = "GetAllBranches metodu başarısız.", IsSuccess = false };
+                return new GenericResponse<List<BranchContract>>() { ErrorMessage = "GetAllBranches metodu başarısız.", IsSuccess = false };
             }
 
             if (branchContracts.Count > 0)
             {
-                return new ResponseBase() { DataContract = branchContracts,IsSuccess = true };
+                return new GenericResponse<List<BranchContract>>() { Value = branchContracts,IsSuccess = true };
             }
             else
             {
-                return new ResponseBase() { IsSuccess = false, ErrorMessage = "Hiç şube getirilemedi." };
+                return new GenericResponse<List<BranchContract>>() { IsSuccess = false, ErrorMessage = "Hiç şube getirilemedi." };
             }
         }
 

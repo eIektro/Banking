@@ -10,27 +10,27 @@ namespace BOA.Business.Banking
 {
     public class City
     {
-        public ResponseBase getAllCities()
+        public GenericResponse<List<CityContract>> getAllCities()
         {
             DbOperation dbOperation = new DbOperation();
             List<CityContract> cityContracts = new List<CityContract>();
             SqlDataReader reader = dbOperation.GetData("COR.sel_AllCities");
             while (reader.Read())
             {
-                cityContracts.Add(new CityContract() {
-                    id = Convert.ToInt32(reader["id"]),
-                    code = reader["code"].ToString(),
-                    name = reader["name"].ToString()
+                cityContracts.Add(new CityContract() { 
+                    Id = Convert.ToInt32(reader["id"]),
+                    Code = reader["code"].ToString(),
+                    Name = reader["name"].ToString()
                     
                 });
             }
             if (cityContracts.Count > 0)
             {
-                return new ResponseBase() { DataContract = cityContracts,IsSuccess=true};
+                return new GenericResponse<List<CityContract>>() { Value = cityContracts,IsSuccess=true};
             }
             else
             {
-                return new ResponseBase() { ErrorMessage = "getAllCities işlemi başarısız", IsSuccess = false };
+                return new GenericResponse<List<CityContract>>() { ErrorMessage = "getAllCities işlemi başarısız", IsSuccess = false };
             }
         }
     }

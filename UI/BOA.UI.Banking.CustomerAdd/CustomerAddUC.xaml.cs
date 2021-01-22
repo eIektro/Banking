@@ -30,25 +30,8 @@ namespace BOA.UI.Banking.CustomerAdd
         {
 
             #region responses
-            var _EducationLevelsResponse = GetAllEducationLevels();
-            if (_EducationLevelsResponse.IsSuccess)
-            {
-                EducationLevels = (List<EducationLevelContract>)_EducationLevelsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_EducationLevelsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _JobsResponse = GetAllJobs();
-            if (_JobsResponse.IsSuccess)
-            {
-                Jobs = (List<JobContract>)_JobsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_JobsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            } 
+            EducationLevels = GetAllEducationLevels();
+            Jobs = GetAllJobs();
             #endregion
 
             InitializeComponent();
@@ -61,25 +44,8 @@ namespace BOA.UI.Banking.CustomerAdd
             IsEditingOption = true;
 
             #region responses
-            var _EducationLevelsResponse = GetAllEducationLevels();
-            if (_EducationLevelsResponse.IsSuccess)
-            {
-                EducationLevels = (List<EducationLevelContract>)_EducationLevelsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_EducationLevelsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
-
-            var _JobsResponse = GetAllJobs();
-            if (_JobsResponse.IsSuccess)
-            {
-                Jobs = (List<JobContract>)_JobsResponse.DataContract;
-            }
-            else
-            {
-                MessageBox.Show($"{_JobsResponse.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+            EducationLevels = GetAllEducationLevels();
+            Jobs = GetAllJobs();
             #endregion
 
             InitializeComponent();
@@ -142,26 +108,36 @@ namespace BOA.UI.Banking.CustomerAdd
         #endregion
 
         #region database operations
-        private ResponseBase GetAllEducationLevels()
+        private List<EducationLevelContract> GetAllEducationLevels()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<EducationLevelContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "getAllEducationLevels";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
-        private ResponseBase GetAllJobs()
+        private List<JobContract> GetAllJobs()
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<List<JobContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "getAllJobs";
             var response = connect.Execute(request);
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase AddCustomer(CustomerContract _contract)
+        private CustomerContract AddCustomer(CustomerContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<CustomerContract>>();
             var request = new CustomerRequest();
 
             request.MethodName = "CustomerAdd";
@@ -169,12 +145,17 @@ namespace BOA.UI.Banking.CustomerAdd
 
             var response = connect.Execute(request);
 
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
 
-        private ResponseBase UpdateCustomer(CustomerContract _contract)
+        private CustomerContract UpdateCustomer(CustomerContract _contract)
         {
-            var connect = new Connector.Banking.Connect();
+            var connect = new Connector.Banking.Connect<GenericResponse<CustomerContract>>();
             var request = new CustomerRequest();
 
             request.MethodName = "UpdateCustomerbyId";
@@ -182,7 +163,12 @@ namespace BOA.UI.Banking.CustomerAdd
 
             var response = connect.Execute(request);
 
-            return response;
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
         }
         #endregion
 
@@ -213,19 +199,13 @@ namespace BOA.UI.Banking.CustomerAdd
             {
                 if (MessageBox.Show("Yaptığınız değişlikler müşteri bilgilerine yansısın mı?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
-                    var responseUpdate = UpdateCustomer(customerContract);
-                    if (responseUpdate.IsSuccess)
+                    if (UpdateCustomer(customerContract) != null)
                     {
                         MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnVazgec_Click(new object(), new RoutedEventArgs());
 
                     }
-                    else
-                    {
-                        MessageBox.Show($"{responseUpdate.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
                 }
-
                 return;
             }
 
@@ -233,19 +213,17 @@ namespace BOA.UI.Banking.CustomerAdd
 
             if (MessageBox.Show("Bilgilerini girdiğiniz müşteri veritabanına kaydedilsin mi?", "Kayıt", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
             {
-                var response = AddCustomer(customerContract);
-                if (response.IsSuccess)
+                if (AddCustomer(customerContract) != null)
                 {
                     MessageBox.Show($"Müşteri ekleme işlemi başarılı", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Information);
                     customerContract = new CustomerContract();
                 }
-                else { MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error); }
             }
 
-            else
-            {
-                MessageBox.Show("Gerekli alanları doldurunuz", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Warning);
-            }
+            //else
+            //{
+            //    MessageBox.Show("Gerekli alanları doldurunuz", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Warning);
+            //}
 
 
         }

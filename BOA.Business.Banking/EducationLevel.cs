@@ -11,7 +11,7 @@ namespace BOA.Business.Banking
 {
     public class EducationLevel
     {
-        public ResponseBase getAllEducationLevels(CustomerRequest request)
+        public GenericResponse<List<EducationLevelContract>> getAllEducationLevels(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<EducationLevelContract> dataContracts = new List<EducationLevelContract>();
@@ -29,10 +29,10 @@ namespace BOA.Business.Banking
             
             if (dataContracts.Count > 0)
             {
-                return new ResponseBase { DataContract = dataContracts, IsSuccess = true };
+                return new GenericResponse<List<EducationLevelContract>>() { Value = dataContracts, IsSuccess = true };
             }
 
-            return new ResponseBase { ErrorMessage = "GetAllEducationLevels işlemi başarısız oldu." };
+            return new GenericResponse<List<EducationLevelContract>>() { ErrorMessage = "GetAllEducationLevels işlemi başarısız oldu.", IsSuccess = false };
 
         }
     }

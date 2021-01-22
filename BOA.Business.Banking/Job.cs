@@ -12,7 +12,7 @@ namespace BOA.Business.Banking
     public class Job
     {
 
-        public ResponseBase getAllJobs(CustomerRequest request)
+        public GenericResponse<List<JobContract>> getAllJobs(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();
             List<JobContract> dataContracts = new List<JobContract>();
@@ -31,10 +31,10 @@ namespace BOA.Business.Banking
 
             if (dataContracts.Count > 0)
             {
-                return new ResponseBase { DataContract = dataContracts, IsSuccess = true };
+                return new GenericResponse<List<JobContract>>() { Value = dataContracts, IsSuccess = true };
             }
 
-            return new ResponseBase { ErrorMessage = "GetAllJobs işlemi başarısız oldu." };
+            return new GenericResponse<List<JobContract>>() { ErrorMessage = "GetAllJobs işlemi başarısız oldu." , IsSuccess = true};
 
         }
     }

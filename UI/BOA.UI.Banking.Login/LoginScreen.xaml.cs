@@ -37,7 +37,7 @@ namespace BOA.UI.Banking.Login
         {
             if (UserName.Text != "" && Password.Password != "")
             {
-                var connect = new BOA.Connector.Banking.Connect();
+                var connect = new BOA.Connector.Banking.Connect<GenericResponse<LoginContract>>();
                 var request = new BOA.Types.Banking.LoginRequest();
                 var contract = new BOA.Types.Banking.LoginContract();
                 
@@ -48,12 +48,12 @@ namespace BOA.UI.Banking.Login
                 request.MethodName = "UserLogin";
 
 
-                 var response = (ResponseBase)connect.Execute(request);
+                 var response = connect.Execute(request);
 
 
                 if (response.IsSuccess)
                 {
-                    var user = (LoginContract)response.DataContract;
+                    var user = response.Value;
                     _userName = user.LoginName;
                     _userId = (int)user.Id;
                     
