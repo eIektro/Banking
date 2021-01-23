@@ -130,6 +130,54 @@ namespace BOA.Business.Banking
 
         }
 
+        public GenericResponse<CustomerContract> GetCustomerDetailsById(CustomerRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@CustomerId",request.DataContract.CustomerId)
+            };
+
+            try
+            {
+                SqlDataReader reader = dbOperation.GetData("CUS.sel_GetCustomerDetailsById", parameters);
+
+                if (reader.HasRows)
+                {
+                    CustomerContract customer = new CustomerContract();
+                    while (reader.Read())
+                    {
+                        customer.CustomerId = Convert.ToInt32(reader["CustomerId"]);
+                        customer.CustomerName = reader["CustomerName"].ToString();
+                        customer.CustomerLastName = reader["CustomerLastName"].ToString();
+                        customer.CitizenshipId = reader["CitizenshipId"].ToString();
+                        customer.MotherName = reader["MotherName"].ToString();
+                        customer.FatherName = reader["FatherName"].ToString();
+                        customer.PlaceOfBirth = reader["PlaceOfBirth"].ToString();
+                        customer.JobId = (int)reader["JobId"];
+                        customer.EducationLvId = (int)reader["EducationLvId"];
+                        customer.DateOfBirth = (DateTime)reader["DateOfBirth"];
+                        customer.EducationLevelName = reader["EducationLevel"].ToString();
+                        customer.JobName = reader["JobName"].ToString();
+                        customer.PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"]));
+                        customer.Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]));
+                    }
+
+                    return new GenericResponse<CustomerContract>() { Value = customer, IsSuccess = true };
+                }
+
+                else
+                {
+                    return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "Aranılan id ile kayıtlı herhangi bir müşteri bulunamadı!" };
+                }
+
+            }
+            catch(Exception e)
+            {
+                return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "GetCustomerDetailsById operasyonu başarısız oldu." };
+            }
+        }
+
         public GenericResponse<CustomerContract> UpdateCustomerbyId(CustomerRequest request)
         {
             DbOperation dbOperation = new DbOperation();

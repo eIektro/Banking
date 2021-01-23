@@ -10,7 +10,7 @@ namespace BOA.Process.Banking
     public class Login
     {
         
-        public ResponseBase UserLogin(LoginRequest request)
+        public GenericResponse<LoginContract> UserLogin(LoginRequest request)
         {
             Business.Banking.Login loginBusiness = new Business.Banking.Login();
             var response = loginBusiness.UserLogin(request);

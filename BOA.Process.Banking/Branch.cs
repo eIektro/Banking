@@ -30,7 +30,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase AddNewBranch(BranchRequest request)
+        public GenericResponse<BranchContract> AddNewBranch(BranchRequest request)
         {
             Business.Banking.Branch branchBusiness = new Business.Banking.Branch();
             var response = branchBusiness.AddNewBranch(request);
@@ -44,14 +44,14 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase UpdateBranchDetailsById(BranchRequest request)
+        public GenericResponse<BranchContract> UpdateBranchDetailsById(BranchRequest request)
         {
             Business.Banking.Branch branchBusiness = new Business.Banking.Branch();
             var response = branchBusiness.UpdateBranchDetailsById(request);
             return response;
         }
 
-        public ResponseBase DeleteBranchById(BranchRequest request)
+        public GenericResponse<BranchContract> DeleteBranchById(BranchRequest request)
         {
             Business.Banking.Branch branchBusiness = new Business.Banking.Branch();
             var response = branchBusiness.DeleteBranchById(request);

@@ -4,9 +4,86 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerComponent"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             mc:Ignorable="d" Background="White" Height="259.147" Width="462.264">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal" Background="AliceBlue">
+                <Button Content="Tamam" Margin="5,5,0,5"></Button>
+                <Button Content="Kapat" Margin="15,5,0,5"></Button>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <StackPanel Orientation="Horizontal" >
+                <Label Content="TCKN:" Width="100"></Label>
+                <Label Content="{}"></Label>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="10"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Ad:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Soyad:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Anne Adı:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Baba Adı:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Mail Adresleri:" Width="100" HorizontalAlignment="Left"></Label>
+                        <ListBox Height="60" ScrollViewer.CanContentScroll="True" Margin="5,0,5,0"></ListBox>
+                    </StackPanel>
+                </StackPanel>
+
+
+            </Grid>
+            <Grid Grid.Column="2">
+
+                <StackPanel Orientation="Vertical">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Eğitim Seviyesi:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Meslek:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Doğum Tarihi:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Content="Doğum Yeri:" Width="100"></Label>
+                        <Label Content="{}"></Label>
+                    </StackPanel>
+                    <StackPanel>
+                        <Label Content="Tel. Numaraları:" Width="100" HorizontalAlignment="Left"/>
+                        <ListBox Height="60" ScrollViewer.CanContentScroll="True" Margin="5,0,5,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+            </Grid>
+        </Grid>
+
     </Grid>
 </UserControl>

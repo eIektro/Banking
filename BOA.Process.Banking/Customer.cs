@@ -32,21 +32,29 @@ namespace BOA.Process.Banking
 
         }
 
-        public ResponseBase CustomerDelete(CustomerRequest request)
+        public GenericResponse<CustomerContract> GetCustomerDetailsById(CustomerRequest request)
+        {
+            Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
+            var response = customerBusiness.GetCustomerDetailsById(request);
+
+            return response;
+        }
+
+        public GenericResponse<CustomerContract> CustomerDelete(CustomerRequest request) //TODO: GenericResponse
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.CustomerDelete(request);
             return response;
         }
 
-        public ResponseBase UpdateCustomerbyId(CustomerRequest request)
+        public GenericResponse<CustomerContract> UpdateCustomerbyId(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
             var response = customerBusiness.UpdateCustomerbyId(request);
             return response;
         }
 
-        public ResponseBase CustomerAdd(CustomerRequest request)
+        public GenericResponse<CustomerContract> CustomerAdd(CustomerRequest request)
         {
             Business.Banking.Customer customerBusiness = new Business.Banking.Customer();
            var response = customerBusiness.CustomerAdd(request);

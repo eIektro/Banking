@@ -9,7 +9,7 @@ namespace BOA.Process.Banking
 {
     public class Account
     {
-        public ResponseBase GetAllCurrencies(AccountRequest request)
+        public GenericResponse<List<CurrencyContract>> GetAllCurrencies(AccountRequest request)
         {
             BOA.Business.Banking.Currency currencyBusiness = new Business.Banking.Currency();
             var response = currencyBusiness.GetAllCurrencies(request);
@@ -40,7 +40,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase AddNewAccount(AccountRequest request)
+        public GenericResponse<AccountContract> AddNewAccount(AccountRequest request)
         {
             BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();
             var response = accountBusiness.AddNewAccount(request);
@@ -55,7 +55,7 @@ namespace BOA.Process.Banking
             return response;
         }
 
-        public ResponseBase UpdateAccountDetailsById(AccountRequest request)
+        public GenericResponse<AccountContract> UpdateAccountDetailsById(AccountRequest request)
         {
             BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();
             var response = accountBusiness.UpdateAccountDetailsById(request);
