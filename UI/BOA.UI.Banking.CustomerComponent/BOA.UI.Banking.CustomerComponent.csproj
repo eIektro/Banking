@@ -55,24 +55,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CustomerComponent.xaml">
+    <Page Include="CusComponentWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="CustomerComponent.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CusComponentWindow.xaml.cs">
+      <DependentUpon>CusComponentWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CustomerComponent.xaml.cs">
       <DependentUpon>CustomerComponent.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -100,6 +99,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
+      <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
+      <Name>BOA.Connector.Banking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
+      <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
+      <Name>BOA.Types.Banking</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

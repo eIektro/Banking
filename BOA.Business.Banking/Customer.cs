@@ -154,8 +154,6 @@ namespace BOA.Business.Banking
                         customer.MotherName = reader["MotherName"].ToString();
                         customer.FatherName = reader["FatherName"].ToString();
                         customer.PlaceOfBirth = reader["PlaceOfBirth"].ToString();
-                        customer.JobId = (int)reader["JobId"];
-                        customer.EducationLvId = (int)reader["EducationLvId"];
                         customer.DateOfBirth = (DateTime)reader["DateOfBirth"];
                         customer.EducationLevelName = reader["EducationLevel"].ToString();
                         customer.JobName = reader["JobName"].ToString();
@@ -168,7 +166,7 @@ namespace BOA.Business.Banking
 
                 else
                 {
-                    return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "Aranılan id ile kayıtlı herhangi bir müşteri bulunamadı!" };
+                    return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "Verilen ID ile kayıtlı herhangi bir müşteri bulunamadı!" };
                 }
 
             }

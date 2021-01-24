@@ -241,6 +241,21 @@ namespace BOA.UI.Banking.AccountAdd
             cbIsActive.IsHitTestVisible = !WannaDisable;
         }
 
+        
+        private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbCustomerId.Text != "")
+            {
+                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbCustomerId.Text));
+                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                customerComponentWindow.Content = customerComponent;
+                customerComponentWindow.ShowDialog();  
+                
+            }
+        }
+
+
+
 
         //private void ClearInputs()
         //{

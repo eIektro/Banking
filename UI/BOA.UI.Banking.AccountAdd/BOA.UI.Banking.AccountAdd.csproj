@@ -106,6 +106,10 @@
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerComponent.csproj">
+      <Project>{c915516c-b056-44b0-97b2-2440e786539f}</Project>
+      <Name>BOA.UI.Banking.CustomerComponent</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.Login\BOA.UI.Banking.Login.csproj">
       <Project>{d1077dc6-5814-4260-9172-542e8a7ea0a1}</Project>
       <Name>BOA.UI.Banking.Login</Name>

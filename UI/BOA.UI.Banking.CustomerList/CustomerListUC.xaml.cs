@@ -158,7 +158,7 @@ namespace BOA.UI.Banking.CustomerList
             var connect = new Connector.Banking.Connect<GenericResponse<List<CustomerContract>>>();
             var request = new CustomerRequest();
 
-            request.MethodName = "FilterCustomersByProperties";
+            request.MethodName = "GetCustomerDetailsById";
             request.DataContract = _contract;
 
             var response = connect.Execute(request);
