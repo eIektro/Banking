@@ -234,7 +234,17 @@ namespace BOA.UI.Banking.AccountList
         #endregion
 
         #region Button Operations
+        private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbFilterbyCustomerId.Text != "")
+            {
+                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
+                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                customerComponentWindow.Content = customerComponent;
+                customerComponentWindow.ShowDialog();
 
+            }
+        }
         private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgAccountList.SelectedItem == null) return;
@@ -264,7 +274,8 @@ namespace BOA.UI.Banking.AccountList
         private void btnTemizle_Click(object sender, RoutedEventArgs e)
         {
             FilterContract = new AccountContract();
-        } 
+        }
         #endregion
+
     }
 }

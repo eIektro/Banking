@@ -173,6 +173,18 @@ namespace BOA.UI.Banking.CustomerList
         #endregion
 
         #region Button Operations
+        private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
+        {
+            if (tbFilterbyId.Text != "")
+            {
+                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbFilterbyId.Text));
+                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                customerComponentWindow.Content = customerComponent;
+                customerComponentWindow.ShowDialog();
+
+            }
+        }
+
         private void btnMusteriSil_Click(object sender, RoutedEventArgs e)
         {
 
@@ -211,7 +223,8 @@ namespace BOA.UI.Banking.CustomerList
         {
             Regex regex = new Regex("[^0-9]+");
             e.Handled = regex.IsMatch(e.Text);
-        } 
+        }
         #endregion
+
     }
 }
