@@ -39,7 +39,7 @@ namespace BOA.UI.Banking.CustomerComponent
             
         }
 
-        public int? ReturnNull()
+        public bool? ReturnNull()
         {
             return null;
         }

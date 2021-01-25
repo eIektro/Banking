@@ -178,6 +178,7 @@ namespace BOA.UI.Banking.CustomerList
             if (tbFilterbyId.Text != "")
             {
                 CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbFilterbyId.Text));
+                if (customerComponent.Content == null) return;
                 CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
                 customerComponentWindow.Content = customerComponent;
                 customerComponentWindow.ShowDialog();
