@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{65C38836-D8A3-4F42-B5C0-90BDC1CB87A0}</ProjectGuid>
+    <ProjectGuid>{C915516C-B056-44B0-97B2-2440E786539F}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BOA.UI.Banking.AccountAdd</RootNamespace>
-    <AssemblyName>BOA.UI.Banking.AccountAdd</AssemblyName>
+    <RootNamespace>BOA.UI.Banking.CustomerComponent</RootNamespace>
+    <AssemblyName>BOA.UI.Banking.CustomerComponent</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -35,9 +35,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DotNetProjects.Input.Toolkit, Version=6.0.85.0, Culture=neutral, PublicKeyToken=79778c5f2eed289b, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\DotNetProjects.WpfToolkit.Input.6.0.85\lib\net40\DotNetProjects.Input.Toolkit.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -58,17 +55,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AccountAddUC.xaml.cs">
-      <DependentUpon>AccountAddUC.xaml</DependentUpon>
-    </Compile>
+    <Page Include="CusComponentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomerDetailsComponent.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="AccountAddUC.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
+    <Compile Include="CusComponentWindow.xaml.cs">
+      <DependentUpon>CusComponentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerDetailsComponent.xaml.cs">
+      <DependentUpon>CustomerDetailsComponent.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -88,7 +92,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -105,14 +108,6 @@
     <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerDetailsComponent.csproj">
-      <Project>{c915516c-b056-44b0-97b2-2440e786539f}</Project>
-      <Name>BOA.UI.Banking.CustomerDetailsComponent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.Login\BOA.UI.Banking.Login.csproj">
-      <Project>{d1077dc6-5814-4260-9172-542e8a7ea0a1}</Project>
-      <Name>BOA.UI.Banking.Login</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

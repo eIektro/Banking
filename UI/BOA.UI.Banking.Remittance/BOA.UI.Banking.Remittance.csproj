@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C915516C-B056-44B0-97B2-2440E786539F}</ProjectGuid>
+    <ProjectGuid>{3BD725CC-0BB0-4A8A-A545-D816BFF4AD5E}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BOA.UI.Banking.CustomerComponent</RootNamespace>
-    <AssemblyName>BOA.UI.Banking.CustomerComponent</AssemblyName>
+    <RootNamespace>BOA.UI.Banking.Remittance</RootNamespace>
+    <AssemblyName>BOA.UI.Banking.Remittance</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,24 +55,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="CusComponentWindow.xaml">
-      <SubType>Designer</SubType>
+    <Compile Include="RemittanceScreenUC.xaml.cs">
+      <DependentUpon>RemittanceScreenUC.xaml</DependentUpon>
+    </Compile>
+    <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="CustomerComponent.xaml">
       <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CusComponentWindow.xaml.cs">
-      <DependentUpon>CusComponentWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
     </Compile>
-    <Compile Include="CustomerComponent.xaml.cs">
-      <DependentUpon>CustomerComponent.xaml</DependentUpon>
-    </Compile>
+    <Page Include="RemittanceScreenUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -99,16 +100,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
-      <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
-      <Name>BOA.Connector.Banking</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
-      <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
-      <Name>BOA.Types.Banking</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

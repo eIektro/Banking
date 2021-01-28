@@ -16,14 +16,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BOA.UI.Banking.CustomerComponent
+namespace BOA.UI.Banking.CustomerDetailsComponent
 {
     /// <summary>
-    /// Interaction logic for CustomerComponent.xaml
+    /// Interaction logic for CustomerDetailsComponent.xaml
     /// </summary>
-    public partial class CustomerComponent : UserControl, INotifyPropertyChanged
+    public partial class CustomerDetailsComponent : UserControl, INotifyPropertyChanged
     {
-        public CustomerComponent(int customerid)
+        public CustomerDetailsComponent(int customerid)
         {
             Customer = GetCustomerById(new CustomerContract() { CustomerId = customerid }); //Customer Null olduğu durum için mantıklı bir kapatma çözümü bul.
 

@@ -1,8 +1,8 @@
-﻿<Application x:Class="BOA.UI.Banking.CustomerDetailsComponent.App"
+﻿<Application x:Class="BOA.UI.Banking.Remittance.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:BOA.UI.Banking.CustomerDetailsComponent"
-             StartupUri="CustomerDetailsComponent.xaml">
+             xmlns:local="clr-namespace:BOA.UI.Banking.Remittance"
+             StartupUri="MainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>

@@ -170,6 +170,11 @@ namespace BOA.UI.Banking.MainScreen
             }
         }
 
+        private void tvHavale_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
         /* ↓↓ STORYBOARD KODLARI ↓↓ */
 
         /**  

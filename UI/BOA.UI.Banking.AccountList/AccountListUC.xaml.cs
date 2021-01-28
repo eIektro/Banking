@@ -238,9 +238,9 @@ namespace BOA.UI.Banking.AccountList
         {
             if (tbFilterbyCustomerId.Text != "")
             {
-                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
+                CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
                 if (customerComponent.Content == null) return;
-                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
                 customerComponentWindow.Content = customerComponent;
                 customerComponentWindow.ShowDialog();
 

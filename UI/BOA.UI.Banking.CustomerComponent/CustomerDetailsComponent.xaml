@@ -1,9 +1,9 @@
-﻿<UserControl x:Class="BOA.UI.Banking.CustomerComponent.CustomerComponent"
+﻿<UserControl x:Class="BOA.UI.Banking.CustomerDetailsComponent.CustomerDetailsComponent"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BOA.UI.Banking.CustomerComponent"
+             xmlns:local="clr-namespace:BOA.UI.Banking.CustomerDetailsComponent"
              mc:Ignorable="d" Background="White" Height="289.147" Width="550" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
         <Grid.RowDefinitions>

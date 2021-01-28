@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.AccountAdd"
-             xmlns:customerComponent="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
+             xmlns:customerComponent="clr-namespace:BOA.UI.Banking.CustomerDetailsComponent;assembly=BOA.UI.Banking.CustomerDetailsComponent"
              mc:Ignorable="d" 
              d:DesignHeight="320" d:DesignWidth="800" Background="White" VerticalAlignment="Top" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>

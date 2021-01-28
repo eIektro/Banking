@@ -7,11 +7,11 @@ using System.Windows;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("BOA.UI.Banking.CustomerDetailsComponent")]
+[assembly: AssemblyTitle("BOA.UI.Banking.Remittance")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("BOA.UI.Banking.CustomerDetailsComponent")]
+[assembly: AssemblyProduct("BOA.UI.Banking.Remittance")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

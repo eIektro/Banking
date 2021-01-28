@@ -180,9 +180,9 @@ namespace BOA.UI.Banking.AccountAdd
         {
             if (tbCustomerId.Text != "")
             {
-                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbCustomerId.Text));
+                CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbCustomerId.Text));
                 if (customerComponent.Content == null) return;
-                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
                 customerComponentWindow.Content = customerComponent;
                 customerComponentWindow.ShowDialog();
 

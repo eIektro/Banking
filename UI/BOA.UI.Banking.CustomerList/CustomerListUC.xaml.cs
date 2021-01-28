@@ -158,7 +158,7 @@ namespace BOA.UI.Banking.CustomerList
             var connect = new Connector.Banking.Connect<GenericResponse<List<CustomerContract>>>();
             var request = new CustomerRequest();
 
-            request.MethodName = "GetCustomerDetailsById";
+            request.MethodName = "FilterCustomersByProperties";
             request.DataContract = _contract;
 
             var response = connect.Execute(request);
@@ -175,11 +175,11 @@ namespace BOA.UI.Banking.CustomerList
         #region Button Operations
         private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
         {
-            if (tbFilterbyId.Text != "")
+            if (tbFilterbyId.Text != "" && tbFilterbyId.Text != null)
             {
-                CustomerComponent.CustomerComponent customerComponent = new CustomerComponent.CustomerComponent(Convert.ToInt32(tbFilterbyId.Text));
+                CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyId.Text));
                 if (customerComponent.Content == null) return;
-                CustomerComponent.CusComponentWindow customerComponentWindow = new CustomerComponent.CusComponentWindow();
+                CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
                 customerComponentWindow.Content = customerComponent;
                 customerComponentWindow.ShowDialog();
 
