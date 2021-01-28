@@ -16,7 +16,7 @@ namespace BOA.Business.Banking
 
         public GenericResponse<List<CustomerContract>> FilterCustomersByProperties(CustomerRequest request) {
             DbOperation dbOperation = new DbOperation();
-            
+
             SqlParameter[] parameters = new SqlParameter[]
             {
                 new SqlParameter("@CustomerId", request.DataContract.CustomerId),
@@ -28,7 +28,8 @@ namespace BOA.Business.Banking
                 new SqlParameter("@PlaceOfBirth",request.DataContract.PlaceOfBirth),
                 new SqlParameter("@DateOfBirth",request.DataContract.DateOfBirth),
                 new SqlParameter("@JobId",request.DataContract.JobId),
-                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId)
+                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId),
+                new SqlParameter("@BranchId",request.DataContract.BranchId)
             };
 
             try
@@ -48,9 +49,11 @@ namespace BOA.Business.Banking
                         PlaceOfBirth = reader["PlaceOfBirth"].ToString(),
                         JobId = (int)reader["JobId"],
                         EducationLvId = (int)reader["EducationLvId"],
+                        BranchId = (int)reader["BranchId"],
                         DateOfBirth = (DateTime)reader["DateOfBirth"],
                         EducationLevelName = reader["EducationLevel"].ToString(),
                         JobName = reader["JobName"].ToString(),
+                        BranchName = reader["BranchName"].ToString(),
                         PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])),
                         Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
 
@@ -80,7 +83,8 @@ namespace BOA.Business.Banking
                 new SqlParameter("@PlaceOfBirth",request.DataContract.PlaceOfBirth),
                 new SqlParameter("@DateOfBirth",request.DataContract.DateOfBirth),
                 new SqlParameter("@JobId",request.DataContract.JobId),
-                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId)
+                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId),
+                new SqlParameter("@BranchId",request.DataContract.BranchId)
                 
             };
 
@@ -157,6 +161,7 @@ namespace BOA.Business.Banking
                         customer.DateOfBirth = (DateTime)reader["DateOfBirth"];
                         customer.EducationLevelName = reader["EducationLevel"].ToString();
                         customer.JobName = reader["JobName"].ToString();
+                        customer.BranchName = reader["BranchName"].ToString();
                         customer.PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"]));
                         customer.Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]));
                     }
@@ -190,7 +195,8 @@ namespace BOA.Business.Banking
                 new SqlParameter("@PlaceOfBirth",request.DataContract.PlaceOfBirth),
                 new SqlParameter("@DateOfBirth",request.DataContract.DateOfBirth),
                 new SqlParameter("@JobId",request.DataContract.JobId),
-                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId)
+                new SqlParameter("@EducationLvId",request.DataContract.EducationLvId),
+                new SqlParameter("@BranchId",request.DataContract.BranchId)
             };
 
             
@@ -247,9 +253,11 @@ namespace BOA.Business.Banking
                     PlaceOfBirth = reader["PlaceOfBirth"].ToString(),
                     JobId = (int)reader["JobId"],
                     EducationLvId = (int)reader["EducationLvId"],
+                    BranchId = (int)reader["BranchId"],
                     DateOfBirth = (DateTime)reader["DateOfBirth"],
                     EducationLevelName = reader["EducationLevel"].ToString(),
                     JobName = reader["JobName"].ToString(),
+                    BranchName = reader["BranchName"].ToString(),
                     PhoneNumbers = GetCustomerPhonesByCustomerId(Convert.ToInt32(reader["CustomerId"])), //Bunda sakınca var mı? Sor
                     Emails = GetCustomerEmailsByCustomerId(Convert.ToInt32(reader["CustomerId"]))
                 });

@@ -32,6 +32,8 @@ namespace BOA.UI.Banking.CustomerAdd
             #region responses
             EducationLevels = GetAllEducationLevels();
             Jobs = GetAllJobs();
+            Branches = GetAllBranchs();
+
             #endregion
 
             InitializeComponent();
@@ -46,6 +48,7 @@ namespace BOA.UI.Banking.CustomerAdd
             #region responses
             EducationLevels = GetAllEducationLevels();
             Jobs = GetAllJobs();
+            Branches = GetAllBranchs();
             #endregion
 
             InitializeComponent();
@@ -84,6 +87,17 @@ namespace BOA.UI.Banking.CustomerAdd
             }
         }
 
+        private List<BranchContract> branches;
+        public List<BranchContract> Branches
+        {
+            get { return this.branches; }
+            set
+            {
+                this.branches = value;
+                OnPropertyChanged("Branches");
+            }
+        }
+
         private List<JobContract> jobs;
         public List<JobContract> Jobs
         {
@@ -113,6 +127,20 @@ namespace BOA.UI.Banking.CustomerAdd
             var connect = new Connector.Banking.Connect<GenericResponse<List<EducationLevelContract>>>();
             var request = new CustomerRequest();
             request.MethodName = "getAllEducationLevels";
+            var response = connect.Execute(request);
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
+        }
+
+        private List<BranchContract> GetAllBranchs()
+        {
+            var connect = new Connector.Banking.Connect<GenericResponse<List<BranchContract>>>();
+            var request = new BranchRequest();
+            request.MethodName = "GetAllBranches";
             var response = connect.Execute(request);
             if (!response.IsSuccess)
             {

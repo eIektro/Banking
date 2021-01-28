@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.Remittance"
+            xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -13,20 +14,20 @@
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
-                <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
-                <Button x:Name="btnMusteriSil" Click="btnMusteriSil_Click" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
+                <Button x:Name="btnAprove" Click="btnAprove_Click" Content="İşlem Yap" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                
 
             </StackPanel>
 
         </Grid>
-        <Grid Grid.Row="1" Background="LightGray">
+        <Grid Grid.Row="1" Background="White">
             <StackPanel Orientation="Vertical">
                 
-                <GroupBox Height="Auto" BorderBrush="Gray" Header="Paranın Çekileceği Hesap">
-                    
+                <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Çekileceği Hesap">
+                    <customerCom:CustomerComponentUC></customerCom:CustomerComponentUC>
                 </GroupBox>
-                <GroupBox Height="Auto" BorderBrush="Gray" Header="Paranın Yatırılacağı Hesap">
-                    
+                <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Yatırılacağı Hesap">
+                    <customerCom:CustomerComponentUC></customerCom:CustomerComponentUC>
                 </GroupBox>
             </StackPanel>
         </Grid>

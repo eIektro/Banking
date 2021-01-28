@@ -35,6 +35,7 @@ namespace BOA.UI.Banking.CustomerList
             EducationLevels = GetAllEducationLevels();
             Jobs = GetAllJobs();
             AllCustomers = GetAllCustomers();
+            Branches = GetAllBranchs();
             #endregion
 
             InitializeComponent();
@@ -64,6 +65,17 @@ namespace BOA.UI.Banking.CustomerList
             {
                 this.filtercontract = value;
                 OnPropertyChanged("FilterContract");
+            }
+        }
+
+        private List<BranchContract> branches;
+        public List<BranchContract> Branches
+        {
+            get { return this.branches; }
+            set
+            {
+                this.branches = value;
+                OnPropertyChanged("Branches");
             }
         }
 
@@ -126,6 +138,21 @@ namespace BOA.UI.Banking.CustomerList
             }
             return response.Value;
         }
+
+        private List<BranchContract> GetAllBranchs()
+        {
+            var connect = new Connector.Banking.Connect<GenericResponse<List<BranchContract>>>();
+            var request = new BranchRequest();
+            request.MethodName = "GetAllBranches";
+            var response = connect.Execute(request);
+            if (!response.IsSuccess)
+            {
+                MessageBox.Show($"{response.ErrorMessage}", "Hata", MessageBoxButton.OK, MessageBoxImage.Error);
+                return null;
+            }
+            return response.Value;
+        }
+
         private List<JobContract> GetAllJobs()
         {
             var connect = new Connector.Banking.Connect<GenericResponse<List<JobContract>>>();

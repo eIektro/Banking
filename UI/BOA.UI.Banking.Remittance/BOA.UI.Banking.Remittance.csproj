@@ -101,5 +101,19 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
+      <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
+      <Name>BOA.Connector.Banking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
+      <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
+      <Name>BOA.Types.Banking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerComponent.csproj">
+      <Project>{f4a065a9-660f-4880-b0b3-5c4745479767}</Project>
+      <Name>BOA.UI.Banking.CustomerComponent</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

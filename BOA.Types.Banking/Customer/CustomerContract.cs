@@ -24,11 +24,13 @@ namespace BOA.Types.Banking
         private string placeOfBirth;
         private int? jobId;
         private int? educationLvId;
+        private int? branchId;
         private DateTime? dateOfBirth;
         private List<CustomerPhoneContract> phoneNumbers;
         private List<CustomerEmailContract> emails;
         private string jobName;
         private string educationLevelName;
+        private string branchName;
 
 
         public int? CustomerId
@@ -111,6 +113,13 @@ namespace BOA.Types.Banking
 
         }
 
+        public int? BranchId
+        {
+            get { return branchId; }
+            set { branchId = value;
+                OnPropertyChanged("BranchId");
+            }
+        }
         public DateTime? DateOfBirth
         {
             get { return dateOfBirth; }
@@ -152,6 +161,14 @@ namespace BOA.Types.Banking
                 OnPropertyChanged("EducationLevelName");
             }
 
+        }
+
+        public string BranchName
+        {
+            get { return branchName; }
+            set { branchName = value;
+                OnPropertyChanged("BranchName");
+            }
         }
     }
 }

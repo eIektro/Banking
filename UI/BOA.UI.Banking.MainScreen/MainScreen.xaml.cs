@@ -172,7 +172,22 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvHavale_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            var theRemittanceTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Havale");
+            if (theRemittanceTab != null)
+            {
+                theRemittanceTab.Focus();
+            }
 
+            else
+            {
+                //CustomerComponent.CustomerComponentUC customerComponentUC = new CustomerComponent.CustomerComponentUC();
+                Remittance.RemittanceScreenUC remittanceContainer = new Remittance.RemittanceScreenUC();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+                theTabItem.Title = "Havale";
+                theTabItem.Content = remittanceContainer;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         /* ↓↓ STORYBOARD KODLARI ↓↓ */

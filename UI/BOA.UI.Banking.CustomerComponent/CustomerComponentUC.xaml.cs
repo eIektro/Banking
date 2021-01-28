@@ -13,22 +13,16 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace BOA.UI.Banking.Remittance
+namespace BOA.UI.Banking.CustomerComponent
 {
     /// <summary>
-    /// Interaction logic for RemittanceScreenUC.xaml
+    /// Interaction logic for CustomerComponentUC.xaml
     /// </summary>
-    public partial class RemittanceScreenUC : UserControl
+    public partial class CustomerComponentUC : UserControl
     {
-        public RemittanceScreenUC()
+        public CustomerComponentUC()
         {
             InitializeComponent();
-            
-        }
-
-        private void btnAprove_Click(object sender, RoutedEventArgs e)
-        {
-
         }
     }
 }

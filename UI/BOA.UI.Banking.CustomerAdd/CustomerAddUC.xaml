@@ -8,6 +8,7 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
+        <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
         <CollectionViewSource x:Key="Jobs" Source="{Binding Jobs}"></CollectionViewSource>
         <CollectionViewSource x:Key="EducationLevels" Source="{Binding EducationLevels}"></CollectionViewSource>
         <ObjectDataProvider x:Key="phoneTypes"
@@ -79,6 +80,10 @@
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                     <Label Content="Eğitim Düzeyi: " Height="25" Margin="0,10,0,0"></Label>
                     <ComboBox x:Name="cbEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels}}" SelectedValue="{Binding customerContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Label Content="Şube: " Height="25" Margin="0,10,0,0"></Label>
+                    <ComboBox x:Name="cbBranchId" ItemsSource="{Binding Source={StaticResource Branches}}" SelectedValue="{Binding customerContract.BranchId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="BranchName" Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
                 </StackPanel>
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
                     <Button x:Name="btnPhonePopOpen" Click="btnPhonePopOpen_Click" Width="150" Height="25" Margin="0,10,0,0" Content="Telefon Ekle"></Button>
