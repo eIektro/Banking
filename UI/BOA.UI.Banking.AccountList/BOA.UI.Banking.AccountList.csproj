@@ -122,7 +122,7 @@
       <Project>{b4e37e17-6f55-4dbb-9616-1226aa7419d0}</Project>
       <Name>BOA.UI.Banking.CloseableTab</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerDetailsComponent.csproj">
+    <ProjectReference Include="..\BOA.UI.Banking.CustomerDetailsComponent\BOA.UI.Banking.CustomerDetailsComponent.csproj">
       <Project>{c915516c-b056-44b0-97b2-2440e786539f}</Project>
       <Name>BOA.UI.Banking.CustomerDetailsComponent</Name>
     </ProjectReference>
