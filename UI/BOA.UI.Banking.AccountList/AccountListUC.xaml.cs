@@ -238,11 +238,11 @@ namespace BOA.UI.Banking.AccountList
         {
             if (tbFilterbyCustomerId.Text != "")
             {
-                CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
-                if (customerComponent.Content == null) return;
-                CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
-                customerComponentWindow.Content = customerComponent;
-                customerComponentWindow.ShowDialog();
+                //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
+                //if (customerComponent.Content == null) return;
+                //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
+                //customerComponentWindow.Content = customerComponent;
+                //customerComponentWindow.ShowDialog();
 
             }
         }

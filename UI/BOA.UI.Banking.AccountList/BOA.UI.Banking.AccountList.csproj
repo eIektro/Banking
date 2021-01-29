@@ -126,10 +126,6 @@
       <Project>{f4a065a9-660f-4880-b0b3-5c4745479767}</Project>
       <Name>BOA.UI.Banking.CustomerComponent</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CustomerDetailsComponent\BOA.UI.Banking.CustomerDetailsComponent.csproj">
-      <Project>{c915516c-b056-44b0-97b2-2440e786539f}</Project>
-      <Name>BOA.UI.Banking.CustomerDetailsComponent</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

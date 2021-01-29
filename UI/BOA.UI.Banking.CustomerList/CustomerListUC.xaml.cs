@@ -204,11 +204,11 @@ namespace BOA.UI.Banking.CustomerList
         {
             if (tbFilterbyId.Text != "" && tbFilterbyId.Text != null)
             {
-                CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyId.Text));
-                if (customerComponent.Content == null) return;
-                CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
-                customerComponentWindow.Content = customerComponent;
-                customerComponentWindow.ShowDialog();
+                //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyId.Text));
+                //if (customerComponent.Content == null) return;
+                //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
+                //customerComponentWindow.Content = customerComponent;
+                //customerComponentWindow.ShowDialog();
 
             }
         }
