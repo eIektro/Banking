@@ -71,6 +71,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Base\RequestBase.cs" />
     <Compile Include="Base\ResponseBase.cs" />
+    <Compile Include="RemittanceContract.cs" />
+    <Compile Include="RemittanceRequest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

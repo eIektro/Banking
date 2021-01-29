@@ -67,7 +67,10 @@
                     <TreeViewItem Header="Hesap Listesi" x:Name="tvHesapListesi" MouseDoubleClick="tvHesapListesi_MouseDoubleClick"></TreeViewItem>
                 </TreeViewItem>
                 <TreeViewItem Header="Para Transfer">
-                    <TreeViewItem Header="Havale" x:Name="tvHavale" MouseDoubleClick="tvHavale_MouseDoubleClick"></TreeViewItem>
+                    <TreeViewItem Header="Havale">
+                        <TreeViewItem Header="Havale İşlemi" x:Name="tvHavale" MouseDoubleClick="tvHavale_MouseDoubleClick"></TreeViewItem>
+                        <TreeViewItem Header="Havale Geçmişi"></TreeViewItem>
+                    </TreeViewItem>
                     
                 </TreeViewItem>
             </TreeView>

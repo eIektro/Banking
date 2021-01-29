@@ -45,11 +45,11 @@
 
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="Auto" Margin="0,15,15,0" VerticalAlignment="Top">
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Müşteri Numarası: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerId" Text="{Binding Account.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="115" Margin="0,10,0,0"></TextBox>
-                    <Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,10,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
+                    <Label Content="Müşteri No: " Height="25" Margin="0,10,0,0"></Label>
+                    <TextBox x:Name="tbCustomerId" Text="{Binding Account.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    <!--<Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,10,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
                         <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\search.png"></Image>
-                    </Button>
+                    </Button>-->
                     
                 </StackPanel>
 

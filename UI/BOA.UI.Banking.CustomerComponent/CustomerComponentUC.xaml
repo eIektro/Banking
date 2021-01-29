@@ -4,21 +4,58 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerComponent"
-             mc:Ignorable="d" Background="White" Height="170" Width="375">
+             mc:Ignorable="d" Background="White" Height="170" Width="375" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
 
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="tbBranchName" Width="150"></TextBox>
-                <TextBox x:Name="tbCustomerId" Width="50"></TextBox>
+                <TextBox x:Name="tbBranchName" Text="{Binding Customer.BranchName,Mode=OneWay}" Width="150" IsReadOnly="True"></TextBox>
+                <TextBox x:Name="tbCustomerId" Text="{Binding Customer.CustomerId,Mode=OneWay}" Width="50" LostFocus="tbCustomerId_LostFocus"></TextBox>
                 <Button x:Name="btnFind">
                     <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\search1.png" Width="20" Height="20"></Image>
                 </Button>
-                <ComboBox x:Name="cbSuffixes" Width="150"></ComboBox>
+                <ComboBox x:Name="cbSuffixes" Width="150"  ItemsSource="{Binding CustomerAccounts}" SelectedValue="{Binding SelectedAccount,Mode=TwoWay}">
+                    
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="true">
+                                                <Setter Property="Background" Value="Green"></Setter>
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsActive}" Value="false">
+                                                <Setter Property="Background" Value="Red"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                                <TextBlock.Text>
+                                    <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                        <Binding Path="AdditionNo"/>
+                                        <Binding Path="CurrencyCode"/>
+                                        <Binding Path="Balance"/>
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+
+                </ComboBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="tbCustomerName" Width="224" Height="25"></TextBox>
-                <TextBox x:Name="tbCurrencySymbol" Width="150" Height="25" ></TextBox>
+                <TextBox x:Name="tbCustomerName" Width="224" Height="25" IsReadOnly="True">
+                    
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Customer.CustomerName"/>
+                                <Binding Path="Customer.CustomerLastName"/>
+                            </MultiBinding>
+                        </TextBox.Text>
+                    
+                </TextBox>
+                <TextBox x:Name="tbCurrencySymbol" Text="{Binding SelectedAccount.CurrencyCode}" Width="150" Height="25" IsReadOnly="True" ></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label HorizontalContentAlignment="Center" Foreground="Black" Content="Bakiye" Width="150" x:Name="lblBalance"></Label>
@@ -26,17 +63,17 @@
                 <Label HorizontalContentAlignment="Center" Foreground="Black" Content="Kullanılabilir Bakiye" Width="150" x:Name="lblUsableBalance"></Label>
             </StackPanel>
             <StackPanel Orientation="Horizontal">
-                <TextBox x:Name="tbBalance" Width="150" Height="27"></TextBox>
-                <TextBox x:Name="tbBlockage" Width="73" Height="27"></TextBox>
-                <TextBox x:Name="tbUsableBalance" Width="150" Height="27"></TextBox>
+                <TextBox x:Name="tbBalance" Text="{Binding SelectedAccount.Balance}" Width="150" Height="27" IsReadOnly="True"></TextBox>
+                <TextBox x:Name="tbBlockage" Text="Todo" Foreground="LightGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="73" Height="27" IsReadOnly="True"></TextBox>
+                <TextBox x:Name="tbUsableBalance" Text="{Binding SelectedAccount.Balance}" Width="150" Height="27" IsReadOnly="True"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label x:Name="lblCitizenshipTaxNumber" Content="TC/Vergi No"></Label>
-                <TextBox x:Name="tbCitizenshipTaxNumber" Width="299"></TextBox>
+                <TextBox x:Name="tbCitizenshipTaxNumber" Text="{Binding Customer.CitizenshipId,Mode=OneWay}" Width="299" IsReadOnly="True"></TextBox>
             </StackPanel>
             <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                 <Label Content="IBAN" x:Name="lblIban"></Label>
-                <TextBox x:Name="tbIban" Width="336"></TextBox>
+                <TextBox x:Name="tbIban" Text="{Binding SelectedAccount.IBAN}" Width="336" IsReadOnly="True"></TextBox>
             </StackPanel>
         </StackPanel>
 

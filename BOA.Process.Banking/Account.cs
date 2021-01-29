@@ -33,7 +33,7 @@ namespace BOA.Process.Banking
                 DateTime sqlRange = new DateTime(1753, 01, 01);
                 request.DataContract.DateOfLastTrasaction = sqlRange;
             }
-
+            
 
             BOA.Business.Banking.Account accountBusiness = new Business.Banking.Account();
             var response = accountBusiness.FilterAccountsByProperties(request);

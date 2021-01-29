@@ -24,7 +24,7 @@ namespace BOA.Types.Banking
         private Decimal? balance;
         private DateTime? dateOfFormation;
         private string iban;
-        private bool isActive;
+        private bool? isActive;
         private DateTime? dateOfDeactivation;
         private int? formedUserId;
         private DateTime? dateOfLastTrasaction;
@@ -92,7 +92,7 @@ namespace BOA.Types.Banking
             }
         }
 
-        public bool IsActive
+        public bool? IsActive
         {
             get { return isActive; }
             set { isActive = value;

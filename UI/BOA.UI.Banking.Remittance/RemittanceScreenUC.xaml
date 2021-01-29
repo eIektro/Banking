@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.Remittance"
-            xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
+            xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -15,21 +16,51 @@
         <Grid Grid.Row="0" Background="#D4BDDA">
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="btnAprove" Click="btnAprove_Click" Content="İşlem Yap" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnClearControls" Click="btnClearControls_Click"  Content="Temizle" FontWeight="Bold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
                 
 
             </StackPanel>
 
         </Grid>
         <Grid Grid.Row="1" Background="White">
-            <StackPanel Orientation="Vertical">
-                
-                <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Çekileceği Hesap">
-                    <customerCom:CustomerComponentUC></customerCom:CustomerComponentUC>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0" x:Name="gridAccounts">
+                <StackPanel Orientation="Vertical">
+
+                    <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Çekileceği Hesap">
+                        <customerCom:CustomerComponentUC x:Name="ccWitdrawalAccount"></customerCom:CustomerComponentUC>
+                    </GroupBox>
+                    <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Yatırılacağı Hesap">
+                        <customerCom:CustomerComponentUC x:Name="ccDepositAccount"></customerCom:CustomerComponentUC>
+                    </GroupBox>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <GroupBox Header="İşlem Detayları" Margin="10,10,0,0" Foreground="Gray" BorderBrush="Gray" Height="250" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <Label x:Name="lblAmount" Content="Tutar" Width="110"></Label>
+                            <TextBox x:Name="tbDepositAmount" Text="{Binding Transaction.TransferAmount,Mode=TwoWay,StringFormat=N2}" Width="140"></TextBox>
+                            <Label x:Name="lblCurrency" HorizontalContentAlignment="Center" Content="{Binding DepositAccount.CurrencyCode,Mode=OneWay}" Width="43"></Label>
+                            <!--<ComboBox x:Name="cbCurrencies" Margin="5,0,0,0"></ComboBox>--> <!-- TODO: Tutarı, hedef hesabın birimi için güncel kurdan dönüştürerek aktarma fikrini sor. -->
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <Label Content="İşlem Tarihi" x:Name="lblTransactionDate" Width="110"></Label>
+                            <DatePicker x:Name="dtpTransactionDate" SelectedDate="{Binding Transaction.TransactionDate,Mode=TwoWay}" Width="184"></DatePicker>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0">
+                            <Label VerticalContentAlignment="Center" Content="Havale Açıklaması" x:Name="lblRemittanceDescription" Width="110"></Label>
+                            <TextBox x:Name="tbRemittanceDescription" Text="{Binding Transaction.TransactionDescription,Mode=TwoWay}" Width="184" Height="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                            
+                        </StackPanel>
+                    </StackPanel>
+                    
                 </GroupBox>
-                <GroupBox Height="Auto" Margin="10,10,0,0" HorizontalAlignment="Left" Foreground="Gray" BorderBrush="Gray" Header="Paranın Yatırılacağı Hesap">
-                    <customerCom:CustomerComponentUC></customerCom:CustomerComponentUC>
-                </GroupBox>
-            </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
