@@ -161,6 +161,6 @@ namespace BOA.UI.Banking.Remittance
             Transaction = new RemittanceContract();
         }
 
-        
+       
     }
 }

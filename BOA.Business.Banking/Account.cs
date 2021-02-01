@@ -125,7 +125,7 @@ namespace BOA.Business.Banking
             try
             {
                 var response = dbOperation.spExecuteScalar("CUS.ins_AddNewAccount", sqlParameters);
-                return new GenericResponse<AccountContract>() { IsSuccess = true };
+                return new GenericResponse<AccountContract>() { IsSuccess = true,Value= new AccountContract()};
             }
             catch (Exception)
             {
@@ -155,7 +155,7 @@ namespace BOA.Business.Banking
             try
             {
                 var response = dbOperation.spExecuteScalar("CUS.upd_UpdateAccountDetailsById", sqlParameters);
-                return new GenericResponse<AccountContract>() { IsSuccess = true };
+                return new GenericResponse<AccountContract>() { IsSuccess = true,Value = new AccountContract() };
             }
             catch (Exception e)
             {

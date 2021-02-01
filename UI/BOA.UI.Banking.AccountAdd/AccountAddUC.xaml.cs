@@ -35,6 +35,8 @@ namespace BOA.UI.Banking.AccountAdd
             #endregion
 
             InitializeComponent();
+
+            ccCusCom.ParentUcName = "AccountAddUC";
         }
 
         public AccountAddUC(AccountContract contract)
@@ -49,6 +51,10 @@ namespace BOA.UI.Banking.AccountAdd
             InitializeComponent();
             DisableUserInputs(true);
             SetVisibilitiesForDetail();
+
+            ccCusCom.ParentUcName = "AccountAddUC";
+            ccCusCom.Customer = new CustomerContract() { CustomerId = Account.CustomerId };
+            ccCusCom.ComTbCustomerId_LostFocus();
         }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -212,6 +218,7 @@ namespace BOA.UI.Banking.AccountAdd
             {
                 MessageBox.Show("Hesap eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                 Account = new AccountContract();
+                ccCusCom.Customer = new CustomerContract();
             }
             
 
@@ -252,6 +259,15 @@ namespace BOA.UI.Banking.AccountAdd
             tbIBAN.IsReadOnly = WannaDisable;
             cbCurrencyId.IsHitTestVisible = !WannaDisable;
             cbIsActive.IsHitTestVisible = !WannaDisable;
+        }
+
+        private void tbCustomerId_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int customerid;
+            Int32.TryParse(tbCustomerId.Text,out customerid);
+            
+            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
+            ccCusCom.ComTbCustomerId_LostFocus();
         }
 
 

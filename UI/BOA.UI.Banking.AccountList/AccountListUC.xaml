@@ -3,9 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:BOA.UI.Banking.AccountList" 
+             xmlns:local="clr-namespace:BOA.UI.Banking.AccountList"
+             xmlns:cusCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+             d:DesignHeight="550" d:DesignWidth="800" Background="White" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <UserControl.Resources>
         <CollectionViewSource x:Key="Currencies" Source="{Binding Currencies}"></CollectionViewSource>
         <CollectionViewSource x:Key="Users" Source="{Binding Users}"></CollectionViewSource>
@@ -66,13 +67,16 @@
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
                         <Label Content="Müşteri No:" FontSize="11"></Label>
-                        <TextBox x:Name="tbFilterbyCustomerId" Text="{Binding FilterContract.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyCustomerId_PreviewTextInput"></TextBox>
+                        <TextBox x:Name="tbFilterbyCustomerId" Text="{Binding FilterContract.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LostFocus="tbFilterbyCustomerId_LostFocus" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyCustomerId_PreviewTextInput"></TextBox>
                         <!--<Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,0,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
                             <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\search.png"></Image>
                         </Button>-->
                     </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,5,5,0" HorizontalAlignment="Right">
+                        <cusCom:CustomerComponentUC x:Name="ccCusCom"></cusCom:CustomerComponentUC>
+                    </StackPanel>
                     
-                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal" Margin="0,5,5,0" HorizontalAlignment="Right">
                         <Label Content="Ek No:" FontSize="11"></Label>
                         <TextBox x:Name="tbFilterByAdditionNo" Text="{Binding FilterContract.AdditionNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
                     </StackPanel>

@@ -38,6 +38,8 @@ namespace BOA.UI.Banking.AccountList
             #endregion
 
             InitializeComponent();
+
+            ccCusCom.ParentUcName = "AccountListUC";
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -275,8 +277,17 @@ namespace BOA.UI.Banking.AccountList
         private void btnTemizle_Click(object sender, RoutedEventArgs e)
         {
             FilterContract = new AccountContract();
+            ccCusCom.Customer = new CustomerContract();
         }
         #endregion
 
+        private void tbFilterbyCustomerId_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int customerid;
+            Int32.TryParse(tbFilterbyCustomerId.Text, out customerid);
+
+            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
+            ccCusCom.ComTbCustomerId_LostFocus();
+        }
     }
 }

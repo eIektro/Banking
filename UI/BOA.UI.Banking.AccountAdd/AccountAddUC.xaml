@@ -4,14 +4,14 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.AccountAdd"
-             xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
+             xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent" xmlns:sys="clr-namespace:System;assembly=mscorlib"
              mc:Ignorable="d" 
-             d:DesignHeight="320" d:DesignWidth="800" Background="White" VerticalAlignment="Top" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
+             d:DesignHeight="500" d:DesignWidth="800" Background="White" VerticalAlignment="Top" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <CollectionViewSource x:Key="Currencies" Source="{Binding Currencies}"></CollectionViewSource>
         <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
-        
-        
+        <sys:String x:Key="UserControlName">AccountAddUC</sys:String>
+
     </UserControl.Resources>
     <!--<UserControl.Resources>
         <DataTemplate x:Key="AutoCompleteBoxItemTemplate">
@@ -41,48 +41,58 @@
 
         </Grid>
 
-        <Grid Grid.Row="1" Width="385" Height="Auto" VerticalAlignment="Top">
+        <Grid Grid.Row="1" Width="Auto" Height="Auto" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
 
-            <StackPanel Orientation="Vertical" HorizontalAlignment="Center" Height="Auto" Margin="0,15,15,0" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Müşteri No: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbCustomerId" Text="{Binding Account.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
-                    
-                    <!--<Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,10,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" HorizontalAlignment="Center" >
+                <StackPanel Height="Auto" Margin="0,15,15,0" Orientation="Vertical" VerticalAlignment="Top">
+                    <StackPanel Orientation="Vertical" HorizontalAlignment="Right">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Label Content="Müşteri No"></Label>
+                            <TextBox x:Name="tbCustomerId" VerticalAlignment="Top" Text="{Binding Account.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" LostFocus="tbCustomerId_LostFocus" Height="25" Width="150"></TextBox>
+                        </StackPanel>
+                        <!--<Label Content="Müşteri No" Height="25" FontSize="10" VerticalContentAlignment="Bottom" HorizontalAlignment="Right" VerticalAlignment="Bottom"/>-->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <customerCom:CustomerComponentUC x:Name="ccCusCom"></customerCom:CustomerComponentUC>
+                        </StackPanel>
+                        <!--<Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,10,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
                         <Image Source="C:\Users\emrek\OneDrive\Resimler\BOA\search.png"></Image>
                     </Button>-->
-                    
-                </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Ek No: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbAdditionNo" Text="{Binding Account.AdditionNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
-                </StackPanel>
+                    </StackPanel>
 
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Döviz Cinsi: " Height="25" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbCurrencyId" ItemsSource="{Binding Source={StaticResource Currencies},Mode=OneTime}" SelectedValue="{Binding Account.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"  Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Bakiye: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbBalance" Text="{Binding Account.Balance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"  Height="25" Width="150" Margin="0,10,0,0" PreviewTextInput="tbBalance_PreviewTextInput"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Şube: " Height="32" Margin="0,10,0,0"></Label>
-                    <ComboBox x:Name="cbBranchId" ItemsSource="{Binding Source={StaticResource Branches},Mode=OneTime}" SelectedValue="{Binding Account.BranchId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="BranchName" Height="25" Width="150" Margin="0,5,0,0"></ComboBox>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Ek No: " Height="25" Margin="0,10,0,0"></Label>
+                        <TextBox x:Name="tbAdditionNo" Text="{Binding Account.AdditionNo,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Döviz Cinsi: " Height="25" Margin="0,10,0,0"></Label>
+                        <ComboBox x:Name="cbCurrencyId" ItemsSource="{Binding Source={StaticResource Currencies},Mode=OneTime}" SelectedValue="{Binding Account.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name"  Height="25" Width="150" Margin="0,10,0,0"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Bakiye: " Height="25" Margin="0,10,0,0"></Label>
+                        <TextBox x:Name="tbBalance" Text="{Binding Account.Balance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"  Height="25" Width="150" Margin="0,10,0,0" PreviewTextInput="tbBalance_PreviewTextInput"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Şube: " Height="32" Margin="0,10,0,0"></Label>
+                        <ComboBox x:Name="cbBranchId" ItemsSource="{Binding Source={StaticResource Branches},Mode=OneTime}" SelectedValue="{Binding Account.BranchId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="BranchName" Height="25" Width="150" Margin="0,5,0,0"></ComboBox>
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="IBAN: " Height="25" Margin="0,10,0,0"></Label>
+                        <TextBox x:Name="tbIBAN" Text="{Binding Account.IBAN,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0" MaxLength="26"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Label Content="Aktif: " Height="32" Margin="0,10,0,0"></Label>
+                        <CheckBox x:Name="cbIsActive" IsChecked="{Binding Account.IsActive,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="15" Width="150" Margin="0,5,0,0"/>
+                    </StackPanel>
+
 
                 </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="IBAN: " Height="25" Margin="0,10,0,0"></Label>
-                    <TextBox x:Name="tbIBAN" Text="{Binding Account.IBAN,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25" Width="150" Margin="0,10,0,0" MaxLength="26"></TextBox>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                    <Label Content="Aktif: " Height="32" Margin="0,10,0,0"></Label>
-                    <CheckBox x:Name="cbIsActive" IsChecked="{Binding Account.IsActive,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="15" Width="150" Margin="0,5,0,0"/>
-                </StackPanel>
-
-
-            </StackPanel>
+            </Grid>
         </Grid>
     </Grid>
 </UserControl>
