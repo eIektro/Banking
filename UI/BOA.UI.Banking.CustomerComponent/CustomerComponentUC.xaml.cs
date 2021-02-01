@@ -21,7 +21,7 @@ namespace BOA.UI.Banking.CustomerComponent
     /// <summary>
     /// Interaction logic for CustomerComponentUC.xaml
     /// </summary>
-    public partial class CustomerComponentUC : UserControl, INotifyPropertyChanged
+    public partial class CustomerComponentUC
     {
         public CustomerComponentUC()
         {
@@ -126,18 +126,6 @@ namespace BOA.UI.Banking.CustomerComponent
                 }
             }
         }
-
-
-        #region event handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
 
         #region getters and setters
 

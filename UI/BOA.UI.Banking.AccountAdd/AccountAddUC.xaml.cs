@@ -65,16 +65,6 @@ namespace BOA.UI.Banking.AccountAdd
             
         }
 
-        #region event handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
-
         #region getters and setters
         private AccountContract account; //küçük harfler
         public AccountContract Account
@@ -86,7 +76,7 @@ namespace BOA.UI.Banking.AccountAdd
             set
             {
                 this.account = value;
-                OnPropertyChanged("Account");
+                base.OnPropertyChanged("Account");
             }
         }
 
@@ -97,7 +87,7 @@ namespace BOA.UI.Banking.AccountAdd
             set
             {
                 this.branches = value;
-                OnPropertyChanged("Branches");
+                base.OnPropertyChanged("Branches");
             }
         }
 
@@ -108,7 +98,7 @@ namespace BOA.UI.Banking.AccountAdd
             set
             {
                 this.currencies = value;
-                OnPropertyChanged("Currencies");
+                base.OnPropertyChanged("Currencies");
             }
         }
         #endregion

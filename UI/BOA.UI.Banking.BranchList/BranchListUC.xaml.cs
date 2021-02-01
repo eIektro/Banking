@@ -21,7 +21,7 @@ namespace BOA.UI.Banking.BranchList
     /// <summary>
     /// Interaction logic for BranchListUC.xaml
     /// </summary>
-    public partial class BranchListUC : UserControl, INotifyPropertyChanged
+    public partial class BranchListUC
     {
         private TabControl MainWindowTabControl { get; set; }
 
@@ -42,16 +42,6 @@ namespace BOA.UI.Banking.BranchList
         {
             FilterContract = new BranchContract();
         }
-
-        #region Event Handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         #region Getters and Setters
         private BranchContract filtercontract;

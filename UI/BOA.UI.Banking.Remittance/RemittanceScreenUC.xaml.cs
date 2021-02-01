@@ -21,7 +21,7 @@ namespace BOA.UI.Banking.Remittance
     /// <summary>
     /// Interaction logic for RemittanceScreenUC.xaml
     /// </summary>
-    public partial class RemittanceScreenUC : UserControl, INotifyPropertyChanged
+    public partial class RemittanceScreenUC
     {
         public RemittanceScreenUC()
         {
@@ -33,18 +33,6 @@ namespace BOA.UI.Banking.Remittance
         {
             Transaction = new RemittanceContract();
         }
-
-        #region event handling
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-
-        #endregion
 
         #region getters and setters
         public AccountContract WithdrawalAccount

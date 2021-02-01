@@ -23,7 +23,7 @@ namespace BOA.UI.Banking.CustomerList
     /// <summary>
     /// Interaction logic for CustomerListUC.xaml
     /// </summary>
-    public partial class CustomerListUC : UserControl, INotifyPropertyChanged
+    public partial class CustomerListUC
     {
         private TabControl MainScreenTabControl { get; set; }
 
@@ -45,16 +45,6 @@ namespace BOA.UI.Banking.CustomerList
         {
             FilterContract = new CustomerContract();
         }
-
-        #region Event Handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         #region Getters and Setters
         private CustomerContract filtercontract;

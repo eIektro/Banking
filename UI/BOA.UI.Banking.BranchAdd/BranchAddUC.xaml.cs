@@ -22,7 +22,7 @@ namespace BOA.UI.Banking.BranchAdd
     /// <summary>
     /// Interaction logic for BranchAddUC.xaml
     /// </summary>
-    public partial class BranchAddUC : UserControl, INotifyPropertyChanged
+    public partial class BranchAddUC
     {
         private bool isEditingOption { get; set; }
 
@@ -55,16 +55,6 @@ namespace BOA.UI.Banking.BranchAdd
                 Branch = new BranchContract(); 
             }
         }
-
-        #region event handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         #region getters and setters
         private List<CityContract> cities;

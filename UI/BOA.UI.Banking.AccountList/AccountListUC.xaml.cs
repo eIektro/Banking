@@ -22,7 +22,7 @@ namespace BOA.UI.Banking.AccountList
     /// <summary>
     /// Interaction logic for AccountListUC.xaml
     /// </summary>
-    public partial class AccountListUC : UserControl,INotifyPropertyChanged //contract base e atılacak, method overload tab ui şeklinde
+    public partial class AccountListUC
     {
         public TabControl MainScreenTabControl { get; set; }
 
@@ -46,16 +46,6 @@ namespace BOA.UI.Banking.AccountList
         {
             FilterContract = new AccountContract();
         }
-
-        #region Event Handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        } 
-        #endregion
 
         #region Getters and Setters
 
@@ -248,6 +238,16 @@ namespace BOA.UI.Banking.AccountList
 
             }
         }
+
+        private void tbFilterbyCustomerId_LostFocus(object sender, RoutedEventArgs e)
+        {
+            int customerid;
+            Int32.TryParse(tbFilterbyCustomerId.Text, out customerid);
+
+            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
+            ccCusCom.ComTbCustomerId_LostFocus();
+        }
+
         private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
         {
             if (dgAccountList.SelectedItem == null) return;
@@ -280,14 +280,5 @@ namespace BOA.UI.Banking.AccountList
             ccCusCom.Customer = new CustomerContract();
         }
         #endregion
-
-        private void tbFilterbyCustomerId_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int customerid;
-            Int32.TryParse(tbFilterbyCustomerId.Text, out customerid);
-
-            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
-            ccCusCom.ComTbCustomerId_LostFocus();
-        }
     }
 }

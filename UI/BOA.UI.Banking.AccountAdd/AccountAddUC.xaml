@@ -1,5 +1,5 @@
-﻿<UserControl x:Class="BOA.UI.Banking.AccountAdd.AccountAddUC"
-             
+﻿<basescom:UCBase x:Class="BOA.UI.Banking.AccountAdd.AccountAddUC"
+             xmlns:basescom="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -99,4 +99,4 @@
             </Grid>
         </Grid>
     </Grid>
-</UserControl>
+</basescom:UCBase>

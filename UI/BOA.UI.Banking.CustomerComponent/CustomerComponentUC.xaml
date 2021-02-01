@@ -1,8 +1,9 @@
-﻿<UserControl x:Class="BOA.UI.Banking.CustomerComponent.CustomerComponentUC"
+﻿<basescom:UCBase x:Class="BOA.UI.Banking.CustomerComponent.CustomerComponentUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:basescom="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
              xmlns:local="clr-namespace:BOA.UI.Banking.CustomerComponent"
              mc:Ignorable="d" Background="White" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
     <Grid>
@@ -80,4 +81,4 @@
 
 
     </Grid>
-</UserControl>
+</basescom:UCBase>

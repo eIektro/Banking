@@ -1,9 +1,10 @@
-﻿<UserControl x:Class="BOA.UI.Banking.BranchAdd.BranchAddUC"
+﻿<basesCom:UCBase x:Class="BOA.UI.Banking.BranchAdd.BranchAddUC"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.BranchAdd"
+             xmlns:basesCom="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
              mc:Ignorable="d" d:DesignWidth="800" Height="280" VerticalAlignment="Top" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
         <CollectionViewSource x:Key="Cities" Source="{Binding Cities}"></CollectionViewSource>
@@ -53,4 +54,4 @@
             </StackPanel>
         </Grid>
     </Grid>
-</UserControl>
+</basesCom:UCBase>

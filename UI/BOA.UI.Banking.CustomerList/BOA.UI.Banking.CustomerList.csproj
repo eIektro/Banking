@@ -101,6 +101,10 @@
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BOA.UI.Banking.BasesForUI\BOA.UI.Banking.BasesForUI.csproj">
+      <Project>{04199e91-b16f-41b8-bc42-19c28b482ec8}</Project>
+      <Name>BOA.UI.Banking.BasesForUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.CloseableTab\BOA.UI.Banking.CloseableTab.csproj">
       <Project>{b4e37e17-6f55-4dbb-9616-1226aa7419d0}</Project>
       <Name>BOA.UI.Banking.CloseableTab</Name>

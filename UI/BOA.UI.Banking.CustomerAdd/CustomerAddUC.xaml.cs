@@ -22,7 +22,7 @@ namespace BOA.UI.Banking.CustomerAdd
     /// <summary>
     /// Interaction logic for CustomerAddUC.xaml
     /// </summary>
-    public partial class CustomerAddUC : UserControl, INotifyPropertyChanged
+    public partial class CustomerAddUC
     {
         private bool IsEditingOption = false;
 
@@ -64,16 +64,6 @@ namespace BOA.UI.Banking.CustomerAdd
                 customerContract = new CustomerContract(); 
             }
         }
-
-        #region event handling
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChangedEventHandler handler = PropertyChanged;
-            if (handler != null) handler(this, new PropertyChangedEventArgs(propertyName));
-        }
-        #endregion
 
         #region getters and setters
         private List<EducationLevelContract> educationlevels;
