@@ -111,6 +111,10 @@
       <Project>{00e0885a-164a-4f99-a6ed-b4f84f987a92}</Project>
       <Name>BOA.UI.Banking.AccountList</Name>
     </ProjectReference>
+    <ProjectReference Include="..\BOA.UI.Banking.BasesForUI\BOA.UI.Banking.BasesForUI.csproj">
+      <Project>{04199e91-b16f-41b8-bc42-19c28b482ec8}</Project>
+      <Name>BOA.UI.Banking.BasesForUI</Name>
+    </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.BranchAdd\BOA.UI.Banking.BranchAdd.csproj">
       <Project>{c31d8b79-36ae-41e3-a322-366f7982e9e4}</Project>
       <Name>BOA.UI.Banking.BranchAdd</Name>

@@ -5,7 +5,7 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{65C38836-D8A3-4F42-B5C0-90BDC1CB87A0}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>BOA.UI.Banking.AccountAdd</RootNamespace>
     <AssemblyName>BOA.UI.Banking.AccountAdd</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DotNetProjects.Input.Toolkit, Version=6.0.85.0, Culture=neutral, PublicKeyToken=79778c5f2eed289b, processorArchitecture=MSIL">
       <HintPath>..\..\packages\DotNetProjects.WpfToolkit.Input.6.0.85\lib\net40\DotNetProjects.Input.Toolkit.dll</HintPath>
@@ -54,16 +57,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
     <Compile Include="AccountAddUC.xaml.cs">
       <DependentUpon>AccountAddUC.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="AccountAddUC.xaml">
       <SubType>Designer</SubType>
@@ -105,6 +100,10 @@
     <ProjectReference Include="..\..\BOA.Types.Banking\BOA.Types.Banking.csproj">
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\BOA.UI.Banking.BasesForUI\BOA.UI.Banking.BasesForUI.csproj">
+      <Project>{04199e91-b16f-41b8-bc42-19c28b482ec8}</Project>
+      <Name>BOA.UI.Banking.BasesForUI</Name>
     </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerComponent.csproj">
       <Project>{f4a065a9-660f-4880-b0b3-5c4745479767}</Project>

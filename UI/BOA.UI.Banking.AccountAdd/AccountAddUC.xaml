@@ -1,10 +1,14 @@
 ﻿<UserControl x:Class="BOA.UI.Banking.AccountAdd.AccountAddUC"
+             
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.AccountAdd"
-             xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             xmlns:customerCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent" 
+             
+             xmlns:sys="clr-namespace:System;assembly=mscorlib"
+             
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800" Background="White" VerticalAlignment="Top" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UserControl_Loaded">
     <UserControl.Resources>
@@ -12,7 +16,7 @@
         <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
         <sys:String x:Key="UserControlName">AccountAddUC</sys:String>
 
-    </UserControl.Resources>
+        </UserControl.Resources>
     <!--<UserControl.Resources>
         <DataTemplate x:Key="AutoCompleteBoxItemTemplate">
             <StackPanel Orientation="Horizontal">

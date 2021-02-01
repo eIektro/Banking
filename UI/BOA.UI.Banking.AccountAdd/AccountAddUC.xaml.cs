@@ -22,7 +22,7 @@ namespace BOA.UI.Banking.AccountAdd
     /// <summary>
     /// Interaction logic for AccountAddUC.xaml
     /// </summary>
-    public partial class AccountAddUC : UserControl,INotifyPropertyChanged
+    public partial class AccountAddUC
     {
         private bool isEditingOption = false;
         //public AccountContract editingAccount { get; set; }
