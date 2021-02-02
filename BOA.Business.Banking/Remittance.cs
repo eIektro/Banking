@@ -14,8 +14,10 @@ namespace BOA.Business.Banking
         {
             DbOperation dbOperation = new DbOperation();
             SqlParameter[] sqlParameters = new SqlParameter[] {
-                new SqlParameter("@WithdrawalAccountNumber",request.DataContract.WithdrawalAccountNumber),
-                new SqlParameter("@DepositAccountNumber",request.DataContract.DepositAccountNumber),
+                new SqlParameter("@SenderAccountNumber",request.DataContract.SenderAccountNumber),
+                new SqlParameter("@SenderAccountSuffix",request.DataContract.SenderAccountSuffix),
+                new SqlParameter("@ReceiverAccountNumber",request.DataContract.ReceiverAccountNumber),
+                new SqlParameter("@ReceiverAccountSuffix",request.DataContract.ReceiverAccountSuffix),
                 new SqlParameter("@TransferAmount",request.DataContract.TransferAmount),
                 new SqlParameter("@TransactionDate",request.DataContract.TransactionDate),
                 new SqlParameter("@TransactionStatus",request.DataContract.TransactionStatus),

@@ -38,6 +38,10 @@
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Annotations, Version=4.2.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ComponentModel.Annotations.5.0.0\lib\net461\System.ComponentModel.Annotations.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -64,6 +68,7 @@
     <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Enums\PhoneTypes.cs" />
     <Compile Include="Enums\RequestTypes.cs" />
+    <Compile Include="Enums\TransactionStatus.cs" />
     <Compile Include="JobContract.cs" />
     <Compile Include="Login\LoginContract.cs" />
     <Compile Include="Login\LoginRequest.cs" />

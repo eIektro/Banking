@@ -16,8 +16,10 @@ namespace BOA.Types.Banking
         }
 
         private int? id;
-        private string withdrawalAccountNumber;
-        private string depositAccountNumber;
+        private string senderAccountNumber;
+        private string receiverAccountNumber;
+        private string senderAccountSuffix;
+        private string receiverAccountSuffix;
         private decimal? transferAmount;
         private DateTime? transactionDate;
         private int? transactionStatus;
@@ -33,21 +35,41 @@ namespace BOA.Types.Banking
             }
         }
 
-        public string WithdrawalAccountNumber
+        public string SenderAccountNumber
         {
-            get { return withdrawalAccountNumber; }
-            set { withdrawalAccountNumber = value;
-                OnPropertyChanged("WithdrawalAccountNumber");
+            get { return senderAccountNumber; }
+            set { senderAccountNumber = value;
+                OnPropertyChanged("SenderAccountNumber");
             }
         }
 
-        public string DepositAccountNumber
+        public string ReceiverAccountNumber
         {
-            get { return depositAccountNumber; }
+            get { return receiverAccountNumber; }
             set
             {
-                depositAccountNumber = value;
-                OnPropertyChanged("DepositAccountNumber");
+                receiverAccountNumber = value;
+                OnPropertyChanged("ReceiverAccountNumber");
+            }
+        }
+
+        public string SenderAccountSuffix
+        {
+            get { return senderAccountSuffix; }
+            set
+            {
+                senderAccountSuffix = value;
+                OnPropertyChanged("SenderAccountSuffix");
+            }
+        }
+
+        public string ReceiverAccountSuffix
+        {
+            get { return receiverAccountSuffix; }
+            set
+            {
+                receiverAccountSuffix = value;
+                OnPropertyChanged("ReceiverAccountSuffix");
             }
         }
 

@@ -26,7 +26,7 @@ namespace BOA.UI.Banking.Remittance
         public RemittanceScreenUC()
         {
             InitializeComponent();
-            
+
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -38,7 +38,7 @@ namespace BOA.UI.Banking.Remittance
         public AccountContract WithdrawalAccount
         {
             get { return ccWitdrawalAccount.SelectedAccount; }
-            
+
         }
         public AccountContract DepositAccount
         {
@@ -58,10 +58,13 @@ namespace BOA.UI.Banking.Remittance
                 OnPropertyChanged("Transaction");
             }
         }
+
+               
+
         #endregion
 
         #region database operations
-        
+
         public RemittanceContract DoTransaction(RemittanceContract contract)
         {
             var connect = new Connector.Banking.Connect<GenericResponse<RemittanceContract>>();
@@ -127,8 +130,11 @@ namespace BOA.UI.Banking.Remittance
             }
 
 
-            Transaction.WithdrawalAccountNumber = $"{WithdrawalAccount.CustomerId}-{WithdrawalAccount.AdditionNo}";
-            Transaction.DepositAccountNumber = $"{DepositAccount.CustomerId}-{DepositAccount.AdditionNo}";
+            Transaction.SenderAccountNumber = $"{WithdrawalAccount.CustomerId}";
+            Transaction.ReceiverAccountNumber = $"{DepositAccount.CustomerId}";
+            Transaction.SenderAccountSuffix = $"{WithdrawalAccount.AdditionNo}";
+            Transaction.ReceiverAccountSuffix = $"{DepositAccount.AdditionNo}";
+            Transaction.TransactionStatus = (int?)BOA.Types.Banking.Enums.TransactionStatus.Active;
             if (DoTransaction(Transaction) != null)
             {
                 MessageBox.Show("Havale işlemi gerçekleştirilmiştir.", "Bilgilendirme", MessageBoxButton.OK, MessageBoxImage.Information);
