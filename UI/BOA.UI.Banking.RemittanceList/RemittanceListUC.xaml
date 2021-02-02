@@ -1,0 +1,102 @@
+﻿<bases:UCBase x:Class="BOA.UI.Banking.RemittanceList.RemittanceListUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BOA.UI.Banking.RemittanceList"
+             xmlns:bases="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
+              DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D4BDDA">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnDetails" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical">
+                    <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+                        <Button x:Name="btnFiltrele" Content="Bilgi Getir" Height="20" Width="80"></Button>
+                        <Button x:Name="btnTemizle" Content="Temizle" Height="20" Width="80" Margin="15,0,0,0"></Button>
+                    </StackPanel>
+                    
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0">
+                        <Label Content="Başlangıç Tarihi" Width="100" HorizontalAlignment="Left"></Label>
+                        <DatePicker x:Name="dpStartingDate" Width="120" Height="25"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Bitiş Tarihi" Width="100" HorizontalAlignment="Left"></Label>
+                        <DatePicker x:Name="dpEndingDate" Width="120" Height="25"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Başlangıç Tutarı" Width="100" HorizontalAlignment="Left"></Label>
+                        <TextBox x:Name="tbStartingBalance" Width="120" Height="25"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Bitiş Tutuarı" Width="100" HorizontalAlignment="Left"></Label>
+                        <TextBox x:Name="tbEndingBalance" Width="120" Height="25"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Döviz Tipi" Width="100" HorizontalAlignment="Left"></Label>
+                        <ComboBox x:Name="cbCurrencyType" Width="120" Height="25"></ComboBox>
+                    </StackPanel>
+                    <Label Content="Gönderici" Width="100" HorizontalAlignment="Left" Margin="0,10,0,0"></Label>
+                    <Label Content="Alıcı" Width="100" HorizontalAlignment="Left" Margin="0,10,0,0"></Label>
+
+
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Column="1">
+                <DataGrid x:Name="dgRemittanceList">
+                    <DataGrid.Resources>
+                        <Style TargetType="{x:Type Border}">
+                            <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+                            <Setter Property="BorderBrush" Value="#F2F2F2"></Setter>
+                        </Style>
+                        <Style TargetType="{x:Type DataGridColumnHeader}">
+                            <Setter Property="Height" Value="30"></Setter>
+                            <Setter Property="FontSize" Value="13"></Setter>
+
+                            <Setter Property="Background" Value="AliceBlue"></Setter>
+                            <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                            <Setter Property="BorderBrush" Value="Black"></Setter>
+                            <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+
+                        </Style>
+
+
+
+                    </DataGrid.Resources>
+                    <DataGrid.RowStyle>
+                        <Style TargetType="{x:Type DataGridRow}">
+                            <Setter Property="FontSize" Value="14"></Setter>
+                            <Setter Property="Background" Value="#FEFAFC"></Setter>
+
+
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="  İşlem Tarihi  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  İşlem Tutarı  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Gönderen Hesap-Ek No  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Alıcı Hesap-Ek No  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Gönderen Şube Adı  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Alıcı Şube Adı  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  İşlem Durumu  "></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Grid>
+    </Grid>
+</bases:UCBase>

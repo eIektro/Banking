@@ -190,6 +190,26 @@ namespace BOA.UI.Banking.MainScreen
             }
         }
 
+        private void tvHavaleGecmisi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var theRemittanceListTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Havale İşlemi Listeleme");
+            if (theRemittanceListTab != null)
+            {
+                theRemittanceListTab.Focus();
+            }
+
+            else
+            {
+                //CustomerComponent.CustomerComponentUC customerComponentUC = new CustomerComponent.CustomerComponentUC();
+                RemittanceList.RemittanceListUC remittanceListContainer = new RemittanceList.RemittanceListUC();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+                theTabItem.Title = "Havale İşlemi Listeleme";
+                theTabItem.Content = remittanceListContainer;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
+        }
+
         /* ↓↓ STORYBOARD KODLARI ↓↓ */
 
         /**  

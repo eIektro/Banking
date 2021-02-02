@@ -69,7 +69,7 @@
                 <TreeViewItem Header="Para Transfer">
                     <TreeViewItem Header="Havale">
                         <TreeViewItem Header="Havale İşlemi" x:Name="tvHavale" MouseDoubleClick="tvHavale_MouseDoubleClick"></TreeViewItem>
-                        <TreeViewItem Header="Havale Geçmişi"></TreeViewItem>
+                        <TreeViewItem Header="Havale İşlemi Listeleme" x:Name="tvHavaleGecmisi" MouseDoubleClick="tvHavaleGecmisi_MouseDoubleClick"></TreeViewItem>
                     </TreeViewItem>
                     
                 </TreeViewItem>
