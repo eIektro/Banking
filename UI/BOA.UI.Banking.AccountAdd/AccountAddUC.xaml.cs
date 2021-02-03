@@ -36,7 +36,7 @@ namespace BOA.UI.Banking.AccountAdd
 
             InitializeComponent();
 
-            ccCusCom.ParentUcName = "AccountAddUC";
+            
         }
 
         public AccountAddUC(AccountContract contract)
@@ -51,10 +51,7 @@ namespace BOA.UI.Banking.AccountAdd
             InitializeComponent();
             DisableUserInputs(true);
             SetVisibilitiesForDetail();
-
-            ccCusCom.ParentUcName = "AccountAddUC";
-            ccCusCom.Customer = new CustomerContract() { CustomerId = Account.CustomerId };
-            ccCusCom.ComTbCustomerId_LostFocus();
+            
         }
         
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -174,27 +171,31 @@ namespace BOA.UI.Banking.AccountAdd
         #region button operations
         private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
         {
-            if (tbCustomerId.Text != "")
-            {
-                //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbCustomerId.Text));
-                //if (customerComponent.Content == null) return;
-                //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
-                //customerComponentWindow.Content = customerComponent;
-                //customerComponentWindow.ShowDialog();
+            //if (tbCustomerId.Text != "")
+            //{
+            //    //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbCustomerId.Text));
+            //    //if (customerComponent.Content == null) return;
+            //    //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
+            //    //customerComponentWindow.Content = customerComponent;
+            //    //customerComponentWindow.ShowDialog();
 
-            }
+            //}
         }
 
         private void btnKaydet_Click(object sender, RoutedEventArgs e)
         {
+            Account.CustomerId = cusComCustomer.Customer.CustomerId;
+
             if (isEditingOption)
             {
                 if (MessageBox.Show("Yaptığınız değişlikler hesaba yansısın mı?", "Onay", MessageBoxButton.YesNoCancel, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     if (UpdateAccount(Account) != null)
                     {
+                        
                         MessageBox.Show("Değişiklikler uygulandı!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                         btnVazgec_Click(new object(), new RoutedEventArgs());
+                        cusComCustomer.Customer = new CustomerContract();
 
                     }
                 }
@@ -206,9 +207,11 @@ namespace BOA.UI.Banking.AccountAdd
            
             if (AddAccount(Account) != null)
             {
+
                 MessageBox.Show("Hesap eklendi!", "Başarılı", MessageBoxButton.OK, MessageBoxImage.Information);
                 Account = new AccountContract();
-                ccCusCom.Customer = new CustomerContract();
+                cusComCustomer.Customer = new CustomerContract();
+                
             }
             
 
@@ -245,19 +248,9 @@ namespace BOA.UI.Banking.AccountAdd
             tbAdditionNo.IsReadOnly = WannaDisable;
             tbBalance.IsReadOnly = WannaDisable;
             cbBranchId.IsHitTestVisible = !WannaDisable;
-            tbCustomerId.IsReadOnly = WannaDisable;
             tbIBAN.IsReadOnly = WannaDisable;
             cbCurrencyId.IsHitTestVisible = !WannaDisable;
             cbIsActive.IsHitTestVisible = !WannaDisable;
-        }
-
-        private void tbCustomerId_LostFocus(object sender, RoutedEventArgs e)
-        {
-            int customerid;
-            Int32.TryParse(tbCustomerId.Text,out customerid);
-            
-            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
-            ccCusCom.ComTbCustomerId_LostFocus();
         }
 
 

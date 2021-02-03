@@ -22,5 +22,20 @@ namespace BOA.Process.Banking
             return response;
 
         }
+
+        public GenericResponse<List<RemittanceContract>> GetAllRemittances(RemittanceRequest request)
+        {
+            BOA.Business.Banking.Remittance remittranceBusiness = new Business.Banking.Remittance();
+            var response = remittranceBusiness.GetAllRemittances(request);
+            return response;
+        }
+
+        public GenericResponse<List<RemittanceContract>> FilterRemittancesByProperties(RemittanceRequest request)
+        {
+            BOA.Business.Banking.Remittance remittranceBusiness = new Business.Banking.Remittance();
+            var response = remittranceBusiness.FilterRemittancesByProperties(request);
+            return response;
+        }
+
     }
 }

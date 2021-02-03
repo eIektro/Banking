@@ -38,5 +38,112 @@ namespace BOA.Business.Banking
 
 
         }
+
+        public GenericResponse<List<RemittanceContract>> GetAllRemittances(RemittanceRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+
+            try
+            {
+                List<RemittanceContract> remittancesList = new List<RemittanceContract>();
+                SqlDataReader reader = dbOperation.GetData("CUS.sel_GelAllRemittances");
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        remittancesList.Add(new RemittanceContract()
+                        {
+                            Id = (int)reader["Id"],
+                            ReceiverAccountNumber = reader["ReceiverAccountNumber"].ToString(),
+                            ReceiverAccountSuffix = reader["ReceiverAccountSuffix"].ToString(),
+                            SenderAccountNumber = reader["SenderAccountNumber"].ToString(),
+                            SenderAccountSuffix = reader["SenderAccountSuffix"].ToString(),
+                            TransactionStatus = (int?)reader["TransactionStatus"],
+                            TransactionDate = (DateTime?)reader["TransactionDate"],
+                            TransactionDescription = reader["TransactionDescription"].ToString(),
+                            TransferAmount = (decimal?)reader["TransferAmount"],
+                            ReceiverBranchName = reader["ReceiverBranchName"].ToString(),
+                            SenderBranchName = reader["SenderBranchName"].ToString(),
+                            SenderLastName = reader["SenderLastName"].ToString(),
+                            SenderName = reader["SenderName"].ToString(),
+                            ReceiverLastName = reader["ReceiverLastName"].ToString(),
+                            ReceiverName = reader["ReceiverName"].ToString(),
+                            CurrencyId = (int?)reader["CurrencyId"],
+                            CurrencyCode = reader["CurrencyCode"].ToString()
+
+                        });
+                    }
+
+                    return new GenericResponse<List<RemittanceContract>>() { IsSuccess = true, Value = remittancesList };
+                }
+
+                return new GenericResponse<List<RemittanceContract>>() { IsSuccess = false, ErrorMessage = "Herhangi bir havale kaydı bulunamadı." };
+            }
+            catch(Exception ex)
+            {
+                return new GenericResponse<List<RemittanceContract>>() { Value = null, IsSuccess = false, ErrorMessage = "GetAllRemittances işlemi başarısız!" };
+                throw ex;
+            }
+        }
+
+        public GenericResponse<List<RemittanceContract>> FilterRemittancesByProperties(RemittanceRequest request)
+        {
+            DbOperation dbOperation = new DbOperation();
+            SqlParameter[] parameters = new SqlParameter[]
+            {
+                new SqlParameter("@StartingDate",request.DataContract.StartingDate),
+                new SqlParameter("@EndingDate",request.DataContract.EndingDate),
+                new SqlParameter("@CurrencyId",request.DataContract.CurrencyId),
+                new SqlParameter("@StartingBalance",request.DataContract.StartingBalance),
+                new SqlParameter("@EndingBalance",request.DataContract.EndingBalance),
+                new SqlParameter("SenderAccountNumber",request.DataContract.SenderAccountNumber),
+                new SqlParameter("ReceiverAccountNumber",request.DataContract.ReceiverAccountNumber)
+            };
+            try
+            {
+                List<RemittanceContract> remittancesList = new List<RemittanceContract>();
+                SqlDataReader reader = dbOperation.GetData("CUS.sel_FilterRemittancesByProperties", parameters);
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        remittancesList.Add(new RemittanceContract()
+                        {
+                            Id = (int)reader["Id"],
+                            ReceiverAccountNumber = reader["ReceiverAccountNumber"].ToString(),
+                            ReceiverAccountSuffix = reader["ReceiverAccountSuffix"].ToString(),
+                            SenderAccountNumber = reader["SenderAccountNumber"].ToString(),
+                            SenderAccountSuffix = reader["SenderAccountSuffix"].ToString(),
+                            TransactionStatus = (int?)reader["TransactionStatus"],
+                            TransactionDate = (DateTime?)reader["TransactionDate"],
+                            TransactionDescription = reader["TransactionDescription"].ToString(),
+                            TransferAmount = (decimal?)reader["TransferAmount"],
+                            ReceiverBranchName = reader["ReceiverBranchName"].ToString(),
+                            SenderBranchName = reader["SenderBranchName"].ToString(),
+                            SenderLastName = reader["SenderLastName"].ToString(),
+                            SenderName = reader["SenderName"].ToString(),
+                            ReceiverLastName = reader["ReceiverLastName"].ToString(),
+                            ReceiverName = reader["ReceiverName"].ToString(),
+                            CurrencyId = (int?)reader["CurrencyId"],
+                            CurrencyCode = reader["CurrencyCode"].ToString()
+
+                        });
+                    }
+
+                    return new GenericResponse<List<RemittanceContract>>() { IsSuccess = true, Value = remittancesList };
+                }
+                return new GenericResponse<List<RemittanceContract>>() { IsSuccess = false, ErrorMessage = "Herhangi bir havale kaydı bulunamadı." };
+            }
+            
+            catch (Exception ex)
+            {
+                return new GenericResponse<List<RemittanceContract>> { ErrorMessage = "FilterRemittancesByProperties işlemi başarısız!", IsSuccess = false, Value = null };
+                throw ex;
+            }
+            
+            
+        }
+
+
     }
 }

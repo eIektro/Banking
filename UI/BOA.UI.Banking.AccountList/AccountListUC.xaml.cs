@@ -38,8 +38,6 @@ namespace BOA.UI.Banking.AccountList
             #endregion
 
             InitializeComponent();
-
-            ccCusCom.ParentUcName = "AccountListUC";
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
@@ -228,24 +226,23 @@ namespace BOA.UI.Banking.AccountList
         #region Button Operations
         private void btnCustomerComponent_Click(object sender, RoutedEventArgs e)
         {
-            if (tbFilterbyCustomerId.Text != "")
-            {
-                //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
-                //if (customerComponent.Content == null) return;
-                //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
-                //customerComponentWindow.Content = customerComponent;
-                //customerComponentWindow.ShowDialog();
+            //if (tbFilterbyCustomerId.Text != "")
+            //{
+            //    //CustomerDetailsComponent.CustomerDetailsComponent customerComponent = new CustomerDetailsComponent.CustomerDetailsComponent(Convert.ToInt32(tbFilterbyCustomerId.Text));
+            //    //if (customerComponent.Content == null) return;
+            //    //CustomerDetailsComponent.CusComponentWindow customerComponentWindow = new CustomerDetailsComponent.CusComponentWindow();
+            //    //customerComponentWindow.Content = customerComponent;
+            //    //customerComponentWindow.ShowDialog();
 
-            }
+            //}
         }
 
         private void tbFilterbyCustomerId_LostFocus(object sender, RoutedEventArgs e)
         {
-            int customerid;
-            Int32.TryParse(tbFilterbyCustomerId.Text, out customerid);
+            //int customerid;
+            //Int32.TryParse(tbFilterbyCustomerId.Text, out customerid);
 
-            ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
-            ccCusCom.ComTbCustomerId_LostFocus();
+            //ccCusCom.Customer = new CustomerContract() { CustomerId = customerid };
         }
 
         private void btnHesapDetay_Click(object sender, RoutedEventArgs e)
@@ -266,6 +263,10 @@ namespace BOA.UI.Banking.AccountList
 
         private void btnFiltrele_Click(object sender, RoutedEventArgs e)
         {
+            if (ccCusCom.Customer.CustomerId != null)
+            {
+                FilterContract.CustomerId = ccCusCom.Customer.CustomerId;
+            }
             AllAccounts = FilterEngine(FilterContract);
         }
 

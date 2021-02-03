@@ -54,6 +54,8 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="NonTransactionalVisibilityConverter.cs" />
+    <Compile Include="TransactionalVisibilityConverter.cs" />
     <Page Include="CustomerComponentUC.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

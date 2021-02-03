@@ -4,8 +4,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:BOA.UI.Banking.RemittanceList"
+             xmlns:cuscom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
              xmlns:bases="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
-              DataContext="{Binding RelativeSource={RelativeSource Self}}">
+              DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UCBase_Loaded">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="30"></RowDefinition>
@@ -27,38 +28,45 @@
                     <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
 
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
-                        <Button x:Name="btnFiltrele" Content="Bilgi Getir" Height="20" Width="80"></Button>
-                        <Button x:Name="btnTemizle" Content="Temizle" Height="20" Width="80" Margin="15,0,0,0"></Button>
+                        <Button x:Name="btnFiltrele" Click="btnFiltrele_Click" Content="Bilgi Getir" Height="20" Width="80"></Button>
+                        <Button x:Name="btnTemizle" Click="btnTemizle_Click" Content="Temizle" Height="20" Width="80" Margin="15,0,0,0"></Button>
                     </StackPanel>
                     
                     <StackPanel Orientation="Horizontal" Margin="0,10,5,0">
                         <Label Content="Başlangıç Tarihi" Width="100" HorizontalAlignment="Left"></Label>
-                        <DatePicker x:Name="dpStartingDate" Width="120" Height="25"></DatePicker>
+                        <DatePicker x:Name="dpStartingDate" SelectedDate="{Binding FilterContract.StartingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" Height="25"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <Label Content="Bitiş Tarihi" Width="100" HorizontalAlignment="Left"></Label>
-                        <DatePicker x:Name="dpEndingDate" Width="120" Height="25"></DatePicker>
+                        <DatePicker x:Name="dpEndingDate" Width="120" SelectedDate="{Binding FilterContract.EndingDate,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="25"></DatePicker>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <Label Content="Başlangıç Tutarı" Width="100" HorizontalAlignment="Left"></Label>
-                        <TextBox x:Name="tbStartingBalance" Width="120" Height="25"></TextBox>
+                        <TextBox x:Name="tbStartingBalance" Text="{Binding FilterContract.StartingBalance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" PreviewTextInput="tbStartingBalance_PreviewTextInput" Width="120" Height="25"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <Label Content="Bitiş Tutuarı" Width="100" HorizontalAlignment="Left"></Label>
-                        <TextBox x:Name="tbEndingBalance" Width="120" Height="25"></TextBox>
+                        <TextBox x:Name="tbEndingBalance" Text="{Binding FilterContract.EndingBalance,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}" PreviewTextInput="tbEndingBalance_PreviewTextInput" Width="120" Height="25"></TextBox>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
                         <Label Content="Döviz Tipi" Width="100" HorizontalAlignment="Left"></Label>
-                        <ComboBox x:Name="cbCurrencyType" Width="120" Height="25"></ComboBox>
+                        <ComboBox x:Name="cbCurrencyType" ItemsSource="{Binding Currencies}" SelectedValue="{Binding FilterContract.CurrencyId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="Name" Width="120" Height="25"></ComboBox>
                     </StackPanel>
-                    <Label Content="Gönderici" Width="100" HorizontalAlignment="Left" Margin="0,10,0,0"></Label>
-                    <Label Content="Alıcı" Width="100" HorizontalAlignment="Left" Margin="0,10,0,0"></Label>
+                    
+                    <GroupBox Header="Gönderici Hesap">
+                        <cuscom:CustomerComponentUC x:Name="cusComSender" ViewType="NonTransactional"></cuscom:CustomerComponentUC>
+                    </GroupBox>
+
+                    <GroupBox Header="Alıcı Hesap">
+                        <cuscom:CustomerComponentUC x:Name="cusComReceiver" ViewType="NonTransactional"></cuscom:CustomerComponentUC>
+                    </GroupBox>
+
 
 
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <DataGrid x:Name="dgRemittanceList">
+                <DataGrid x:Name="dgRemittanceList" IsReadOnly="True" ItemsSource="{Binding Remittances,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" AutoGenerateColumns="False">
                     <DataGrid.Resources>
                         <Style TargetType="{x:Type Border}">
                             <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
@@ -87,13 +95,44 @@
                         </Style>
                     </DataGrid.RowStyle>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="  İşlem Tarihi  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  İşlem Tutarı  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  Gönderen Hesap-Ek No  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  Alıcı Hesap-Ek No  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  Gönderen Şube Adı  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  Alıcı Şube Adı  "></DataGridTextColumn>
-                        <DataGridTextColumn Header="  İşlem Durumu  "></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Alıcı İsmi  ">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="ReceiverName"></Binding>
+                                    <Binding Path="ReceiverLastName"></Binding>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="  Gönderici İsmi  ">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0} {1}">
+                                    <Binding Path="SenderName"></Binding>
+                                    <Binding Path="SenderLastName"></Binding>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="  İşlem Tarihi  " Binding="{Binding TransactionDate,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="  İşlem Tutarı  " Binding="{Binding TransferAmount}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Gönderen Hesap-Ek No  " >
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0}-{1}">
+                                    <Binding Path="SenderAccountNumber"></Binding>
+                                    <Binding Path="SenderAccountSuffix"></Binding>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="  Alıcı Hesap-Ek No  ">
+                            <DataGridTextColumn.Binding>
+                                <MultiBinding StringFormat="{}{0}-{1}">
+                                    <Binding Path="ReceiverAccountNumber"></Binding>
+                                    <Binding Path="ReceiverAccountSuffix"></Binding>
+                                </MultiBinding>
+                            </DataGridTextColumn.Binding>
+                        </DataGridTextColumn>
+                        <DataGridTextColumn Header="  Gönderen Şube Adı  " Binding="{Binding SenderBranchName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Alıcı Şube Adı  " Binding="{Binding ReceiverBranchName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="  İşlem Durumu  " Binding="{Binding TransactionStatus}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="  Döviz Kodu  " Binding="{Binding CurrencyCode}"></DataGridTextColumn>       
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>

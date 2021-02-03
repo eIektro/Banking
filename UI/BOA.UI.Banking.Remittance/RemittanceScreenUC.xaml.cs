@@ -146,12 +146,10 @@ namespace BOA.UI.Banking.Remittance
         private void btnClearControls_Click(object sender, RoutedEventArgs e)
         {
 
-            ccWitdrawalAccount.SelectedAccount = null;
-            ccDepositAccount.SelectedAccount = null;
-            ccWitdrawalAccount.Customer = null;
-            ccDepositAccount.Customer = null;
-            ccWitdrawalAccount.CustomerAccounts = null;
-            ccDepositAccount.CustomerAccounts = null;
+            ccWitdrawalAccount.Customer = new CustomerContract();
+            ccDepositAccount.Customer = new CustomerContract();
+            ccWitdrawalAccount.CustomerAccounts = new List<AccountContract>();
+            ccDepositAccount.CustomerAccounts = new List<AccountContract>();
             Transaction = new RemittanceContract();
         }
 
