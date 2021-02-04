@@ -94,13 +94,13 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="Şubesi" Width="100"></Label>
-                    <TextBox Text="{Binding Customer.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsReadOnly="True"></TextBox>
+                    <TextBox Text="{Binding Customer.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsHitTestVisible="False" IsReadOnly="True"></TextBox>
                 </StackPanel>
                 
 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="Adı Soyadı" Width="100"></Label>
-                    <TextBox Width="120" Height="25" IsReadOnly="True">
+                    <TextBox Width="120" Height="25" IsReadOnly="True" IsHitTestVisible="False">
 
                         <TextBox.Text>
                             <MultiBinding StringFormat="{}{0} {1}">
@@ -115,7 +115,7 @@
                 
                 <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
                     <Label Content="TC/Vergi No" Width="100"></Label>
-                    <TextBox Text="{Binding Customer.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsReadOnly="True"></TextBox>
+                    <TextBox Text="{Binding Customer.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsHitTestVisible="False" IsReadOnly="True"></TextBox>
                 </StackPanel>
                 
             </StackPanel>

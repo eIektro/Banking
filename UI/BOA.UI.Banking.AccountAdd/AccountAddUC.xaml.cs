@@ -51,6 +51,9 @@ namespace BOA.UI.Banking.AccountAdd
             InitializeComponent();
             DisableUserInputs(true);
             SetVisibilitiesForDetail();
+
+            
+            
             
         }
         
@@ -58,9 +61,16 @@ namespace BOA.UI.Banking.AccountAdd
         {
             if(!isEditingOption){
                 Account = new AccountContract();
+                return;
             }
-            
+            cusComCustomer.Customer = new CustomerContract() { CustomerId = Account.CustomerId };
+            cusComCustomer.tbCustomerIdNonTransactional_LostFocus(new object(), new RoutedEventArgs());
+            cusComCustomer.TbCustomerIdNonTransactional.IsHitTestVisible = false;
+            cusComCustomer.TbCustomerIdNonTransactional.IsReadOnly = true;
+            //cusComCustomer.TbCustomerIdNonTransactional.IsHitTestVisible = false;
         }
+
+        
 
         #region getters and setters
         private AccountContract account; //küçük harfler

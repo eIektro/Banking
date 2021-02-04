@@ -28,15 +28,17 @@ namespace BOA.UI.Banking.CustomerComponent
         public CustomerComponentUC()
         {
             #region responses
-            //Customer = new CustomerContract();
+            Customer = new CustomerContract();
             #endregion
 
             InitializeComponent();
+
+            
         }
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            Customer = new CustomerContract();
+            //Customer = new CustomerContract();
             
         }
 
@@ -84,27 +86,22 @@ namespace BOA.UI.Banking.CustomerComponent
             }
         }
 
-        
-        public String ComTbCustomerId
+        public TextBox TbCustomerIdNonTransactional
         {
-            get
-            {
-                return tbCustomerId.Text;
-                
-            }
-            set
-            {
-                tbCustomerId.Text = value;
-                OnPropertyChanged("ComTbCustomerId");
+            get { return tbCustomerIdNonTransactional; }
+            set { tbCustomerIdNonTransactional = value;
+                OnPropertyChanged("TbCustomerIdNonTransactional");
             }
         }
         
+
         private AccountContract selectedAccount;
         public AccountContract SelectedAccount
         {
             get
             {
                 return selectedAccount;
+                
             }
             set
             {
@@ -167,7 +164,7 @@ namespace BOA.UI.Banking.CustomerComponent
 
         public void tbCustomerIdNonTransactional_LostFocus(object sender, RoutedEventArgs e)
         {
-            if(tbCustomerIdNonTransactional.Text == "")
+            if (tbCustomerIdNonTransactional.Text == "")
             {
                 return;
             }
