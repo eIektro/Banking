@@ -14,7 +14,7 @@
     <UserControl.Resources>
         <CollectionViewSource x:Key="Currencies" Source="{Binding Currencies}"></CollectionViewSource>
         <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
-        <sys:String x:Key="UserControlName">AccountAddUC</sys:String>
+        
 
         </UserControl.Resources>
     <!--<UserControl.Resources>

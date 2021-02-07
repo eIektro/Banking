@@ -64,10 +64,10 @@ namespace BOA.UI.Banking.AccountAdd
                 return;
             }
             cusComCustomer.Customer = new CustomerContract() { CustomerId = Account.CustomerId };
-            cusComCustomer.tbCustomerIdNonTransactional_LostFocus(new object(), new RoutedEventArgs());
-            cusComCustomer.TbCustomerIdNonTransactional.IsHitTestVisible = false;
-            cusComCustomer.TbCustomerIdNonTransactional.IsReadOnly = true;
-            //cusComCustomer.TbCustomerIdNonTransactional.IsHitTestVisible = false;
+            cusComCustomer.tbCustomerId_LostFocus(new object(), new RoutedEventArgs());
+            cusComCustomer.TextBoxCustomerId.IsHitTestVisible = false;
+            cusComCustomer.TextBoxCustomerId.IsReadOnly = true;
+            
         }
 
         

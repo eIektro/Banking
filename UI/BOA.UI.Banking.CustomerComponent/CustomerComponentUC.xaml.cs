@@ -51,7 +51,7 @@ namespace BOA.UI.Banking.CustomerComponent
         }
 
 
-        private void tbCustomerId_LostFocus(object sender, RoutedEventArgs e)
+        public void tbCustomerId_LostFocus(object sender, RoutedEventArgs e)
         {
             if(tbCustomerId.Text == "")
             {
@@ -59,7 +59,7 @@ namespace BOA.UI.Banking.CustomerComponent
             }
 
             Customer = GetCustomerById(new CustomerContract() { CustomerId = Customer.CustomerId });
-            if (Customer != null)
+            if (Customer != null && ViewType != "NonTransactional")
             {
                 CustomerAccounts = GetAccountsByCustomerId(new AccountContract() { CustomerId = Customer.CustomerId }); 
             }
@@ -86,14 +86,15 @@ namespace BOA.UI.Banking.CustomerComponent
             }
         }
 
-        public TextBox TbCustomerIdNonTransactional
+        
+        public TextBox TextBoxCustomerId
         {
-            get { return tbCustomerIdNonTransactional; }
-            set { tbCustomerIdNonTransactional = value;
-                OnPropertyChanged("TbCustomerIdNonTransactional");
+            get { return tbCustomerId; }
+            set { tbCustomerId = value;
+                OnPropertyChanged("TextBoxCustomerId");
             }
         }
-        
+
 
         private AccountContract selectedAccount;
         public AccountContract SelectedAccount
@@ -162,18 +163,18 @@ namespace BOA.UI.Banking.CustomerComponent
 
         #endregion
 
-        public void tbCustomerIdNonTransactional_LostFocus(object sender, RoutedEventArgs e)
-        {
-            if (tbCustomerIdNonTransactional.Text == "")
-            {
-                return;
-            }
-            Customer = GetCustomerById(new CustomerContract() { CustomerId = Customer.CustomerId });
-            if (Customer == null)
-            {
-                Customer = new CustomerContract();
-            }
-        }
+        //public void tbCustomerIdNonTransactional_LostFocus(object sender, RoutedEventArgs e)
+        //{
+        //    if (tbCustomerIdNonTransactional.Text == "")
+        //    {
+        //        return;
+        //    }
+        //    Customer = GetCustomerById(new CustomerContract() { CustomerId = Customer.CustomerId });
+        //    if (Customer == null)
+        //    {
+        //        Customer = new CustomerContract();
+        //    }
+        //}
 
         private void tbCustomerIdNonTransactional_PreviewTextInput(object sender, TextCompositionEventArgs e)
         {
