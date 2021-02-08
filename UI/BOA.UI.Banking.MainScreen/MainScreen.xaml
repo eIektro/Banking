@@ -71,6 +71,10 @@
                         <TreeViewItem Header="Havale İşlemi" x:Name="tvHavale" MouseDoubleClick="tvHavale_MouseDoubleClick"></TreeViewItem>
                         <TreeViewItem Header="Havale İşlemi Listeleme" x:Name="tvHavaleGecmisi" MouseDoubleClick="tvHavaleGecmisi_MouseDoubleClick"></TreeViewItem>
                     </TreeViewItem>
+                    <TreeViewItem Header="Nakit İşlemleri">
+                        <TreeViewItem Header="Nakit Yatırma/Çekme" x:Name="tvNakit" MouseDoubleClick="tvNakit_MouseDoubleClick"></TreeViewItem>
+                        <TreeViewItem Header="Nakit İşlemleri Listeleme" x:Name="tvNakitGecmisi" MouseDoubleClick="tvNakitGecmisi_MouseDoubleClick"></TreeViewItem>
+                    </TreeViewItem>
                     
                 </TreeViewItem>
             </TreeView>

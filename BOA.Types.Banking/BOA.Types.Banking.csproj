@@ -64,6 +64,8 @@
     <Compile Include="Customer\CustomerEmailContract.cs" />
     <Compile Include="Customer\CustomerJobContract.cs" />
     <Compile Include="Customer\CustomerRequest.cs" />
+    <Compile Include="DepositWithdrawalContract.cs" />
+    <Compile Include="DepositWithdrawalRequest.cs" />
     <Compile Include="EducationLevelContract.cs" />
     <Compile Include="Enums\EmailTypes.cs" />
     <Compile Include="Enums\PhoneTypes.cs" />

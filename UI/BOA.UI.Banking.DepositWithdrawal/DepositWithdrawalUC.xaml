@@ -1,0 +1,95 @@
+﻿<bases:UCBase x:Class="BOA.UI.Banking.DepositWithdrawal.DepositWithdrawalUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:BOA.UI.Banking.DepositWithdrawal"
+             xmlns:bases="clr-namespace:BOA.UI.Banking.BasesForUI;assembly=BOA.UI.Banking.BasesForUI"
+             xmlns:cusCom="clr-namespace:BOA.UI.Banking.CustomerComponent;assembly=BOA.UI.Banking.CustomerComponent"
+             mc:Ignorable="d" DataContext="{Binding RelativeSource={RelativeSource Self}}" Loaded="UCBase_Loaded"
+             >
+    <bases:UCBase.Resources>
+        <local:RadioBoolToIntConverter x:Key="RbBoolToIntConverter"></local:RadioBoolToIntConverter>
+    </bases:UCBase.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D4BDDA">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnAprove" Content="İşlem Yap" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF" Click="btnAprove_Click"></Button>
+                <Button x:Name="btnClearControls" Click="btnClearControls_Click" Content="Temizle" FontWeight="Bold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+
+
+            </StackPanel>
+        </Grid>
+            <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition Width="20"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <GroupBox Header="Hesap Bilgisi">
+                    <cusCom:CustomerComponentUC ViewType="Transactional" x:Name="ccAccount" Margin="0,10,0,0"></cusCom:CustomerComponentUC>
+                </GroupBox>
+            </Grid>
+            <Grid Grid.Column="1"></Grid>
+            <GroupBox Grid.Column="2" Header="İşlem Detayları">
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="İşlem Tipi:" Width="100"></Label>
+                        <RadioButton GroupName="rgTransferType" IsTabStop="True" IsChecked="{Binding Transfer.TransferType, Converter={StaticResource RbBoolToIntConverter},ConverterParameter=1}" Content="Yatırma">
+                            <!--<RadioButton.Style>
+                                <Style TargetType="RadioButton">
+                                    <Setter Property="IsChecked" Value="False"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Transfer.TransferType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="1">
+                                            <Setter Property="IsChecked" Value="True"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>-->
+                        </RadioButton>
+                        <RadioButton GroupName="rgTransferType" IsChecked="{Binding Transfer.TransferType, Converter={StaticResource RbBoolToIntConverter},ConverterParameter=2}" Content="Çekme">
+                            <!--<RadioButton.Style>
+                                <Style TargetType="RadioButton">
+                                    <Setter Property="IsChecked" Value="False">
+                                        
+                                    </Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=Transfer.TransferType,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Value="2">
+                                            <Setter Property="IsChecked" Value="True"></Setter>
+                                            
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </RadioButton.Style>-->
+                        </RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="Tutar" Width="100"></Label>
+                        <TextBox Width="120" Text="{Binding Transfer.TransferAmount,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged,StringFormat=N2}"></TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="İşlem Şubesi:" Width="100"></Label>
+                        <ComboBox Width="120" ItemsSource="{Binding Branches,Mode=OneTime}" SelectedValue="{Binding Transfer.TransferBranchId,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedValuePath="Id" DisplayMemberPath="BranchName"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="İşlem Tarihi:" Width="100"></Label>
+                        <DatePicker x:Name="dtpTransactionDate" SelectedDate="{Binding Transfer.TransferDate,Mode=TwoWay}" Width="184"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                        <Label Content="İşlem Açıklaması:"></Label>
+                        <TextBox Text="{Binding Transfer.TransferDescription,Mode=TwoWay}" Width="184" Height="150" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto"></TextBox>
+                    </StackPanel>
+
+                </StackPanel>
+
+            </GroupBox>
+
+
+        </Grid>
+    </Grid>
+</bases:UCBase>

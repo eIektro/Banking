@@ -210,6 +210,31 @@ namespace BOA.UI.Banking.MainScreen
             }
         }
 
+        private void tvNakitGecmisi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void tvNakit_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            var theDepositWithdrawalTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Nakit Yatırma/Çekme");
+            if (theDepositWithdrawalTab != null)
+            {
+                theDepositWithdrawalTab.Focus();
+            }
+
+            else
+            {
+                //CustomerComponent.CustomerComponentUC customerComponentUC = new CustomerComponent.CustomerComponentUC();
+                DepositWithdrawal.DepositWithdrawalUC depositWithdrawalContainer = new DepositWithdrawal.DepositWithdrawalUC();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+                theTabItem.Title = "Nakit Yatırma/Çekme";
+                theTabItem.Content = depositWithdrawalContainer;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
+        }
+
         /* ↓↓ STORYBOARD KODLARI ↓↓ */
 
         /**  

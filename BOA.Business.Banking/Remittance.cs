@@ -31,7 +31,7 @@ namespace BOA.Business.Banking
             }
             catch (Exception)
             {
-                return new GenericResponse<RemittanceContract>() { IsSuccess = false, ErrorMessage = "DoNewRemittanceTransaction operasyonu başarısız!" };
+                return new GenericResponse<RemittanceContract>() { IsSuccess = false, ErrorMessage = "DoNewRemittanceTransaction operasyonu başarısız!", Value = null };
                 throw;
             }
 
