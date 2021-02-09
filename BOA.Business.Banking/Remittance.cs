@@ -26,7 +26,7 @@ namespace BOA.Business.Banking
 
             try
             {
-                var response = dbOperation.spExecuteScalar("CUS.ins_DoNewRemittance", sqlParameters);
+                var response = dbOperation.spExecuteScalar("TRN.ins_DoNewRemittance", sqlParameters);
                 return new GenericResponse<RemittanceContract>() { IsSuccess = true, Value = new RemittanceContract() };
             }
             catch (Exception)
@@ -46,7 +46,7 @@ namespace BOA.Business.Banking
             try
             {
                 List<RemittanceContract> remittancesList = new List<RemittanceContract>();
-                SqlDataReader reader = dbOperation.GetData("CUS.sel_GelAllRemittances");
+                SqlDataReader reader = dbOperation.GetData("TRN.sel_GelAllRemittances");
                 if (reader.HasRows)
                 {
                     while (reader.Read())
@@ -102,7 +102,7 @@ namespace BOA.Business.Banking
             try
             {
                 List<RemittanceContract> remittancesList = new List<RemittanceContract>();
-                SqlDataReader reader = dbOperation.GetData("CUS.sel_FilterRemittancesByProperties", parameters);
+                SqlDataReader reader = dbOperation.GetData("TRN.sel_FilterRemittancesByProperties", parameters);
                 if (reader.HasRows)
                 {
                     while (reader.Read())
