@@ -73,7 +73,7 @@ namespace BOA.Business.Banking
             }
 
 
-            catch (Exception e)
+            catch (Exception)
             {
                 conn.Close();
                 return null;
@@ -120,7 +120,7 @@ namespace BOA.Business.Banking
                 return true;
             }
 
-            catch (Exception e)
+            catch (Exception)
             {
                 conn.Close();
                 return false;

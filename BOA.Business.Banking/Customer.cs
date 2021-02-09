@@ -175,7 +175,7 @@ namespace BOA.Business.Banking
                 }
 
             }
-            catch(Exception e)
+            catch(Exception)
             {
                 return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "GetCustomerDetailsById operasyonu başarısız oldu." };
             }
@@ -207,7 +207,7 @@ namespace BOA.Business.Banking
                 //TO-DO: DataContract'taki telefon numaraları ve email adresleri için işlem yapılmıyor. Eklenecek.
                 return new GenericResponse<CustomerContract>() { IsSuccess = true };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 
                 return new GenericResponse<CustomerContract>() { IsSuccess = false, ErrorMessage = "UpdateCustomerbyId isteği başarısız oldu." };

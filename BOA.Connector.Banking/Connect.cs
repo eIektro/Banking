@@ -40,7 +40,7 @@ namespace BOA.Connector.Banking
                 var response = processMethodInfo.Invoke(instance, new Object[] { request });
                 return (T)response;
             }
-            catch (Exception e)
+            catch (Exception)
             { 
                 throw new MethodNameNotFoundException($"Requested method name ({request.MethodName}) is not defined.");
             }

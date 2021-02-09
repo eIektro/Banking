@@ -41,7 +41,7 @@ namespace BOA.Business.Banking
 
                 return new GenericResponse<List<AccountContract>>(){ IsSuccess = true, Value = accountContracts };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new GenericResponse<List<AccountContract>>() { IsSuccess = false, ErrorMessage = "GetAllAccounts operasyonu başarısız" };
             }
@@ -97,7 +97,7 @@ namespace BOA.Business.Banking
                 }
                 return new GenericResponse<List<AccountContract>>() { Value = accounts, IsSuccess = true };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new GenericResponse<List<AccountContract>>() { ErrorMessage = "FilterAccountsByProperties operasyonu başarısız.", IsSuccess = false };
                 throw;
@@ -157,7 +157,7 @@ namespace BOA.Business.Banking
                 var response = dbOperation.spExecuteScalar("CUS.upd_UpdateAccountDetailsById", sqlParameters);
                 return new GenericResponse<AccountContract>() { IsSuccess = true,Value = new AccountContract() };
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return new GenericResponse<AccountContract>() { IsSuccess = false, ErrorMessage = "UpdateAccountDetailsById operasyonu başarısız." };
                 throw;
