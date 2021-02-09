@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{27D19DD5-9C7B-4C6A-A3C7-B11F2614B777}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>BOA.UI.Banking.MainScreen</RootNamespace>
-    <AssemblyName>BOA.UI.Banking.MainScreen</AssemblyName>
+    <ProjectGuid>{CFC10932-802B-4007-98E5-15D5260DD96E}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BOA.UI.Banking.DepositWithdrawalList</RootNamespace>
+    <AssemblyName>BOA.UI.Banking.DepositWithdrawalList</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -34,6 +34,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -51,24 +54,9 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Page Include="MainScreen.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
+    <Compile Include="DepositWithdrawalLisrUC.xaml.cs">
+      <DependentUpon>DepositWithdrawalLisrUC.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainScreen.xaml.cs">
-      <DependentUpon>MainScreen.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -95,6 +83,12 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="DepositWithdrawalLisrUC.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\BOA.Connector.Banking\BOA.Connector.Banking.csproj">
       <Project>{42f42e56-1676-496a-8b5c-9356a1ba3834}</Project>
       <Name>BOA.Connector.Banking</Name>
@@ -103,45 +97,13 @@
       <Project>{dcf4bc5a-9ff1-4398-8233-a95ef2302aed}</Project>
       <Name>BOA.Types.Banking</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.AccountAdd\BOA.UI.Banking.AccountAdd.csproj">
-      <Project>{65c38836-d8a3-4f42-b5c0-90bdc1cb87a0}</Project>
-      <Name>BOA.UI.Banking.AccountAdd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.AccountList\BOA.UI.Banking.AccountList.csproj">
-      <Project>{00e0885a-164a-4f99-a6ed-b4f84f987a92}</Project>
-      <Name>BOA.UI.Banking.AccountList</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.BasesForUI\BOA.UI.Banking.BasesForUI.csproj">
       <Project>{04199e91-b16f-41b8-bc42-19c28b482ec8}</Project>
       <Name>BOA.UI.Banking.BasesForUI</Name>
     </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.BranchAdd\BOA.UI.Banking.BranchAdd.csproj">
-      <Project>{c31d8b79-36ae-41e3-a322-366f7982e9e4}</Project>
-      <Name>BOA.UI.Banking.BranchAdd</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.BranchList\BOA.UI.Banking.BranchList.csproj">
-      <Project>{f4fd4ade-862d-4069-98cc-c21c0e8d8969}</Project>
-      <Name>BOA.UI.Banking.BranchList</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CloseableTab\BOA.UI.Banking.CloseableTab.csproj">
-      <Project>{b4e37e17-6f55-4dbb-9616-1226aa7419d0}</Project>
-      <Name>BOA.UI.Banking.CloseableTab</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CustomerAdd\BOA.UI.Banking.CustomerAdd.csproj">
-      <Project>{7580c024-d443-4031-95f0-4cef31a96e59}</Project>
-      <Name>BOA.UI.Banking.CustomerAdd</Name>
-    </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.CustomerComponent\BOA.UI.Banking.CustomerComponent.csproj">
       <Project>{f4a065a9-660f-4880-b0b3-5c4745479767}</Project>
       <Name>BOA.UI.Banking.CustomerComponent</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.CustomerList\BOA.UI.Banking.CustomerList.csproj">
-      <Project>{2ce2c230-53c6-4cfb-8e6b-69912bc0678c}</Project>
-      <Name>BOA.UI.Banking.CustomerList</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.DepositWithdrawalList\BOA.UI.Banking.DepositWithdrawalList.csproj">
-      <Project>{cfc10932-802b-4007-98e5-15d5260dd96e}</Project>
-      <Name>BOA.UI.Banking.DepositWithdrawalList</Name>
     </ProjectReference>
     <ProjectReference Include="..\BOA.UI.Banking.DepositWithdrawal\BOA.UI.Banking.DepositWithdrawal.csproj">
       <Project>{36aa1ac3-c240-47d7-924c-30bab40d1aae}</Project>
@@ -150,14 +112,6 @@
     <ProjectReference Include="..\BOA.UI.Banking.Login\BOA.UI.Banking.Login.csproj">
       <Project>{d1077dc6-5814-4260-9172-542e8a7ea0a1}</Project>
       <Name>BOA.UI.Banking.Login</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.RemittanceList\BOA.UI.Banking.RemittanceList.csproj">
-      <Project>{f5cecd96-930a-47c3-9b9e-49b9373676e5}</Project>
-      <Name>BOA.UI.Banking.RemittanceList</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\BOA.UI.Banking.Remittance\BOA.UI.Banking.Remittance.csproj">
-      <Project>{3bd725cc-0bb0-4a8a-a545-d816bff4ad5e}</Project>
-      <Name>BOA.UI.Banking.Remittance</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

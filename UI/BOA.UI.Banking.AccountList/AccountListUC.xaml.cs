@@ -99,6 +99,7 @@ namespace BOA.UI.Banking.AccountList
             {
                 this.allaccounts = value;
                 OnPropertyChanged("AllAccounts");
+                
             }
         }
 

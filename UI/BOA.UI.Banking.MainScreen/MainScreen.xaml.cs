@@ -212,7 +212,22 @@ namespace BOA.UI.Banking.MainScreen
 
         private void tvNakitGecmisi_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            var theDepositWithdrawalListTab = tabControl1.Items.OfType<CloseableTab.CloseableTab>().SingleOrDefault(x => x.Title == "Nakit İşlem Geçmişi");
+            if (theDepositWithdrawalListTab != null)
+            {
+                theDepositWithdrawalListTab.Focus();
+            }
 
+            else
+            {
+                //CustomerComponent.CustomerComponentUC customerComponentUC = new CustomerComponent.CustomerComponentUC();
+                DepositWithdrawalList.DepositWithdrawalLisrUC depositWithdrawalListContainer = new DepositWithdrawalList.DepositWithdrawalLisrUC();
+                CloseableTab.CloseableTab theTabItem = new CloseableTab.CloseableTab();
+                theTabItem.Title = "Nakit İşlem Geçmişi";
+                theTabItem.Content = depositWithdrawalListContainer;
+                tabControl1.Items.Add(theTabItem);
+                theTabItem.Focus();
+            }
         }
 
         private void tvNakit_MouseDoubleClick(object sender, MouseButtonEventArgs e)

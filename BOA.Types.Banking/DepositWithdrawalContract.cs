@@ -25,6 +25,13 @@ namespace BOA.Types.Banking
         private string transferDescription;
         private int? formedUserId;
         private int? currencyId;
+        private string currencyCode;
+        private string userName;
+        private string branchName;
+        private DateTime? startingDate;
+        private DateTime? endingDate;
+        private Decimal? startingAmount;
+        private Decimal? endingAmount;
 
         public int? Id
         {
@@ -107,6 +114,72 @@ namespace BOA.Types.Banking
             {
                 currencyId = value;
                 OnPropertyChanged("CurrencyId");
+            }
+        }
+
+        public string CurrencyCode
+        {
+            get => currencyCode;
+            set
+            {
+                currencyCode = value;
+                OnPropertyChanged("CurrencyCode");
+            }
+        }
+
+        public string UserName
+        {
+            get => userName;
+            set
+            {
+                userName = value;
+                OnPropertyChanged("UserName");
+            }
+        }
+
+        public string BranchName
+        {
+            get => branchName;
+            set
+            {
+                branchName = value;
+                OnPropertyChanged("BranchName");
+            }
+        }
+
+        public DateTime? StartingDate
+        {
+            get => startingDate; set
+            {
+                startingDate = value;
+                OnPropertyChanged("StartingDate");
+            }
+        }
+
+        public DateTime? EndingDate
+        {
+            get => endingDate; set
+            {
+                endingDate = value;
+                OnPropertyChanged("EndingDate");
+            }
+        }
+
+        public decimal? StartingAmount
+        {
+            get => startingAmount; set
+            {
+                startingAmount = value;
+                OnPropertyChanged("StartingAmount");
+            }
+        }
+
+        public decimal? EndingAmount
+        {
+            get => endingAmount; set
+            {
+                endingAmount = value;
+                OnPropertyChanged("EndingAmount");
             }
         }
     }

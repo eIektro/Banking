@@ -22,5 +22,19 @@ namespace BOA.Process.Banking
             return response;
 
         }
+
+        public GenericResponse<List<DepositWithdrawalContract>> GetAllDepositWithdrawals(DepositWithdrawalRequest request)
+        {
+            BOA.Business.Banking.DepositWithdrawal depositWithdrawalBusiness = new Business.Banking.DepositWithdrawal();
+            var response = depositWithdrawalBusiness.GetAllDepositWithdrawals(request);
+            return response;
+        }
+
+        public GenericResponse<List<DepositWithdrawalContract>> FilterDepositWithdrawalsByProperties(DepositWithdrawalRequest request)
+        {
+            BOA.Business.Banking.DepositWithdrawal depositWithdrawalBusiness = new Business.Banking.DepositWithdrawal();
+            var response = depositWithdrawalBusiness.FilterDepositWithdrawalsByProperties(request);
+            return response;
+        }
     }
 }
