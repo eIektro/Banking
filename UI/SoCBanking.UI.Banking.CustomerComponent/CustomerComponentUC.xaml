@@ -1,0 +1,233 @@
+﻿<basescom:UCBase x:Class="SoCBanking.UI.Banking.CustomerComponent.CustomerComponentUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:basescom="clr-namespace:SoCBanking.UI.Banking.BasesForUI;assembly=SoCBanking.UI.Banking.BasesForUI"
+             xmlns:local="clr-namespace:SoCBanking.UI.Banking.CustomerComponent" xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                 mc:Ignorable="d"
+                 
+                 Background="White" Loaded="UserControl_Loaded" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <basescom:UCBase.Resources>
+        <Style x:Key="ViewTypeToStyle" TargetType="FrameworkElement">
+            <Setter Property="Visibility" Value="Visible"/>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional"> <!-- ElementName -->
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+        <Style x:Key="ViewTypeToOrientation" TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal"></Setter>
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                    <!-- ElementName -->
+                    <Setter Property="Orientation" Value="Vertical"/>
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+    </basescom:UCBase.Resources>
+    <Grid>
+
+        <Grid>
+            <StackPanel Orientation="Vertical">
+                <StackPanel Style="{StaticResource ViewTypeToOrientation}">
+
+
+                    <StackPanel Orientation="Horizontal">
+                       
+                        <Label Width="100" Content="Şube Adı:">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Label.Visibility" Value="Collapsed"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <TextBox x:Name="tbBranchName" Text="{Binding Customer.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="24" IsReadOnly="True" IsHitTestVisible="False">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="TextBox.Width" Value="150"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                            <Setter Property="Width" Value="120"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Label Width="100" Content="Müşteri No:">
+                            <Label.Style>
+                                <Style TargetType="Label">
+                                    <Setter Property="Label.Visibility" Value="Collapsed"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                            <Setter Property="Visibility" Value="Visible"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Label.Style>
+                        </Label>
+                        <TextBox x:Name="tbCustomerId" Text="{Binding Customer.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Height="24" LostFocus="tbCustomerId_LostFocus" PreviewTextInput="tbCustomerIdNonTransactional_PreviewTextInput">
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="TextBox.Width" Value="50"></Setter>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                            <Setter Property="Width" Value="120"></Setter>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </StackPanel>
+
+                    <Button x:Name="btnFind" Style="{StaticResource ViewTypeToStyle}">
+                        <Image Source="C:\Users\shared\OneDrive\Resimler\BOA\search1.png" Width="20" Height="20"></Image>
+                    </Button>
+                    <ComboBox x:Name="cbSuffixes" Width="150"  ItemsSource="{Binding CustomerAccounts}" SelectedValue="{Binding SelectedAccount,Mode=TwoWay}" Style="{StaticResource ViewTypeToStyle}">
+
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding IsActive}" Value="true">
+                                                    <Setter Property="Background" Value="Green"></Setter>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding IsActive}" Value="false">
+                                                    <Setter Property="Background" Value="Red"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="{}{0} - {1} - {2}">
+                                            <Binding Path="AdditionNo"/>
+                                            <Binding Path="CurrencyCode"/>
+                                            <Binding Path="Balance"/>
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+
+                    </ComboBox>
+                </StackPanel>
+               <StackPanel Orientation="Horizontal">
+                    <Label Width="100" Content="Müşteri Adı:">
+                        <Label.Style>
+                            <Style TargetType="Label">
+                                <Setter Property="Label.Visibility" Value="Collapsed"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                        <Setter Property="Visibility" Value="Visible"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Label.Style>
+                    </Label>
+                    <TextBox x:Name="tbCustomerName" Height="25" IsReadOnly="True" IsHitTestVisible="False">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="TextBox.Width" Value="224"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                        <Setter Property="Width" Value="120"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Customer.CustomerName" UpdateSourceTrigger="PropertyChanged"/>
+                                <Binding Path="Customer.CustomerLastName" UpdateSourceTrigger="PropertyChanged"/>
+                            </MultiBinding>
+                        </TextBox.Text>
+
+                    </TextBox>
+                    <TextBox x:Name="tbCurrencySymbol" Text="{Binding SelectedAccount.CurrencyCode}" Width="150" Height="25" IsHitTestVisible="False" IsReadOnly="True" Style="{StaticResource ViewTypeToStyle}" ></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Style="{StaticResource ViewTypeToStyle}">
+                    <Label HorizontalContentAlignment="Center" Foreground="Black" Content="Bakiye" Width="150" x:Name="lblBalance"></Label>
+                    <Label HorizontalContentAlignment="Center" Foreground="Black" Content="Blokaj" Width="73" x:Name="lblBlockage"></Label>
+                    <Label HorizontalContentAlignment="Center" Foreground="Black" Content="Kullanılabilir Bakiye" Width="150" x:Name="lblUsableBalance"></Label>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Style="{StaticResource ViewTypeToStyle}">
+                    <TextBox x:Name="tbBalance" Text="{Binding SelectedAccount.Balance}" Width="150" Height="27" IsReadOnly="True" IsHitTestVisible="False"></TextBox>
+                    <TextBox x:Name="tbBlockage" Text="Todo" Foreground="LightGray" HorizontalContentAlignment="Center" IsHitTestVisible="False" VerticalContentAlignment="Center" Width="73" Height="27" IsReadOnly="True"></TextBox>
+                    <TextBox x:Name="tbUsableBalance" Text="{Binding SelectedAccount.Balance}" IsHitTestVisible="False" Width="150" Height="27" IsReadOnly="True"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Label x:Name="lblCitizenshipTaxNumber" Content="TC/Vergi No" Width="100"></Label>
+                    <TextBox x:Name="tbCitizenshipTaxNumber" Text="{Binding Customer.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" IsHitTestVisible="False">
+                        <TextBox.Style>
+                            <Style TargetType="TextBox">
+                                <Setter Property="TextBox.Width" Value="273"></Setter>
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Path=ViewType}" Value="NonTransactional">
+                                        <Setter Property="Width" Value="120"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0" Style="{StaticResource ViewTypeToStyle}">
+                    <Label Content="IBAN" x:Name="lblIban"></Label>
+                    <TextBox x:Name="tbIban" Text="{Binding SelectedAccount.IBAN}" Width="336" IsReadOnly="True" IsHitTestVisible="False">
+                        
+                    </TextBox>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <!--<Grid Visibility="{Binding Path=ViewType,Converter={StaticResource NonTransactionalVisibilityConverter}}">
+            <StackPanel Orientation="Vertical">
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Label Content="Müşteri No" Width="100"></Label>
+                    <TextBox x:Name="tbCustomerIdNonTransactional" Text="{Binding Customer.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" PreviewTextInput="tbCustomerIdNonTransactional_PreviewTextInput" LostFocus="tbCustomerIdNonTransactional_LostFocus"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Label Content="Şubesi" Width="100"></Label>
+                    <TextBox Text="{Binding Customer.BranchName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsHitTestVisible="False" IsReadOnly="True"></TextBox>
+                </StackPanel>
+                
+
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Label Content="Adı Soyadı" Width="100"></Label>
+                    <TextBox Width="120" Height="25" IsReadOnly="True" IsHitTestVisible="False">
+
+                        <TextBox.Text>
+                            <MultiBinding StringFormat="{}{0} {1}">
+                                <Binding Path="Customer.CustomerName" UpdateSourceTrigger="PropertyChanged"/>
+                                <Binding Path="Customer.CustomerLastName" UpdateSourceTrigger="PropertyChanged"/>
+                            </MultiBinding>
+                        </TextBox.Text>
+
+                    </TextBox>
+                    
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                    <Label Content="TC/Vergi No" Width="100"></Label>
+                    <TextBox Text="{Binding Customer.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" IsHitTestVisible="False" IsReadOnly="True"></TextBox>
+                </StackPanel>
+                
+            </StackPanel>
+            
+        </Grid>-->
+
+
+    </Grid>
+    
+</basescom:UCBase>

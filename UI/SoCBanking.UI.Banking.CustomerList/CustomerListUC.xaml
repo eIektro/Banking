@@ -1,0 +1,177 @@
+﻿<basescom:UCBase x:Class="SoCBanking.UI.Banking.CustomerList.CustomerListUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:basescom="clr-namespace:SoCBanking.UI.Banking.BasesForUI;assembly=SoCBanking.UI.Banking.BasesForUI"
+             xmlns:local="clr-namespace:SoCBanking.UI.Banking.CustomerList"
+             mc:Ignorable="d" 
+             d:DesignHeight="487.5" d:DesignWidth="800" Loaded="UserControl_Loaded" Background="White" DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <UserControl.Resources>
+        <CollectionViewSource x:Key="Jobs" Source="{Binding Jobs}"></CollectionViewSource>
+        <CollectionViewSource x:Key="EducationLevels" Source="{Binding EducationLevels}"></CollectionViewSource>
+        <CollectionViewSource x:Key="Branches" Source="{Binding Branches}"></CollectionViewSource>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="#D4BDDA">
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="btnMusteriDetay" Click="btnMusteriDetay_Click" Content="Detaylar" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="10,0,0,0" Background="#D4BDDA" BorderBrush="#A370AF"></Button>
+                <Button x:Name="btnMusteriSil" Click="btnMusteriSil_Click" Content="Sil" FontWeight="SemiBold" Foreground="Black" Width="80" Height="20" HorizontalAlignment="Left" Margin="30,0,0,0" Background="#FF0D0D" BorderBrush="#A60000"></Button>
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="gcFilter" Width="200"></ColumnDefinition>
+                <ColumnDefinition x:Name="gcList"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+
+            <Grid Grid.Column="0">
+                <StackPanel Orientation="Vertical" >
+                    <Label Content="Filtreleme İşlemleri" HorizontalAlignment="Center" Background="AliceBlue" BorderBrush="Gray" Width="Auto" Margin="0,10,0,0"></Label>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Center">
+                        <Button x:Name="btnFiltrele" Content="Bilgi Getir" Click="btnFiltrele_Click" Height="20" Width="70"></Button>
+                        <Button x:Name="btnTemizle" Content="Temizle" Click="btnTemizle_Click" Height="20" Margin="15,0,0,0" Width="70"></Button>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Id" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyId" Text="{Binding FilterContract.CustomerId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center" PreviewTextInput="tbFilterbyId_PreviewTextInput"></TextBox>
+                        <!--<Button x:Name="btnCustomerComponent" Click="btnCustomerComponent_Click" Width="30" Height="25" Margin="5,0,0,0" Background="AliceBlue" BorderBrush="AliceBlue">
+                            <Image Source=""></Image>
+                        </Button>-->
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="İsim" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyName" Text="{Binding FilterContract.CustomerName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Soyisim" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbySurname" Text="{Binding FilterContract.CustomerLastName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Anne Adı" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterByMotherName" Text="{Binding FilterContract.MotherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Baba Adı" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyFatherName" Text="{Binding FilterContract.FatherName,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Doğum Yeri" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyPlaceOfBirth" Text="{Binding FilterContract.PlaceOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="TCKN" FontSize="11"></Label>
+                        <TextBox x:Name="tbFilterbyCitizenshipId" Text="{Binding FilterContract.CitizenshipId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" Width="120" HorizontalAlignment="Center"></TextBox>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Doğum Tarihi" FontSize="11"></Label>
+                        <DatePicker x:Name="dpFilterbyDateOfBirth" Width="120" SelectedDate="{Binding FilterContract.DateOfBirth,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"  HorizontalAlignment="Center"></DatePicker>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Meslek" FontSize="11"></Label>
+                        <ComboBox x:Name="cbFilterByJobId" ItemsSource="{Binding Source={StaticResource Jobs},Mode=OneTime}" SelectedValue="{Binding FilterContract.JobId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="JobName" Width="120" HorizontalAlignment="Center"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Eğitim Düzeyi:" FontSize="11"></Label>
+                        <ComboBox x:Name="cbFilterByEducationLvId" ItemsSource="{Binding Source={StaticResource EducationLevels},Mode=OneTime}" SelectedValue="{Binding FilterContract.EducationLvId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="EducationLevel" Width="120" HorizontalAlignment="Center"></ComboBox>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="0,10,5,0" HorizontalAlignment="Right">
+                        <Label Content="Şube:" FontSize="11"></Label>
+                        <ComboBox x:Name="cbFilterByBranchId" ItemsSource="{Binding Source={StaticResource Branches},Mode=OneTime}" SelectedValue="{Binding FilterContract.BranchId,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}" SelectedValuePath="Id" DisplayMemberPath="BranchName" Width="120" HorizontalAlignment="Center"></ComboBox>
+                    </StackPanel>
+
+                    <!--Doğum Tarihi Büyüktür Küçüktür Hesabıyla Gelecek-->
+                </StackPanel>
+            </Grid>
+
+            <DataGrid Grid.Column="1"  IsReadOnly="True" Height="440" ItemsSource="{Binding AllCustomers,Mode=TwoWay}" AutoGenerateColumns="False" VerticalAlignment="Top" HorizontalAlignment="Stretch" Name="dgMusteriListesi">
+
+                <DataGrid.Resources>
+                    <Style TargetType="{x:Type Border}">
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+                        <Setter Property="BorderBrush" Value="#F2F2F2"></Setter>
+                    </Style>
+                    <Style TargetType="{x:Type DataGridColumnHeader}">
+                        <Setter Property="Height" Value="30"></Setter>
+                        <Setter Property="FontSize" Value="13"></Setter>
+
+                        <Setter Property="Background" Value="AliceBlue"></Setter>
+                        <Setter Property="FontWeight" Value="SemiBold"></Setter>
+                        <Setter Property="BorderBrush" Value="Black"></Setter>
+                        <Setter Property="BorderThickness" Value="0,0,1,1"></Setter>
+
+                    </Style>
+                    <!--<Style TargetType="{x:Type DataGridTextColumn}">
+                    <Setter Property="FontSize" Value="12"></Setter>
+                    
+                </Style>-->
+
+                    <!-- Datagrid içeriğinin olduğu satırların borderlerı çok kaba duruyor. İlgilenilecek. -->
+
+                </DataGrid.Resources>
+                <DataGrid.RowStyle>
+                    <Style TargetType="{x:Type DataGridRow}">
+                        <Setter Property="FontSize" Value="14"></Setter>
+                        <Setter Property="Background" Value="#FEFAFC"></Setter>
+
+
+                    </Style>
+                </DataGrid.RowStyle>
+
+
+
+                <!--public int  JobId { get; set; }
+
+            public int EducationLvId { get; set; }
+
+            public List<CustomerPhoneContract> PhoneNumbers { get; set; }
+
+            public List<CustomerEmailContract> Emails { get; set; }-->
+
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="  ID  " Binding="{Binding CustomerId,Mode=TwoWay}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  TCKN  " Binding="{Binding CitizenshipId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  İsim  " Binding="{Binding CustomerName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Soyisim  " Binding="{Binding CustomerLastName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Anne " Binding="{Binding MotherName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Baba  " Binding="{Binding FatherName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Doğum Yeri  " Binding="{Binding PlaceOfBirth}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Doğum Tarihi  " Binding="{Binding DateOfBirth,StringFormat=\{0:dd.MM.yyyy\}}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Meslek  " Binding="{Binding JobName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Eğitim Düzeyi  " Binding="{Binding EducationLevelName}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="  Şube  " Binding="{Binding BranchName}"></DataGridTextColumn>
+
+                    <!--<DataGridTextColumn Header="Soyadi" Binding="{Binding JobId}"></DataGridTextColumn>
+                <DataGridTextColumn Header="Soyadi" Binding="{Binding EducationLevelId}"></DataGridTextColumn>-->
+
+
+                </DataGrid.Columns>
+                <!--<DataGrid.CellStyle>
+                
+            </DataGrid.CellStyle>-->
+            </DataGrid>
+
+
+
+
+        </Grid>
+    </Grid>
+</basescom:UCBase>

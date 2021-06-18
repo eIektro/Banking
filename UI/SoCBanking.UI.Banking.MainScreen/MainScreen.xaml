@@ -1,0 +1,145 @@
+﻿<Window x:Class="SoCBanking.UI.Banking.MainScreen.MainScreen"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SoCBanking.UI.Banking.MainScreen"
+        xmlns:musterilistesi="clr-namespace:SoCBanking.UI.Banking.CustomerList;assembly=SoCBanking.UI.Banking.CustomerList"
+        xmlns:musteriekle="clr-namespace:SoCBanking.UI.Banking.CustomerAdd;assembly=SoCBanking.UI.Banking.CustomerAdd" 
+        
+        mc:Ignorable="d"
+        Title="Main Portal Screen" Height="600" Width="1100" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" Closed="Window_Closed">
+    <Window.Resources>
+
+        <Storyboard x:Key="OpenMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="-150,0,0,0" To="0,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
+        </Storyboard>
+
+
+        <Storyboard x:Key="CloseMenu">
+            <ThicknessAnimation Storyboard.TargetProperty="Margin" From="0,0,0,0" To="-150,0,0,0" DecelerationRatio="0.9" Duration="0:0:0.5"/>
+        </Storyboard>
+    </Window.Resources>
+    <Grid>
+        <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+            <StackPanel Panel.ZIndex="2" Name="LeftMenu" Orientation="Horizontal" Height="600" VerticalAlignment="Top" HorizontalAlignment="Left" Margin='-150,0,0,0'>
+                
+                <Border BorderBrush="#AF1719" BorderThickness="1" Width="150" Background="GhostWhite">
+                    
+                    <Button Name="btnclose" Height="40" HorizontalAlignment="Stretch" VerticalAlignment="Top" Content="Close" FontWeight="SemiBold" HorizontalContentAlignment="Left" BorderBrush="AliceBlue"></Button>
+                </Border>
+                
+                <StackPanel Orientation="Vertical">
+                    <Grid Margin="0,21,0,0">
+                        <Button x:Name="btnshow" Width="20" Height="20" BorderThickness="0" Content=">" ToolTip="Open Menu"></Button>
+                    </Grid>
+                </StackPanel>
+            </StackPanel>
+            
+        </StackPanel>-->
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+
+            </Grid.ColumnDefinitions>
+            <TreeView Grid.Column="0">
+
+                <!--<TreeView.Resources>
+                    <Style TargetType="{x:Type text}"></Style>
+                </TreeView.Resources>-->
+                <TreeViewItem Header="Müşteri">
+                    <TreeViewItem Header="Müşteri Ekle" x:Name="tvMusteriEkle" MouseDoubleClick="tvMusteriEkle_MouseDoubleClick"></TreeViewItem>
+                    <TreeViewItem Header="Müşteri Listesi" x:Name="tvMusteriListele" MouseDoubleClick="tvMusteriListele_MouseDoubleClick"></TreeViewItem>
+                    
+                </TreeViewItem>
+                <!--<TreeViewItem Header="Kullanıcı">
+                    <TreeViewItem Header="Kullanıcı Ekle" x:Name="tvKullaniciEkle"></TreeViewItem>
+                    <TreeViewItem Header="Kullanıcı Düzenle" x:Name="tvKullaniciDuzenle"></TreeViewItem>
+                    <TreeViewItem Header="Kullanıcı Sil" x:Name="tvKullaniciSil"></TreeViewItem>
+                </TreeViewItem>-->
+                <TreeViewItem Header="Şube">
+                    <TreeViewItem Header="Şube Ekle" x:Name="tvSubeEkle" MouseDoubleClick="tvSubeEkle_MouseDoubleClick"></TreeViewItem>
+                    <TreeViewItem Header="Şube Listesi" x:Name="tvSubeListesi" MouseDoubleClick="tvSubeListesi_MouseDoubleClick"></TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem Header="Hesap">
+                    <TreeViewItem Header="Hesap Ekle" x:Name="tvHesapEkle" MouseDoubleClick="tvHesapEkle_MouseDoubleClick"></TreeViewItem>
+                    <TreeViewItem Header="Hesap Listesi" x:Name="tvHesapListesi" MouseDoubleClick="tvHesapListesi_MouseDoubleClick"></TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem Header="Para Transfer">
+                    <TreeViewItem Header="Havale">
+                        <TreeViewItem Header="Havale İşlemi" x:Name="tvHavale" MouseDoubleClick="tvHavale_MouseDoubleClick"></TreeViewItem>
+                        <TreeViewItem Header="Havale İşlemi Listeleme" x:Name="tvHavaleGecmisi" MouseDoubleClick="tvHavaleGecmisi_MouseDoubleClick"></TreeViewItem>
+                    </TreeViewItem>
+                    <TreeViewItem Header="Nakit İşlemleri">
+                        <TreeViewItem Header="Nakit Yatırma/Çekme" x:Name="tvNakit" MouseDoubleClick="tvNakit_MouseDoubleClick"></TreeViewItem>
+                        <TreeViewItem Header="Nakit İşlemleri Listeleme" x:Name="tvNakitGecmisi" MouseDoubleClick="tvNakitGecmisi_MouseDoubleClick"></TreeViewItem>
+                    </TreeViewItem>
+                    
+                </TreeViewItem>
+            </TreeView>
+
+            
+
+            <TabControl x:Name="tabControl1" Grid.Column="1">
+               
+                <TabItem Header="Portal" IsSelected="True" x:Name="tiPortal" >
+                    <Grid>
+                        
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="195"></RowDefinition>
+                                <RowDefinition Height="285"></RowDefinition>
+                            <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                        
+                        <Grid Grid.Row="0">
+                            <Image Source="Images\banking.jpg" VerticalAlignment="Top" Margin="5,5,5,0"></Image>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="0,0,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="440"></ColumnDefinition>
+                                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0" Margin="7,0,0,0">
+                                <Image Source="Images\coding1.jpg" Width="440" HorizontalAlignment="Left"></Image>
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Image Source="Images\coding2.jpg" Width="440" Margin="0,0,0,0"></Image>
+                            </Grid>
+                        </Grid>
+                        <Grid Grid.Row="2">
+                            <Image Width="870" Margin="5,5,5,5">
+                                <Image.Source>
+                                    <BitmapImage UriSource="Images\signature.png"></BitmapImage>
+                                </Image.Source>
+                            </Image>
+                        </Grid>
+                    </Grid>
+
+                    <!--<StackPanel Orientation="Vertical">
+                    <Button Content="Müşteri Ekle" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AntiqueWhite" Foreground="Black" BorderBrush="Aquamarine" x:Name="btnAddCustomer" Click="btnAddCustomer_Click"></Button>
+                    <Button Content="Müşterileri Listele" Width="150" Height="25" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" Background="AliceBlue" Foreground="Black" BorderBrush="CadetBlue" Click="btnListCustomer_Click" x:Name="btnListCustomer" ></Button>
+                    </StackPanel>-->
+
+                </TabItem>
+                <!--<local:CloseableTab x:Name="ctMusteriListesi" Visibility="Hidden" Title="Müşteri Listesi">
+                    <musterilistesi:CustomerListUC></musterilistesi:CustomerListUC>
+                </local:CloseableTab>-->
+                <!--<TabItem x:Name="tiMusteriListele" Header="Müşteri Listele" Visibility="Hidden">
+                    
+                    <musterilistesi:CustomerListUC></musterilistesi:CustomerListUC>
+            
+                </TabItem>-->
+            </TabControl>
+
+
+
+        </Grid>
+
+
+        <!--<Popup x:Name="popAddCustomer" AllowsTransparency="True">
+            
+        </Popup>-->
+    </Grid>
+
+</Window>
