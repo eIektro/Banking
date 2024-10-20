@@ -13,7 +13,7 @@ namespace SoCBanking.Business.Banking
     public class DbOperation
     {
         private SqlConnection conn;
-        private string connectionString = @"Server=.\SQLEXPRESS; Database=BOA; Trusted_Connection=True;";
+        private string connectionString = @"Data Source=iissql.elektro.local;Initial Catalog=BOA;Integrated Security=False;User Id=sa;Password=sa.12345;TrustServerCertificate=true;Connect Timeout=60;Pooling=true;Max Pool Size=100;MultipleActiveResultSets=true;Application Name=BOA;";
 
 
         public string GetConnectionString()
